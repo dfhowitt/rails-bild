@@ -1,0 +1,9 @@
+<%= simple_form_for [@site, @project] do |f| %>
+  <%= f.input :start_date %>
+  <%= f.input :end_date %>
+  <%= f.input :wage %>
+  <%= f.input :capacity %>
+  <%= f.input :description %>
+  <%= f.input :job_type %>
+  <%= f.submit "Add New Project" %>
+<% end %>

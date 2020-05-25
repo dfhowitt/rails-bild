@@ -10,10 +10,67 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_25_132811) do
+ActiveRecord::Schema.define(version: 2020_05_25_135840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "placements", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "project_id", null: false
+    t.boolean "confirmed"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_placements_on_project_id"
+    t.index ["user_id"], name: "index_placements_on_user_id"
+  end
+
+  create_table "project_qualifications", force: :cascade do |t|
+    t.bigint "qualification_id", null: false
+    t.bigint "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_project_qualifications_on_project_id"
+    t.index ["qualification_id"], name: "index_project_qualifications_on_qualification_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "wage"
+    t.integer "capacity"
+    t.text "description"
+    t.string "job_type"
+    t.bigint "site_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["site_id"], name: "index_projects_on_site_id"
+  end
+
+  create_table "qualifications", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "sites", force: :cascade do |t|
+    t.string "location"
+    t.string "site_type"
+    t.bigint "user_id", null: false
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_sites_on_user_id"
+  end
+
+  create_table "user_qualifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "qualification_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["qualification_id"], name: "index_user_qualifications_on_qualification_id"
+    t.index ["user_id"], name: "index_user_qualifications_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -23,8 +80,19 @@ ActiveRecord::Schema.define(version: 2020_05_25_132811) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+    t.string "phone_number"
+    t.boolean "manager"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "placements", "projects"
+  add_foreign_key "placements", "users"
+  add_foreign_key "project_qualifications", "projects"
+  add_foreign_key "project_qualifications", "qualifications"
+  add_foreign_key "projects", "sites"
+  add_foreign_key "sites", "users"
+  add_foreign_key "user_qualifications", "qualifications"
+  add_foreign_key "user_qualifications", "users"
 end
