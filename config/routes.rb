@@ -1,5 +1,31 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  resources :users, only: [:show] do
+    get "dashboard", to: "users#dashboard"
+    # get "applications", to: "users#applications"
+    # get "my_placements", to: "users#my_placements"
+    # get "qualifications", to: "users#qualifications"
+    # get "sites", to: "users#sites"
+    # get "placements", to: "users#placements"
+    # get "projects", to: "users#projects"
+    resources :user_qualifications, only: [:create, :destroy]
+  end
+
+  resources :sites, except: [:index] do
+    resources :projects, only: [:new, :create]
+  end
+
+  resources :projects, except: [:new, :create] do
+    resources :placements, only: [:create]
+  end
+
+
 end
+
+# def dashboard
+#   @applications
+# end
+
+# <% render 'applications' %>
