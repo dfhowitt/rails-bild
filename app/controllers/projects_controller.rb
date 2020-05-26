@@ -3,10 +3,17 @@ class ProjectsController < ApplicationController
   def index
     @projects = Project.all
 
+    @markers = @projects.map do |project|
+      {
+        lat: project.site.latitude,
+        lng: project.site.longitude
+      }
+    end
+
   end
 
   def show
-
+    @placement = Placement.new
   end
 
   def new

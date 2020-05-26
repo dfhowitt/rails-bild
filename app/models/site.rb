@@ -7,6 +7,9 @@ class Site < ApplicationRecord
   validates :name, presence: true
   validates :site_type, presence: true
 
+  geocoded_by :location
+  after_validation :geocode, if: :will_save_change_to_location?
+
   def geocode_location?
 
   end
