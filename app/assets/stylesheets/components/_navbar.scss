@@ -1,12 +1,22 @@
-.navbar-lewagon {
+.navbar {
   justify-content: space-between;
-  background: white;
+  z-index: 10;
 }
 
-.navbar-lewagon .navbar-collapse {
+.navbar .navbar-collapse {
   flex-grow: 0;
 }
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
+.navbar .navbar-brand img {
+  height: 30px;
+  width: 60px;
+  filter: invert(91%) sepia(9%) saturate(7371%) hue-rotate(330deg) brightness(107%) contrast(106%);
+}
+
+.navbar .nav-item active {
+  color: #e1b531;
+}
+
+.nav-item a {
+  color: $lighter-gray;
 }
