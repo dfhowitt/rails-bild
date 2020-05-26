@@ -1,4 +1,10 @@
-<h1><%= @project.name %></h1>
-<h2><%= @project.site_type %></h2>
-<h2><%= @project.location %></h2>
+<h1><%= @project.job_type %>, <%= @project.site.location %> </h1>
+<h2><%= number_to_currency(@project.wage, unit: "£", precision: 0) %>/hr </h2>
+<% project_length = (@project.end_date - @project.start_date).to_i
+ %>
+<h2><%= @project.start_date %> to <%= @project.end_date %> (<%= (project_length) %> days)</h2>
+<h3><%= @project.site.name %> - <%= @project.site.site_type %> development </h3>
+<h4><%=@project.capacity%> spots left!</h4>
+<p><%= @project.description%></p>
 
+<h1>The above number of days may need to be changed to take in to account weekends</h1>
