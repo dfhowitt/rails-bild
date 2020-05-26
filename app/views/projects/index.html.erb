@@ -1,5 +1,28 @@
-<% @projects.each do |project| %>
-  <h1><%= project.name %></h1>
-  <h2><%= project.site_type %></h2>
-  <h2><%= project.location %></h2>
-<% end %>
+<div class="container">
+  <div class="project-contatiner">
+
+    <div class="project-card-holder">
+      <% @projects.each do |project| %>
+      <div class="project-card">
+        <h1><%= project.site.location %></h1>
+        <h2><%= project.job_type %></h2>
+        <p><%= project.description %></p>
+        <p><%= project.wage %></p>
+        <p><%= project.capacity %></p>
+        <p><%= project.start_date %></p>
+        <p><%= project.end_date %></p>
+        <%= link_to 'view more', projects_patch(project)  %>
+        <%= link_to 'apply', project_placements(project) %>
+      <% end %>
+      </div>
+    </div>
+
+
+    <div class="map">
+      <img src="https://images-na.ssl-images-amazon.com/images/I/91ZK9Ft4wcL._AC_SL1500_.jpg" alt="">
+    </div>
+
+  </div>
+
+</div>
+
