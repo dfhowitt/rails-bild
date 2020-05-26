@@ -10,7 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: black;
+  color: white;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
   border-radius: 5px;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
@@ -22,6 +22,14 @@
 
 .card-title {
   font-weight: bold;
+}
+
+.fas {
+  font-size: 24px;
+}
+
+.far {
+  font-size: 24px;
 }
 
 // // Smallest device
