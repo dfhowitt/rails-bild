@@ -5,6 +5,15 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+puts "destroying everything"
+
+Project.destroy_all
+Site.destroy_all
+Qualification.destroy_all
+Placement.destroy_all
+User.destroy_all
+
+puts "creating users"
 
 user_names = %w(Faris Chris Gus Dan)
 

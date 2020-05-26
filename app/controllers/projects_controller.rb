@@ -2,6 +2,27 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   def index
     @projects = Project.all
+    @placement = Placement.new
+
+    @query = params[:query]
+
+    query_geocoder_results = Geocoder.search(@query)
+    query_coords = query_geocoder_results.first&.coordinates
+
+    sites = Site.geocoded.near(@query, 50)
+    sites.map do |site|
+      @projects = site.projects
+      @results = true
+    end
+
+
+    if @projects.empty? || !query_coords
+      @results = false
+      sites = Site.geocoded
+      sites.map do |site|
+        @projects = site.projects
+      end
+    end
 
     @markers = @projects.map do |project|
       {
