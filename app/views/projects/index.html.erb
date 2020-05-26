@@ -1,7 +1,13 @@
 <div class="container">
   <div class="projects-contatiner d-flex">
-
     <div class="projects-card-holder">
+      <h2>Results for "<%= @query %>":</h2>
+      <% unless @results %>
+        <div class="">
+          <p class="no-results"><i class="fas fa-times text-danger"></i>  No results for "<%= @query %></p>
+        </div>
+        <h2>We suggest:</h2>
+      <% end %>
       <% @projects.each do |project| %>
         <%= link_to project_path(project) do  %>
           <div class="project-card border">
@@ -15,8 +21,10 @@
               <h3><%= project.site.location %></h3>
             </div>
         <% end %>
-            <div class="btn btn-success">
-              <%= link_to 'apply', project_placements_path(project), method: :post  %>
+            <div class="apply-button">
+              <%= simple_form_for [project, @placement] do |f| %>
+              <%= f.submit "Apply now"%>
+              <% end %>
             </div>
           </div>
       <% end %>
