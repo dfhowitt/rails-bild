@@ -1,5 +1,34 @@
-<% @projects.each do |project| %>
-  <h1><%= project.name %></h1>
-  <h2><%= project.site_type %></h2>
-  <h2><%= project.location %></h2>
-<% end %>
+<div class="container">
+  <div class="projects-contatiner d-flex">
+
+    <div class="projects-card-holder">
+      <% @projects.each do |project| %>
+        <%= link_to project_path(project) do  %>
+          <div class="project-card border">
+            <div class="project-details">
+              <h1><%= project.job_type %></h1>
+              <p>Details: <%= project.description %></p>
+              <p>Pay: <%= project.wage %></p>
+              <p>Length: <%= (project.end_date - project.start_date).to_i %></p>
+            </div>
+            <div class="project-location">
+              <h3><%= project.site.location %></h3>
+            </div>
+        <% end %>
+            <div class="btn btn-success">
+              <%= link_to 'apply', project_placements_path(project), method: :post  %>
+            </div>
+          </div>
+      <% end %>
+    </div>
+
+
+    <div id="map"
+     style="width: 100%; height: 600px;"
+     data-markers="<%= @markers.to_json %>"
+     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+    </div>
+
+  </div>
+</div>
+
