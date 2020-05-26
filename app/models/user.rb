@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :projects, through: :placements
   has_many :sites, through: :projects
   has_many :managed_sites, class_name: :Site, foreign_key: :user_id
-  # validates :name, presence: true
-  # validates :phone_number, presence: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :phone_number, presence: true
 end
