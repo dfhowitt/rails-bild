@@ -3,7 +3,7 @@
 
     <div class="projects-card-holder">
       <% @projects.each do |project| %>
-        <%= link_to projects_path(project) do  %>
+        <%= link_to project_path(project) do  %>
           <div class="project-card border">
             <div class="project-details">
               <h1><%= project.job_type %></h1>
@@ -16,7 +16,7 @@
             </div>
         <% end %>
             <div class="btn btn-success">
-              <%= link_to 'apply', projects_path(project)  %>
+              <%= link_to 'apply', project_placements_path(project), method: :post  %>
             </div>
           </div>
       <% end %>

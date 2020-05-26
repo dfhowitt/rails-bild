@@ -1,4 +1,7 @@
-<h1><%= @project.name %></h1>
-<h2><%= @project.site_type %></h2>
-<h2><%= @project.location %></h2>
+<h1><%= @project.job_type %></h1>
+<h2><%= @project.description %></h2>
+<h2><%= @project.site.location %></h2>
+<div class="btn btn-success">
+  <%= link_to 'apply', project_placements_path(@project.id), method: :post  %>
+</div>
 
