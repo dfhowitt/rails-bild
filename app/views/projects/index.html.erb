@@ -1,20 +1,19 @@
 <div class="container">
-  <div class="project-contatiner">
+  <div class="projects-contatiner d-flex">
 
-    <div class="project-card-holder">
+    <div class="projects-card-holder">
       <% @projects.each do |project| %>
-      <div class="project-card">
-        <h1><%= project.site.location %></h1>
-        <h2><%= project.job_type %></h2>
-        <p><%= project.description %></p>
-        <p><%= project.wage %></p>
-        <p><%= project.capacity %></p>
-        <p><%= project.start_date %></p>
-        <p><%= project.end_date %></p>
-        <%= link_to 'view more', projects_patch(project)  %>
-        <%= link_to 'apply', project_placements(project) %>
+        <div class="project-card">
+          <h1><%= project.job_type %></h1>
+          <h3><%= project.site.location %></h3>
+          <p><%= project.description %></p>
+          <p><%= project.wage %></p>
+          <p><%= project.capacity %></p>
+          <p><%= project.start_date %></p>
+          <p><%= project.end_date %></p>
+          <%= link_to 'view more', projects_path(project)  %>
+        </div>
       <% end %>
-      </div>
     </div>
 
 
