@@ -1,20 +1,60 @@
 <div class="container">
-  <ul class="nav nav-tabs">
-    <li class="tab active" id="tab-placements"><a href="#">Work</a></li>
-    <li class="tab" id="tab-applications"><a href="#">Applications</a></li>
-    <li class="tab" id="tab-qualifications"><a href="#">Qualifications</a></li>
-  </ul>
+  <% if current_user.manager %>
 
-  <div class="tab-content">
-    <div class="tab-pane active" id="placements">
-      <%= render 'placements' %>
+    <% if @sites.length > 1 %>
+      <% first_site = @sites[0] %>
+      <!-- List group -->
+      <div class="row pt-4">
+        <div class="list-group col-md-3" id="myList" role="tablist">
+          <a class="list-group-item list-group-item-action disabled"><strong>Sites</strong></a>
+          <a class="list-group-item list-group-item-action active" data-toggle="list" href="#<%= first_site.name %>" role="tab"><%= first_site.name %></a>
+          <% @sites.each_with_index do |site, i| %>
+            <% next if i == 0 %>
+            <a class="list-group-item list-group-item-action" data-toggle="list" href="#<%= site.name %>" role="tab"><%= site.name %></a>
+          <% end %>
+        </div>
+
+        <!-- Tab panes -->
+        <div class="tab-content col-md-9">
+          <div class="tab-pane fade show active" id="<%= first_site.name %>" role="tabpanel">
+            <%= render partial: 'site', locals: {site: first_site} %>
+          </div>
+          <% @sites.each_with_index do |site, i| %>
+            <% next if i == 0 %>
+            <div class="tab-pane fade" id="<%= site.name %>" role="tabpanel">
+              <%= render partial: 'site', locals: {site: site} %>
+            </div>
+          <% end %>
+          <!-- <div class="tab-pane fade show active" id="home" role="tabpanel">Home</div>
+          <div class="tab-pane fade" id="profile" role="tabpanel">Profile</div>
+          <div class="tab-pane fade" id="messages" role="tabpanel">Messages</div>
+          <div class="tab-pane fade" id="settings" role="tabpanel">Settings</div> -->
+        </div>
+      </div>
+
+    <% else %>
+      <%= render 'site' %>
+    <% end %>
+
+  <% else %>
+
+    <ul class="nav nav-tabs">
+      <li class="tab active" id="tab-placements"><a href="#">Work</a></li>
+      <li class="tab" id="tab-applications"><a href="#">Applications</a></li>
+      <li class="tab" id="tab-qualifications"><a href="#">Qualifications</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="placements">
+        <%= render 'placements' %>
+      </div>
+      <div class="tab-pane" id="applications">
+        <%= render 'applications' %>
+      </div>
+      <div class="tab-pane" id="qualifications">
+        <%= render 'qualifications' %>
+      </div>
     </div>
-    <div class="tab-pane" id="applications">
-      <%= render 'applications' %>
-    </div>
-    <div class="tab-pane" id="qualifications">
-      Qualifications
-      <%#= render 'qualification' %>
-    </div>
-  </div>
+
+  <% end %>
 </div>
