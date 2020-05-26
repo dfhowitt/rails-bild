@@ -1,0 +1,35 @@
+.banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 400px;
+  width: 100vw;
+  position: relative;
+  top: -56px;
+  padding-top: 56px;
+}
+.banner .home-search {
+  z-index: 1;
+}
+
+.title {
+  margin-right: 1000px;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-flat {
+  color: white;
+  padding: 8px 24px;
+  border-radius: 4px;
+  background: #1EDD88;
+  transition: background 0.3s ease;
+}
+
+.btn-flat:hover {
+  background: #1BCB7F;
+  color: white;
+}
+
+
