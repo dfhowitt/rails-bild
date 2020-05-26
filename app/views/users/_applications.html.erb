@@ -1,1 +1,21 @@
-_placements.html.erb
+<% @applications.each do |application| %>
+  <div class="application-card d-flex justify-content-between">
+    <div class="application-left flex-grow-1">
+      <h4><%= application.project.site.name %> - <%= application.project.site.location %> - <%= application.project.job_type %></h4>
+      <p><%= application.project.description %></p>
+    </div>
+    <div class="application-right">
+      <p>Start: <%= application.project.start_date %></p>
+      <p>End: <%= application.project.end_date %></p>
+      <p>Wage: <%= application.project.wage.fdiv(100) %>/hr</p>
+    </div>
+    <div class="application-status w-25 text-right">
+      <% if application.confirmed %>
+        <h4>Confirmed</h4>
+      <% else %>
+        <h4>Pending</h4>
+      <% end %>
+    </div>
+  </div>
+  <hr>
+<% end %>
