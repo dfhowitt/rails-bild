@@ -12,11 +12,11 @@
       position: relative;
       display: block;
       padding: 12px;
-      color: $lighter-gray;
+      color: black;
       &:hover,
       &:focus {
         text-decoration: none;
-        background-color: rgba(255,255,255, 0.3);
+        background-color: rgba(0,0,0,0.3);
         color: white;
       }
     }
@@ -24,7 +24,7 @@
 }
 
 .nav-tabs {
-  border-bottom: 1px solid $yellow;
+  border-bottom: 1px solid #101010;
   > li {
     float: left;
     margin-bottom: -1px;
@@ -43,10 +43,10 @@
       &,
       &:hover,
       &:focus {
-        color: $lighter-gray;
+        color: white;
         cursor: default;
-        background-color: $gray;
-        border: 1px solid $yellow;
+        background-color: rgba(0,0,0,0.5);
+        border: 1px solid #101010;
         border-bottom-color: transparent;
       }
     }
