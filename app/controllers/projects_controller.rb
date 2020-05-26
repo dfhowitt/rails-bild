@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-
+    @placement = Placement.new
   end
 
   def new
