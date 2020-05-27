@@ -10,7 +10,6 @@ require 'open-uri'
 
 puts "destroying everything"
 
-
 Project.destroy_all
 Site.destroy_all
 Qualification.destroy_all
@@ -80,7 +79,6 @@ names.each do |company|
   site.save
   counter += 1
 end
-
 
 puts "creating projects"
 
