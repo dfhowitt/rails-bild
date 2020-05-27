@@ -17,7 +17,8 @@
           <div class="project-card border">
             <div class="project-details">
               <h1><%= project.job_type %></h1>
-              <p><%= project.id %></p>
+              <p>project id<%= project.id %></p>
+              <p>site id<%= project.site.id %></p>
               <p>Details: <%= project.description %></p>
               <p>Pay: <%= project.wage %></p>
               <p>Spots Left: <%= project.capacity - project.placements.where(confirmed: true).count %></p>
