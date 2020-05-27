@@ -113,3 +113,20 @@ Project.all.each do |project|
     qualification_id: Qualification.find_by(name: qualifications[0]).id
     )
 end
+
+history_start_date = Faker::Date.backward(days: 15)
+past_project = Project.new(
+  start_date: history_start_date,
+  end_date: history_start_date + rand(1..3),
+  wage: rand(10..20),
+  capacity: rand(1..20),
+  description: Faker::Cannabis.health_benefit,
+  site_id: Site.first.id,
+  job_type: 'Labourer'
+  )
+past_project.save
+Placement.create(
+  user_id: User.find_by(first_name: 'Bob').id,
+  project_id: past_project.id,
+  confirmed: true
+  )
