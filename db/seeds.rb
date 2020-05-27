@@ -111,11 +111,11 @@ sites.each do |site|
   end
 end
 
-# qualifications.each do |qualification|
-#   Qualification.create(
-#     name: qualification
-#     )
-# end
+qualifications.each do |qualification|
+  Qualification.create(
+    name: qualification
+    )
+end
 
 
 User.all.each do |user|
