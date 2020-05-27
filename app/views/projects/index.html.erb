@@ -1,4 +1,8 @@
 <div class="container">
+  <form method="get" action="/projects" class="home-search w-50 p-3">
+    <input type="text" name="query" autocomplete="off" placeholder="Enter Postcode" tabindex="100" class="form-control">
+    <a class="btn btn-flat" href="#">Search</a>
+  </form>
   <div class="projects-contatiner d-flex">
     <div class="projects-card-holder">
       <h2>Results for "<%= @query %>":</h2>
@@ -13,8 +17,12 @@
           <div class="project-card border">
             <div class="project-details">
               <h1><%= project.job_type %></h1>
+              <p>project id<%= project.id %></p>
+              <p>site id<%= project.site.id %></p>
               <p>Details: <%= project.description %></p>
+              <p>Autoconfirm?: <%= project.autoconfirm %></p>
               <p>Pay: <%= project.wage %></p>
+              <p>Spots Left: <%= project.capacity - project.placements.where(confirmed: true).count %></p>
               <p>Length: <%= (project.end_date - project.start_date).to_i %></p>
             </div>
             <div class="project-location">

@@ -1,0 +1,17 @@
+<% @past_placements.each do |placement| %>
+  <div class="application-card d-flex justify-content-between">
+    <div class="application-left flex-grow-1">
+      <h4><%= placement.project.site.name %> - <%= placement.project.site.location %> - <%= placement.project.job_type %></h4>
+      <p><%= placement.project.description %></p>
+    </div>
+    <div class="application-right">
+      <p>Start: <%= placement.project.start_date %></p>
+      <p>End: <%= placement.project.end_date %></p>
+      <p>Wage: <%= placement.project.wage.fdiv(100) %>/hr</p>
+    </div>
+    <div class="application-status w-25 text-right">
+        <h4>Completed</h4>
+    </div>
+  </div>
+  <hr>
+<% end %>

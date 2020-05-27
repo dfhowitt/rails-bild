@@ -1,8 +1,7 @@
 <div class="container">
   <% if current_user.manager %>
-
+    <% first_site = @sites[0] %>
     <% if @sites.length > 1 %>
-      <% first_site = @sites[0] %>
       <!-- List group -->
       <div class="row pt-4">
         <div class="list-group col-md-3" id="myList" role="tablist">
@@ -25,23 +24,34 @@
               <%= render partial: 'site', locals: {site: site} %>
             </div>
           <% end %>
-          <!-- <div class="tab-pane fade show active" id="home" role="tabpanel">Home</div>
-          <div class="tab-pane fade" id="profile" role="tabpanel">Profile</div>
-          <div class="tab-pane fade" id="messages" role="tabpanel">Messages</div>
-          <div class="tab-pane fade" id="settings" role="tabpanel">Settings</div> -->
         </div>
       </div>
 
+    <% elsif @sites.length == 1 %>
+      <%= render 'site', site: first_site %>
+
     <% else %>
-      <%= render 'site' %>
+      <p class="text-center bg-info rounded py-2 border mb-5">You do not have any sites, please create one using the form below.</p>
+      <h1 class="text-center">Create a Site:</h1>
+      <div class="site-form col-sm-8 offset-sm-2">
+        <%= simple_form_for(@new_site) do |f| %>
+            <%= f.input :name, input_html: { placeholder: "Enter a name for your site" } %>
+            <%= f.input :site_type,
+                  collection: ["Commercial", "Industrial", "Residential"],
+                  prompt: "-- Select the correct site type --" %>
+            <%= f.input :location, input_html: { placeholder: "Where is the site located.." } %>
+            <%= f.submit "Create Site", class: "btn btn-primary w-100"%>
+        <% end %>
+      </div>
     <% end %>
 
   <% else %>
 
     <ul class="nav nav-tabs">
-      <li class="tab active" id="tab-placements"><a href="#">Work</a></li>
+      <li class="tab active" id="tab-placements"><a href="#">Upcoming</a></li>
       <li class="tab" id="tab-applications"><a href="#">Applications</a></li>
-      <li class="tab" id="tab-qualifications"><a href="#">Qualifications</a></li>
+      <li class="tab" id="tab-history"><a href="#">History</a></li>
+      <li class="tab" id="tab-qualifications"><a href="#">Your Qualifications</a></li>
     </ul>
 
     <div class="tab-content">
@@ -50,6 +60,9 @@
       </div>
       <div class="tab-pane" id="applications">
         <%= render 'applications' %>
+      </div>
+      <div class="tab-pane" id="history">
+        <%= render 'history' %>
       </div>
       <div class="tab-pane" id="qualifications">
         <%= render 'qualifications' %>

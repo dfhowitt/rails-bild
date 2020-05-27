@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
 
   resources :projects, except: [:new, :create] do
-    resources :placements, only: [:create]
+    resources :placements, only: [:create, :update]
   end
 
 

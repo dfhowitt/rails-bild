@@ -5,9 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
 require 'open-uri'
 
 puts "destroying everything"
+
 
 Project.destroy_all
 Site.destroy_all
@@ -15,7 +17,8 @@ Qualification.destroy_all
 Placement.destroy_all
 User.destroy_all
 
-puts "creating users"
+
+puts "creating everything :)"
 
 user_names = %w(Faris Chris Gus Dan)
 
@@ -38,7 +41,16 @@ User.create(
   manager: false
   )
 
-site_types = ["Commercial", "Residential", "Industrial"]
+User.create(
+  first_name: 'Joe',
+  last_name: 'Josephs',
+  email: 'joe@gmail.com',
+  password: '123456',
+  phone_number: "0777777777",
+  manager: false
+  )
+
+site_types = ['Commercial', 'Residential', 'Industrial']
 locations = ['London', 'Madrid', 'Milan', 'Rome', 'Paris']
 names = ['Vinci', 'Strata', 'Bouygues', 'MITIE', 'GallifordTry', 'Wates', 'Keller', 'Kier']
 site_logos_array = [
@@ -74,19 +86,58 @@ end
 
 sites = Site.all
 
-job_types = ['Labourer', 'Electrictian', 'Asbestos Awareness', 'DBS Labourer', 'Plumber']
+job_types = ['Labourer', 'Skilled Labourer', 'Electrician', 'Asbestos Awareness', 'DBS Labourer']
+qualifications = ['CSCS', 'Blue CSCS', 'ECS', 'Asbestos Awareness', 'DBS']
+
 sites.each do |site|
   5.times do
     res_start_date = Faker::Date.forward(days: rand(1..15))
-    Project.create(
+    index = rand(1..4)
+    project = Project.new(
       start_date: res_start_date,
       end_date: res_start_date + rand(1..10),
       wage: rand(10..20),
       capacity: rand(1..20),
       description: Faker::Cannabis.health_benefit,
       site_id: site.id,
-      job_type: job_types.sample
+      job_type: job_types[index],
+      autoconfirm: [true, false].sample
       )
+    project.save
+    ProjectQualification.create(
+      project_id: project.id,
+      qualification_id: qualifications[index]
+    )
   end
 end
 
+# qualifications.each do |qualification|
+#   Qualification.create(
+#     name: qualification
+#     )
+# end
+
+
+User.all.each do |user|
+  user_qualification_css = UserQualification.new(
+    user_id: user.id,
+    qualification_id: Qualification.find_by(name: qualifications[0]).id
+  )
+  user_qualification_css.save
+end
+
+User.all.each do |user|
+  index = rand(1..4)
+  user_qualification = UserQualification.new(
+    user_id: user.id,
+    qualification_id: Qualification.find_by(name: qualifications[index]).id
+    )
+  user_qualification.save
+end
+
+Project.all.each do |project|
+  project_qualification = ProjectQualification.new(
+    project_id: project.id,
+    qualification_id: Qualification.find_by(name: qualifications[0]).id
+    )
+end
