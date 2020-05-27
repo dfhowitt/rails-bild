@@ -10,7 +10,6 @@ require 'open-uri'
 
 puts "destroying everything"
 
-
 Project.destroy_all
 Site.destroy_all
 Qualification.destroy_all
@@ -82,8 +81,6 @@ names.each do |company|
   counter += 1
 end
 
-
-
 sites = Site.all
 
 job_types = ['Labourer', 'Skilled Labourer', 'Electrician', 'Asbestos Awareness', 'DBS Labourer']
@@ -111,12 +108,11 @@ sites.each do |site|
   end
 end
 
-# qualifications.each do |qualification|
-#   Qualification.create(
-#     name: qualification
-#     )
-# end
-
+qualifications.each do |qualification|
+  Qualification.create(
+    name: qualification
+    )
+end
 
 User.all.each do |user|
   user_qualification_css = UserQualification.new(
