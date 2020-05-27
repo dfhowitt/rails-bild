@@ -1,8 +1,7 @@
 <div class="container">
   <% if current_user.manager %>
-
+    <% first_site = @sites[0] %>
     <% if @sites.length > 1 %>
-      <% first_site = @sites[0] %>
       <!-- List group -->
       <div class="row pt-4">
         <div class="list-group col-md-3" id="myList" role="tablist">
@@ -32,16 +31,20 @@
         </div>
       </div>
 
+    <% elsif @sites.length == 1 %>
+      <%= render 'site', site: first_site %>
+
     <% else %>
-      <%= render 'site' %>
+      form
     <% end %>
 
   <% else %>
 
     <ul class="nav nav-tabs">
-      <li class="tab active" id="tab-placements"><a href="#">Work</a></li>
+      <li class="tab active" id="tab-placements"><a href="#">Upcoming</a></li>
       <li class="tab" id="tab-applications"><a href="#">Applications</a></li>
-      <li class="tab" id="tab-qualifications"><a href="#">Qualifications</a></li>
+      <li class="tab" id="tab-history"><a href="#">History</a></li>
+      <li class="tab" id="tab-qualifications"><a href="#">Your Qualifications</a></li>
     </ul>
 
     <div class="tab-content">
@@ -50,6 +53,9 @@
       </div>
       <div class="tab-pane" id="applications">
         <%= render 'applications' %>
+      </div>
+      <div class="tab-pane" id="history">
+        <%= render 'history' %>
       </div>
       <div class="tab-pane" id="qualifications">
         <%= render 'qualifications' %>
