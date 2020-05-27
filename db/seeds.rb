@@ -40,7 +40,7 @@ User.create(
 
 site_types = ["Commercial", "Residential", "Industrial"]
 locations = ['London', 'Madrid', 'Milan', 'Rome', 'Paris']
-names = ['Vinci', 'Strata', 'Bouygues', 'MITIE', 'GallifordTry', 'Wates', 'Keller', 'Kier', 'HomeServe', 'Morgan Sindall']
+names = ['Vinci', 'Strata', 'Bouygues', 'MITIE', 'GallifordTry', 'Wates', 'Keller', 'Kier']
 site_logos_array = [
                     "https://res.cloudinary.com/daxoj4nny/image/upload/v1590582694/bild%20company%20logos/Strata-Logo_dhxbtd.jpg",
                     "https://res.cloudinary.com/daxoj4nny/image/upload/v1590580745/bild%20company%20logos/OmjnWl3__400x400_rsginw.jpg",

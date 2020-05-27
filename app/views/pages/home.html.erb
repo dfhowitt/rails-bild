@@ -44,7 +44,7 @@ url('<%= image_path "banner.jpg", height: 400, crop: :fill %>'); background-size
     <%@projects.each do |project|%>
       <%= link_to project_path(project) do %>
         <div class="homepage-project-card" style="background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.2)), url('<%= cl_image_path project.site.photo.key, height: 300, width: 400, crop: :fill %>')">
-          <% if site.project.photo.attached? %>
+          <% if project.site.photo.attached? %>
             <div class="homepage-project-card-info h-100">
               <div class="bottom text-right px-2 py-1">
                 <h5 class="mb-1"><%= project.job_type %></h5>
