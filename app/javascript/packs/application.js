@@ -29,10 +29,12 @@ import "bootstrap";
 // import { initSelect2 } from '../components/init_select2';
 import { clickableTabs } from '../dashboard_tabs';
 import { initMapbox } from '../plugins/init_mapbox';
-
+import { initAutocomplete } from '../plugins/init_autocomplete';
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
   clickableTabs();
   initMapbox();
+  initAutocomplete();
 });
+

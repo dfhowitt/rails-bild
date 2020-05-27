@@ -32,6 +32,48 @@
   font-size: 24px;
 }
 
+.home-projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 32px 32px;
+}
+
+.homepage-project-card {
+  height: 200px;
+  border-radius: 5px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3)
+}
+
+.homepage-project-card-info {
+  color: $lighter-gray;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  h5 {
+    text-shadow: 0 0 10px rgba(0,0,0,0.3);
+  }
+  &:hover {
+    text-decoration: none;
+    background-color: rgba(0,0,0,0.2);
+    .bottom {
+      background-color: none;
+    }
+  }
+  .bottom {
+    margin-top: auto;
+    background-color: rgba(0,0,0,0.2);
+    box-shadow:  0 -10px 10px rgba(0,0,0,0.2);
+    p {
+      line-height: 1em;
+      font-size: 14px;
+    }
+  }
+}
+
+
+
 // // Smallest device
 // @media (min-width: 100px) and (max-width: 575px) {
 //   .cards {

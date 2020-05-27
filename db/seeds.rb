@@ -5,6 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'open-uri'
+
 puts "destroying everything"
 
 Project.destroy_all
@@ -38,16 +40,37 @@ User.create(
 
 site_types = ["Commercial", "Residential", "Industrial"]
 locations = ['London', 'Madrid', 'Milan', 'Rome', 'Paris']
-names = ['Vinci', 'Strata', 'Bouygues', 'MITE']
+names = ['Vinci', 'Strata', 'Bouygues', 'MITIE', 'GallifordTry', 'Wates', 'Keller', 'Kier', 'HomeServe', 'Morgan Sindall']
+site_logos_array = [
+                    "https://res.cloudinary.com/daxoj4nny/image/upload/v1590582694/bild%20company%20logos/Strata-Logo_dhxbtd.jpg",
+                    "https://res.cloudinary.com/daxoj4nny/image/upload/v1590580745/bild%20company%20logos/OmjnWl3__400x400_rsginw.jpg",
+                    "https://res.cloudinary.com/daxoj4nny/image/upload/v1590582694/bild%20company%20logos/158584_97056-morgan-sindall-logo_wbaaur.jpg",
+                    "https://res.cloudinary.com/daxoj4nny/image/upload/v1590580744/bild%20company%20logos/unnamed_pgupxr.jpg",
+                    "https://res.cloudinary.com/daxoj4nny/image/upload/v1590582694/bild%20company%20logos/Mitie-Logo-1_minvrx.jpg",
+                    "https://res.cloudinary.com/daxoj4nny/image/upload/v1590580744/bild%20company%20logos/Wates-Group-logo_600x600_acf_cropped-600x600_nmnmzk.jpg",
+                    "https://res.cloudinary.com/daxoj4nny/image/upload/v1590580744/bild%20company%20logos/Bouygues-logo_eptnou.jpg",
+                    "https://res.cloudinary.com/daxoj4nny/image/upload/v1590582694/bild%20company%20logos/vinci-construction-logo_ylz1mo.jpg"
+                   ]
+
+counter = 0
 
 names.each do |company|
-  Site.create(
+  puts "creating site #{counter}"
+  logo = URI.open(site_logos_array[counter])
+  site = Site.new(
     name: company,
     site_type: site_types.sample,
     location: locations.sample,
     user_id: User.first.id
     )
+  puts "site created"
+
+  site.photo.attach(io: logo, filename: 'logo_pic.jpg', content_type: 'image/jpg')
+  site.save
+  counter += 1
 end
+
+
 
 sites = Site.all
 
