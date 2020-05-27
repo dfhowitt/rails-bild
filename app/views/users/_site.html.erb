@@ -15,59 +15,66 @@
       <% confirmed_placements = project.placements.select{ |p| p.confirmed } %>
       <% unconfirmed_placements = project.placements.select{ |p| !p.confirmed } %>
 
-      <div class="confirmed bg-dark rounded mb-3">
+      <div class="confirmed bg-secondary rounded mb-3 pb-2">
 
         <div class="header d-flex justify-content-between bg-info p-2">
           <h5 class= "m-0">Confirmed:</h5>
           <p class= "m-0 badge-pill bg-success text-dark"><%= confirmed_placements.length %> / <%= project.capacity %></p>
         </div>
 
-        <% confirmed_placements.each do |placement| %>
-          <div class="placement_card bg-secondary py-2 px-3 d-flex">
+        <% if !confirmed_placements.empty? %>
+          <% confirmed_placements.each do |placement| %>
+            <div class="placement_card bg-secondary py-2 px-3 d-flex">
 
-            <div class="placement-info d-flex align-items-center border-right pr-3">
-              <p class="m-0"><strong><%= placement.user.first_name %> <%= placement.user.last_name %></strong></p>
+              <div class="placement-info d-flex align-items-center border-right pr-3">
+                <p class="m-0"><strong><%= placement.user.first_name %> <%= placement.user.last_name %></strong></p>
+              </div>
+
+              <div class="placement-qualifications d-flex align-items-center flex-grow-1 px-3">
+                <%= image_tag "cscs.svg", alt: "CSCS", height: 25 %>
+              </div>
+
+              <div class="placement-confirm d-flex align-items-center">
+                Confirmed
+              </div>
+
             </div>
-
-            <div class="placement-qualifications d-flex align-items-center flex-grow-1 px-3">
-              <%= image_tag "cscs.svg", alt: "CSCS", height: 25 %>
-            </div>
-
-            <div class="placement-confirm d-flex align-items-center">
-              Confirmed
-            </div>
-
-          </div>
+          <% end %>
+        <% else %>
+          <p class="text-center mb-0 mt-2">No confirmed placements, confirm some applicants</p>
         <% end %>
       </div>
 
-      <div class="applicants bg-dark rounded">
+      <div class="applicants bg-secondary rounded pb-2">
 
         <div class="header d-flex justify-content-between bg-info p-2">
           <h5 class= "m-0">Applicants:</h5>
           <p class= "m-0 badge-pill bg-success text-dark"><%= project.capacity - confirmed_placements.length %> required</p>
         </div>
 
-        <% unconfirmed_placements.each do |placement| %>
-          <div class="placement_card bg-secondary py-2 px-3 d-flex">
+        <% if !unconfirmed_placements.empty? %>
+          <% unconfirmed_placements.each do |placement| %>
+            <div class="placement_card bg-secondary py-2 px-3 d-flex">
 
-            <div class="placement-info d-flex align-items-center border-right pr-3">
-              <p class="m-0"><strong><%= placement.user.first_name %> <%= placement.user.last_name %></strong></p>
+              <div class="placement-info d-flex align-items-center border-right pr-3">
+                <p class="m-0"><strong><%= placement.user.first_name %> <%= placement.user.last_name %></strong></p>
+              </div>
+
+              <div class="placement-qualifications d-flex align-items-center flex-grow-1 px-3">
+                <%= image_tag "cscs.svg", alt: "CSCS", height: 25 %>
+              </div>
+
+              <div class="placement-confirm d-flex align-items-center">
+                <%= simple_form_for [project, placement] do |f| %>
+                  <%= f.submit "Confirm", class: "btn btn-primary" %>
+                <% end %>
+              </div>
+
             </div>
-
-            <div class="placement-qualifications d-flex align-items-center flex-grow-1 px-3">
-              <%= image_tag "cscs.svg", alt: "CSCS", height: 25 %>
-            </div>
-
-            <div class="placement-confirm d-flex align-items-center">
-              <%= simple_form_for [project, placement] do |f| %>
-                <%= f.submit "Confirm", class: "btn btn-primary" %>
-              <% end %>
-            </div>
-
-          </div>
+          <% end %>
+        <% else %>
+          <p class="text-center mb-0 mt-2">No confirmed placements</p>
         <% end %>
-
       </div>
     </div>
   </div>
