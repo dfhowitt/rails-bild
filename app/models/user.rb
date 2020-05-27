@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :placements, dependent: :destroy
+  has_many :user_qualifications, dependent: :destroy
   has_many :qualifications, through: :user_qualifications
   has_many :projects, through: :placements
   has_many :sites, through: :projects

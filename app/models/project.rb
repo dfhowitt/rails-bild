@@ -2,6 +2,7 @@ class Project < ApplicationRecord
   belongs_to :site
   has_many :placements, dependent: :destroy
   has_many :users, through: :placements
+  has_many :project_qualifications, dependent: :destroy
   has_many :qualifications, through: :project_qualifications
   validates :start_date, presence: true
   validates :end_date, presence: true
