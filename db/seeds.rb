@@ -7,11 +7,13 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 puts "Destroying everything..."
 
+
 Project.destroy_all
 Site.destroy_all
 Qualification.destroy_all
 Placement.destroy_all
 User.destroy_all
+
 
 puts "creating everything :)"
 
@@ -74,7 +76,8 @@ sites.each do |site|
       capacity: rand(1..20),
       description: Faker::Cannabis.health_benefit,
       site_id: site.id,
-      job_type: job_types[index]
+      job_type: job_types[index],
+      autoconfirm: [true, false].sample
       )
     project.save
     ProjectQualification.create(
@@ -84,11 +87,12 @@ sites.each do |site|
   end
 end
 
-qualifications.each do |qualification|
-  Qualification.create(
-    name: qualification
-    )
-end
+# qualifications.each do |qualification|
+#   Qualification.create(
+#     name: qualification
+#     )
+# end
+
 
 User.all.each do |user|
   user_qualification_css = UserQualification.new(
