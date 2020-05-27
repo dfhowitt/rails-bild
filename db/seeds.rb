@@ -119,7 +119,6 @@ qualifications.each do |qualification|
     )
 end
 
-
 User.all.each do |user|
   user_qualification_css = UserQualification.new(
     user_id: user.id,
