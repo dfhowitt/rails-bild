@@ -7,12 +7,14 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 puts "Destroying everything..."
 
+ProjectQualification.destroy_all
+UserQualification.destroy_all
 Project.destroy_all
 Site.destroy_all
-Qualification.destroy_all
+# Qualification.destroy_all
 Placement.destroy_all
 User.destroy_all
-Qualification.destroy_all
+# Qualification.destroy_all
 
 puts "creating everything :)"
 
@@ -66,39 +68,40 @@ sites.each do |site|
       capacity: rand(1..20),
       description: Faker::Cannabis.health_benefit,
       site_id: site.id,
-      job_type: job_types[index]
+      job_type: job_types[index],
+      autoconfirm: [true, false].sample
       )
     project.save
     ProjectQualification.create(
       project_id: project.id,
-      qualification_id: qualification[index]
+      qualification_id: qualifications[index]
     )
   end
 end
 
-qualifications.each do |qualification|
-  Qualification.create(
-    name: qualification
-    )
-end
+# qualifications.each do |qualification|
+#   Qualification.create(
+#     name: qualification
+#     )
+# end
 
-User.all.each do |user|
-  UserQualification.create(
-    user_id: user.id,
-    qualification_id: 1
-  )
-end
+# User.all.each do |user|
+#   UserQualification.create(
+#     user_id: user.id,
+#     qualification_id: 1
+#   )
+# end
 
-User.all.each do |user|
-  UserQualification.create(
-    user_id: user.id,
-    qualification_id: qualifications.except('CSCS').sample
-    )
-end
+# User.all.each do |user|
+#   UserQualification.create(
+#     user_id: user.id,
+#     qualification_id: qualifications.except('CSCS').sample
+#     )
+# end
 
-Project.all.each do |project|
-  ProjectQualification.create(
-    project_id: project.id,
-    qualification_id: 1
-    )
-end
+# Project.all.each do |project|
+#   ProjectQualification.create(
+#     project_id: project.id,
+#     qualification_id: 1
+#     )
+# end

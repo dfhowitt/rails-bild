@@ -20,6 +20,7 @@
               <p>project id<%= project.id %></p>
               <p>site id<%= project.site.id %></p>
               <p>Details: <%= project.description %></p>
+              <p>Autoconfirm?: <%= project.autoconfirm %></p>
               <p>Pay: <%= project.wage %></p>
               <p>Spots Left: <%= project.capacity - project.placements.where(confirmed: true).count %></p>
               <p>Length: <%= (project.end_date - project.start_date).to_i %></p>
