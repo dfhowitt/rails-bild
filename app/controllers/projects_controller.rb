@@ -1,37 +1,54 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   def index
-    @projects = Project.all
+    projects = Project.all
+
+    # allows for one click apply
     @placement = Placement.new
 
+    # check search field
     @query = params[:query]
 
+    # geocode search and check database for project results
     query_geocoder_results = Geocoder.search(@query)
     query_coords = query_geocoder_results.first&.coordinates
 
+    # return projects(geocoded) that fit search
     sites = Site.geocoded.near(@query, 50)
     sites.map do |site|
-      @projects = site.projects
+      projects = site.projects
       @results = true
     end
 
+    # return all projects(geocoded) if nothing matches the search
+
+    # select projects which still have capacity and haven't been applied to
+    @projects = []
+    projects.each do |project|
+      unless current_user.projects.include?(project)
+        @projects << project if find_remaining_capacity(project) > 0
+      end
+    end
 
     if @projects.empty? || !query_coords
       @results = false
       sites = Site.geocoded
       sites.map do |site|
-        @projects = site.projects
+        projects = site.projects
       end
     end
-
+    # mark the map
     @markers = @projects.map do |project|
       {
         lat: project.site.latitude,
         lng: project.site.longitude
       }
     end
-
   end
+
+
+
+
 
   def show
     @placement = Placement.new
@@ -81,7 +98,14 @@ class ProjectsController < ApplicationController
 
   def set_project
     @project = Project.find(params[:id])
+  end
 
+  def find_remaining_capacity(project)
+    confirmed = 0
+    project.placements.each do |placement|
+      confirmed += 1 if placement.confirmed = true
+    end
+    project.capacity - confirmed
   end
 
 end
