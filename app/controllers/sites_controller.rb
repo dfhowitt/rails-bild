@@ -12,7 +12,7 @@ class SitesController < ApplicationController
     @site = Site.new(site_params)
     @site.user = current_user
     if @site.save
-      redirect_to site_path(@site)
+      redirect_to user_dashboard_path(current_user)
     else
       render 'new'
     end

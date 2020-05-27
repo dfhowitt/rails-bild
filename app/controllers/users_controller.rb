@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def dashboard
     # if current_user.manager
+      @new_site = Site.new
       @sites = Site.where(user: current_user)
       @projects = Project.where(user: current_user)
     # else
