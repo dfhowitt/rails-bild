@@ -1,9 +1,25 @@
-<%= simple_form_for [@site, @project] do |f| %>
-  <%= f.input :start_date %>
-  <%= f.input :end_date %>
-  <%= f.input :wage %>
-  <%= f.input :capacity %>
+<%= simple_form_for [site, project] do |f| %>
+  <div class="row">
+    <div class="col-4">
+      <%= f.input :start_date, html5: true %>
+      </div>
+      <div class="col-4">
+      <%= f.input :end_date, html5: true %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <%= f.input :job_type %>
+    </div>
+    <div class="col-4">
+      <%= f.input :wage %>
+    </div>
+    <div class="col-4">
+      <%= f.input :capacity %>
+    </div>
+  </div>
   <%= f.input :description %>
-  <%= f.input :job_type %>
+  <%= f.input :autoconfirm, label: "Would you like to auto-accept applicants?"%>
+  <%= f.association :qualifications %>
   <%= f.submit "Add New Project" %>
 <% end %>
