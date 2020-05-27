@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     # else
       @applications = Placement.where(user: current_user)
       @placements = Placement.joins(:project)
-                             .where("placements.user_id = ? AND placements.confirmed = ?", current_user.id, true)
+                             .where("placements.user_id = ? AND placements.confirmed = ? AND projects.end_date > ?", current_user.id, true, DateTime.now)
                              .order("projects.start_date")
       @past_placements = Placement.joins(:project)
                                   .where("placements.user_id = ? AND projects.end_date < ?", current_user.id, DateTime.now)
