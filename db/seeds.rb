@@ -17,7 +17,7 @@ Placement.destroy_all
 User.destroy_all
 
 
-puts "creating everything :)"
+puts "creating users everything :)"
 
 user_names = %w(Faris Chris Gus Dan)
 
@@ -74,12 +74,13 @@ names.each do |company|
     location: locations.sample,
     user_id: User.first.id
     )
-  puts "site created"
 
   site.photo.attach(io: logo, filename: 'logo_pic.jpg', content_type: 'image/jpg')
   site.save
   counter += 1
 end
+
+puts "creating projects"
 
 sites = Site.all
 
@@ -107,6 +108,8 @@ sites.each do |site|
     )
   end
 end
+
+puts "creating qualifications"
 
 qualifications.each do |qualification|
   Qualification.create(

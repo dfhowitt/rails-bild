@@ -7,7 +7,7 @@ url('<%= image_path "banner.jpg", height: 400, crop: :fill %>'); background-size
 
   <form method="get" action="/projects" class="w-50 p-3">
     <input type="text" name="query" autocomplete="off" placeholder="Enter Postcode" tabindex="100" class="form-control" id="flat_address">
-    <a class="btn btn-flat" href="#">Search</a>
+    <input type="submit" value="Search" class="btn btn-flat">
   </form>
 </div>
 
@@ -37,18 +37,21 @@ url('<%= image_path "banner.jpg", height: 400, crop: :fill %>'); background-size
     </div>
   </div>
 </div>
-
+<br>
+<br>
 <h2>Recently Added Jobs</h2>
+<br>
+<br>
 
-<div class="home-projects-grid mx-4">
+<div class="home-projects-grid mx-3">
     <%@projects.each do |project|%>
       <%= link_to project_path(project) do %>
-        <div class="homepage-project-card" style="background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.2)), url('<%= cl_image_path project.site.photo.key, height: 300, width: 400, crop: :fill %>')">
+        <div class="homepage-project-card" style="background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.2)), url('<%= cl_image_path project.site.photo.key, height: 300, width: 400 %>')">
           <% if project.site.photo.attached? %>
             <div class="homepage-project-card-info h-100">
               <div class="bottom text-right px-2 py-1">
                 <h5 class="mb-1"><%= project.job_type %></h5>
-                <p class="mb-1"><%= project.capacity %> Needed · <%= project.wage %> · <%=project.start_date %> - <%=project.end_date %> </p>
+                <p class="mb-1"><%= project.capacity %> Needed · <%= project.wage %>/hr · <%=project.start_date %> - <%=project.end_date %> </p>
                 <p class="mt-1"><%= project.description %></p>
                 <p><%= project.site.location %></p>
               </div>

@@ -1,1 +1,10 @@
+<div class="container">
+  <h1><%= @site.name %></h1>
+  <h3> Add a project</h3>
+  <%= render 'projects/form', site: @site, project: Project.new %>
 
+  <% @site.projects.each do |project| %>
+  <p><%=  project.description %></p>
+  <p><%=  project.autoconfirm %></p>
+  <% end %>
+</div>
