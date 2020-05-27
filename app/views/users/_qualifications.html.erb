@@ -1,1 +1,8 @@
-Qualifications
+<% @qualifications.each do |qualification| %>
+  <div class="qualification-card d-flex justify-content-between">
+    <div class="qualification-left">
+      <h4><%= qualification.qualification.name %></h4>
+    </div>
+  </div>
+  <hr>
+<% end %>

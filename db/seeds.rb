@@ -12,7 +12,6 @@ Site.destroy_all
 Qualification.destroy_all
 Placement.destroy_all
 User.destroy_all
-Qualification.destroy_all
 
 puts "creating everything :)"
 
@@ -32,6 +31,15 @@ User.create(
   first_name: 'Bob',
   last_name: 'Bobbins',
   email: 'bob@gmail.com',
+  password: '123456',
+  phone_number: "0777777777",
+  manager: false
+  )
+
+User.create(
+  first_name: 'Joe',
+  last_name: 'Josephs',
+  email: 'joe@gmail.com',
   password: '123456',
   phone_number: "0777777777",
   manager: false
@@ -71,7 +79,7 @@ sites.each do |site|
     project.save
     ProjectQualification.create(
       project_id: project.id,
-      qualification_id: qualification[index]
+      qualification_id: qualifications[index]
     )
   end
 end
@@ -83,22 +91,25 @@ qualifications.each do |qualification|
 end
 
 User.all.each do |user|
-  UserQualification.create(
+  user_qualification_css = UserQualification.new(
     user_id: user.id,
-    qualification_id: 1
+    qualification_id: Qualification.find_by(name: qualifications[0]).id
   )
+  user_qualification_css.save
 end
 
 User.all.each do |user|
-  UserQualification.create(
+  index = rand(1..4)
+  user_qualification = UserQualification.new(
     user_id: user.id,
-    qualification_id: qualifications.except('CSCS').sample
+    qualification_id: Qualification.find_by(name: qualifications[index]).id
     )
+  user_qualification.save
 end
 
 Project.all.each do |project|
-  ProjectQualification.create(
+  project_qualification = ProjectQualification.new(
     project_id: project.id,
-    qualification_id: 1
+    qualification_id: Qualification.find_by(name: qualifications[0]).id
     )
 end
