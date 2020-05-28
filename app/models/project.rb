@@ -12,6 +12,9 @@ class Project < ApplicationRecord
   validates :description, presence: true
   validates :job_type, presence: true
 
+  # include PgSearch::Model
+  # multisearchable against: [:wage, :start_date, :end_date]
+
   def end_date_not_before_than_start_date
     if start_date > end_date
       errors.add(end_date, "End date cannot be earlier than the start date")

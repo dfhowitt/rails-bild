@@ -2,29 +2,23 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   def index
     projects = Project.all
-
     # check search field
     @query = params[:query]
-
     # geocode search and check database for project results
     query_geocoder_results = Geocoder.search(@query)
     query_coords = query_geocoder_results.first&.coordinates
-
     # return sites(geocoded) that fit search
     sites = Site.geocoded.near(@query, 50)
-
     # filter through the sites and push all projects with capacity that the user didn't apply
     @projects = []
     filter_projects_from_site(sites)
     @results = true
-
     # return all available projects(geocoded) if nothing matches the search
     if @projects.empty? || !query_coords
       sites = Site.geocoded
       filter_projects_from_site(sites)
       @results = false
     end
-
     # mark the map
     @markers = @projects.map do |project|
       {
@@ -32,7 +26,6 @@ class ProjectsController < ApplicationController
         lng: project.site.longitude
       }
     end
-
     # allows for one click apply
     @placement = Placement.new
   end
