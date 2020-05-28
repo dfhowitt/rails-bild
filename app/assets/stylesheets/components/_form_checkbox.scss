@@ -1,0 +1,26 @@
+// Checkboxes design
+.qualification-choices {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.qualification-choice {
+  background: #666C73;
+  color: #FFC600;
+  padding: 20px;
+  border-radius: 5px;
+  flex: 0 0 30%;
+  text-align: center;
+  &:hover {
+    background: #b7b7b7;
+    color: #fff200;
+    cursor: pointer;
+  }
+  &.active {
+  color:#FFC600;
+  font-style: italic;
+  background: #b7b7b7;
+  }
+}
