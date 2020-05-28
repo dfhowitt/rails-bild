@@ -3,6 +3,8 @@ class ProjectsController < ApplicationController
   def index
     projects = Project.all
 
+
+
     # check search field
     @query = params[:query]
 

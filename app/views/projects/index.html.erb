@@ -31,11 +31,12 @@
               <h3><%= project.site.location %></h3>
             </div>
         <% end %>
-            <div class="apply-button">
+            <div class="apply-button" id="sweet-alert-apply">
               <%= simple_form_for [project, @placement] do |f| %>
               <%= f.submit "Apply now"%>
               <% end %>
             </div>
+
           </div>
       <% end %>
     </div>
