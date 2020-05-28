@@ -3,7 +3,8 @@ class ProjectsController < ApplicationController
   def index
     projects = Project.all
 
-    @unavailable_dates = check_user_project_dates(current_user)
+    @all_placement_dates = check_user_project_dates(current_user)
+    @confirmed_placement_dates = check_user_placements(current_user)
 
     # check search field
     @query = params[:query]
@@ -117,6 +118,19 @@ class ProjectsController < ApplicationController
       project_dates << (project.start_date..project.end_date)
     end
     return project_dates
+  end
+
+  def check_user_placements(user)
+    placement_dates = []
+    confirmed_placements = user.placements.where(:confirmed => true)
+    if confirmed_placements.empty?
+      return placement_dates
+    else
+      confirmed_placements.each do |placement|
+        placement_dates << (placement.project.start_date..placement.project.end_date)
+      end
+      return placement_dates
+    end
   end
 
 end

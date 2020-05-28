@@ -11,7 +11,11 @@
       <h2>Results for "<%= @query %>":</h2>
 
       <!-- START testing unavailable date funcationality -->
-      <p> Unavail: <% @unavailable_dates.each do |date| %>
+      <p> all: <% @all_placement_dates.each do |date| %>
+                     <%= date %>
+                   <% end %>
+      </p>
+      <p> confirmed: <% @confirmed_placement_dates.each do |date| %>
                      <%= date %>
                    <% end %>
       </p>
@@ -36,7 +40,7 @@
               <div class="project-details">
                 <h5><%= project.job_type %></h5>
                 <% project_dates = (project.start_date .. project.end_date) %>
-                <% @unavailable_dates.each do |dates| %>
+                <% @confirmed_placement_dates.each do |dates| %>
                   <% dates.to_a %>
                   <% project_dates.to_a %>
                   <% if project_dates.first <= dates.last && dates.first <= project_dates.last %>
@@ -58,7 +62,7 @@
 
           <div class="apply-button">
             <%= simple_form_for [project, @placement] do |f| %>
-              <%= f.submit "Apply now"%>
+              <%= f.submit "Apply now" %>
               <p>Autoconfirm?: <%= project.autoconfirm %></p>
             <% end %>
           </div>
