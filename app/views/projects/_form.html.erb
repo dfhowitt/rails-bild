@@ -19,7 +19,22 @@
     </div>
   </div>
   <%= f.input :description %>
-  <%= f.input :autoconfirm, label: "Would you like to auto-accept applicants?"%>
-  <%= f.association :qualifications %>
+  <%= f.input :autoconfirm, label: "Would you like to auto-accept all applicants?"%>
+
+  <div class="form-group">
+  <input type="hidden" name="project[qualification_ids][]" value="">
+  <div class="qualification-choices">
+    <% Qualification.all.each do |qualification| %>
+    <div class="qualification-choice d-flex justify-content-around mb-2">
+      <input type="checkbox" class="d-none" value="<%= qualification.id %>" name="project[qualification_ids][]" id="project_qualification_ids_<%= qualification.id %>">
+      <label for="project_qualification_ids_<%= qualification.id %>" class="mb-0">
+        <%= qualification.name %>
+        <i class="fa fa-check"></i>
+      </label>
+    </div>
+    <% end %>
+   </div>
+</div>
+
   <%= f.submit "Add New Project" %>
 <% end %>

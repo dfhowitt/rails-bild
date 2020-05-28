@@ -30,9 +30,11 @@ import "bootstrap";
 import { clickableTabs } from '../dashboard_tabs';
 import { initMapbox } from '../plugins/init_mapbox';
 import { initAutocomplete } from '../plugins/init_autocomplete';
+import { clickableCheckbox } from '../checkbox';
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
+  clickableCheckbox();
   clickableTabs();
   initMapbox();
   initAutocomplete();
