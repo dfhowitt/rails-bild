@@ -25,6 +25,17 @@
 
       <h2>Results for "<%= @query %>":</h2>
 
+      <!-- START testing unavailable date funcationality -->
+      <p> all: <% @all_placement_dates.each do |date| %>
+                     <%= date %>
+                   <% end %>
+      </p>
+      <p> confirmed: <% @confirmed_placement_dates.each do |date| %>
+                     <%= date %>
+                   <% end %>
+      </p>
+      <!-- END -->
+
       <% unless @results %>
         <div class="">
           <p class="no-results"><i class="fas fa-times text-danger"></i>  No results for "<%= @query %></p>
@@ -33,7 +44,7 @@
       <% end %>
 
       <% @projects.each do |project| %>
-        <div class="project-card d-flex border">
+        <div class="project-card d-flex">
 
           <%= link_to project_path(project), :class => "project-card-link" do  %>
             <div class="project-card-body d-flex">
@@ -43,6 +54,16 @@
 
               <div class="project-details">
                 <h5><%= project.job_type %></h5>
+                <% project_dates = (project.start_date .. project.end_date) %>
+                <% @confirmed_placement_dates.each do |dates| %>
+                  <% dates.to_a %>
+                  <% project_dates.to_a %>
+                  <% if project_dates.first <= dates.last && dates.first <= project_dates.last %>
+                    <p> CONFLICT</p>
+                  <% end %>
+                <% end %>
+                <p><%= project.start_date %> </p>
+                <p><%=  project.end_date %> </p>
                 <p>Pay: <%= project.wage %></p>
                 <p>Spots Left: <%= project.capacity - project.placements.where(confirmed: true).count %></p>
                 <p>Length: <%= (project.end_date - project.start_date).to_i %></p>
@@ -54,9 +75,11 @@
             </div>
           <% end %>
 
-            <div class="apply-button" id="sweet-alert-apply">
-              <%= simple_form_for [project, @placement] do |f| %>
-              <%= f.submit "Apply now"%>
+
+          <div class="apply-button">
+            <%= simple_form_for [project, @placement], remote: true do |f| %>
+              <%= f.submit "Apply now" %>
+
               <p>Autoconfirm?: <%= project.autoconfirm %></p>
               <% end %>
             </div>

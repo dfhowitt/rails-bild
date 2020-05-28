@@ -4,6 +4,9 @@ class ProjectsController < ApplicationController
     projects = Project.all
 
 
+    @all_placement_dates = check_user_project_dates(current_user)
+    @confirmed_placement_dates = check_user_placements(current_user)
+
 
     # check search field
     @query = params[:query]
@@ -15,7 +18,7 @@ class ProjectsController < ApplicationController
     # return sites(geocoded) that fit search
     sites = Site.geocoded.near(@query, 50)
 
-    # filter through the sites and push all projects with capacity that the user didn't apply
+    # filter through the sites and push all projects with capacity that the user didn't apply into @projects
     @projects = []
     filter_projects_from_site(sites)
     @results = true
@@ -124,6 +127,27 @@ class ProjectsController < ApplicationController
         end
       end
     return @projects
+  end
+
+  def check_user_project_dates(user)
+    project_dates = []
+    user.projects.each do |project|
+      project_dates << (project.start_date..project.end_date)
+    end
+    return project_dates
+  end
+
+  def check_user_placements(user)
+    placement_dates = []
+    confirmed_placements = user.placements.where(:confirmed => true)
+    if confirmed_placements.empty?
+      return placement_dates
+    else
+      confirmed_placements.each do |placement|
+        placement_dates << (placement.project.start_date..placement.project.end_date)
+      end
+      return placement_dates
+    end
   end
 
 end
