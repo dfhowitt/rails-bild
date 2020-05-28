@@ -15,11 +15,12 @@
   text-align: center;
   &:hover {
     background: #b7b7b7;
+    color: #fff200;
     cursor: pointer;
   }
   &.active {
-  color:white;
+  color:#FFC600;
+  font-style: italic;
   background: #b7b7b7;
-  opacity: 1;
   }
 }

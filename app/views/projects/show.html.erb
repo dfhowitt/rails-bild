@@ -6,6 +6,7 @@
 <h3><%= @project.site.name %> - <%= @project.site.site_type %> development </h3>
 <h4><%=@project.capacity%> spots left!</h4>
 <p><%= @project.description.capitalize%></p>
+<p><%= @project.autoconfirm %></p>
 <%= @project.id %>
 <% @project.project_qualifications.each do |pqualification| %>
 <p><%= pqualification.qualification.name %></p>
