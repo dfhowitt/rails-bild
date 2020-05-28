@@ -1,13 +1,19 @@
 <h3>Add a qualification</h3>
-<%= simple_form_for [current_user, @new_qualification] do |f| %>
-  <%= f.association :qualification %>
-  <%= f.submit %>
-<% end %>
+  <%= simple_form_for [current_user, @new_qualification] do |f| %>
+    <%= f.association :qualification %>
+    <%= f.submit "Add Qualification" %>
+  <% end %>
 
 <% @qualifications.each do |qualification| %>
   <div class="qualification-card d-flex justify-content-between">
     <div class="qualification-left">
       <h4><%= qualification.qualification.name %></h4>
+    </div>
+    <div class="icons">
+      <%= link_to user_qualification_path(qualification), method: :delete, data:
+        { confirm: 'Are you certain you want to delete this?' } do %>
+        <i class="fas fa-trash"></i>
+      <% end %>
     </div>
   </div>
   <hr>

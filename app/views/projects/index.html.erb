@@ -1,41 +1,71 @@
 <div class="container">
-  <form method="get" action="/projects" class="home-search w-50 p-3">
-    <input type="text" name="query" autocomplete="off" placeholder="Enter Postcode" tabindex="100" class="form-control">
-    <a class="btn btn-flat" href="#">Search</a>
-  </form>
+  <div class="dashboard-search">
+    <form method="get" action="/projects" class="w-200 p-3">
+      <input type="text" name="query" autocomplete="off" placeholder="Enter Postcode" tabindex="100" class="form-control" id="flat_address">
+      <div class="filter-site-type">
+        <select id="site_type" name="site_type" class="form-control h-1.9">
+          <option value="commercial">Commercial</option>
+          <option value="residential">Residential</option>
+          <option value="industrial">Industrial</option>
+        </select>
+      </div>
+      <div class="filter-wage">
+        <input type="number" name="wage" autocomplete="off" placeholder="Enter Minimum Wage" tabindex="100" class="form-control" id="min-wage">
+      </div>
+      <div class="filter-start-date">
+        <input type="date" name="start_date" autocomplete="off" placeholder="Enter Start Date" tabindex="100" class="form-control" id="start-date">
+      </div>
+      <input type="submit" value="Search" class="btn btn-flat">
+        <input type="checkbox" name="autoconfirm" autocomplete="off" class="form-control w=100" id="autoconfirm">
+        <label for="autoconfirm">Autoconfirm jobs</label>
+    </form>
+  </div>
   <div class="projects-contatiner d-flex">
     <div class="projects-card-holder">
+
       <h2>Results for "<%= @query %>":</h2>
+
       <% unless @results %>
         <div class="">
           <p class="no-results"><i class="fas fa-times text-danger"></i>  No results for "<%= @query %></p>
         </div>
         <h2>We suggest:</h2>
       <% end %>
+
       <% @projects.each do |project| %>
-        <%= link_to project_path(project) do  %>
-          <div class="project-card border">
-            <div class="project-details">
-              <h1><%= project.job_type %></h1>
-              <p>project id<%= project.id %></p>
-              <p>site id<%= project.site.id %></p>
-              <p>Details: <%= project.description %></p>
-              <p>Autoconfirm?: <%= project.autoconfirm %></p>
-              <p>Pay: <%= project.wage %></p>
-              <p>Spots Left: <%= project.capacity - project.placements.where(confirmed: true).count %></p>
-              <p>Length: <%= (project.end_date - project.start_date).to_i %></p>
+        <div class="project-card d-flex border">
+
+          <%= link_to project_path(project), :class => "project-card-link" do  %>
+            <div class="project-card-body d-flex">
+              <div class="project-card-photo">
+                <%= cl_image_tag project.site.photo.key, height: 50, width: 60, alt: "Company Logo" %>
+              </div>
+
+              <div class="project-details">
+                <h5><%= project.job_type %></h5>
+                <p>Pay: <%= project.wage %></p>
+                <p>Spots Left: <%= project.capacity - project.placements.where(confirmed: true).count %></p>
+                <p>Length: <%= (project.end_date - project.start_date).to_i %></p>
+              </div>
+
+              <div class="project-location">
+                <h6><%= project.site.location %></h6>
+              </div>
             </div>
-            <div class="project-location">
-              <h3><%= project.site.location %></h3>
-            </div>
-        <% end %>
-            <div class="apply-button">
+          <% end %>
+
+            <div class="apply-button" id="sweet-alert-apply">
               <%= simple_form_for [project, @placement] do |f| %>
               <%= f.submit "Apply now"%>
+              <p>Autoconfirm?: <%= project.autoconfirm %></p>
               <% end %>
             </div>
+
+
           </div>
+        </div>
       <% end %>
+
     </div>
 
 

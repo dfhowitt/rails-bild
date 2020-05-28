@@ -1,0 +1,22 @@
+.btn-flat {
+  color: white;
+  padding: 8px 24px;
+  border-radius: 4px;
+  background: #1EDD88;
+  transition: background 0.3s ease;
+}
+
+.btn-flat:hover {
+  background: #1BCB7F;
+  color: white;
+}
+
+.dashboard-search form {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.dashboard-search form .btn {
+  line-height: 1.2;
+}

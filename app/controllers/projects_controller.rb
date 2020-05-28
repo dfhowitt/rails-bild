@@ -3,6 +3,8 @@ class ProjectsController < ApplicationController
   def index
     projects = Project.all
 
+
+
     # check search field
     @query = params[:query]
 
@@ -24,7 +26,23 @@ class ProjectsController < ApplicationController
       filter_projects_from_site(sites)
       @results = false
     end
+    # for filtering on index page
+    if params[:"site_type"]
+      @projects = @projects.select{|project| project.site.site_type == params[:"site_type"].capitalize}
+    end
 
+    if params[:autoconfirm].present?
+      @projects = @projects.select{|project| project.autoconfirm == true}
+    end
+
+    if params[:"start_date"].present?
+      date = params[:"start_date"].gsub('-', ",")
+      @projects = Project.where("projects.start_date >= ?", date)
+    end
+
+    if params[:"wage"]
+      @projects = @projects.select{|project|project.wage > params[:wage].to_i}
+    end
     # mark the map
     @markers = @projects.map do |project|
       {
@@ -32,7 +50,6 @@ class ProjectsController < ApplicationController
         lng: project.site.longitude
       }
     end
-
     # allows for one click apply
     @placement = Placement.new
   end
@@ -54,7 +71,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     @project.site = @site
     if @project.save
-      redirect_to project_path(@project)
+      redirect_to user_dashboard_path(current_user)
     else
       render 'new'
     end
@@ -66,7 +83,7 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      redirect_to project_path(@project)
+      redirect_to user_dashboard_path(current_user)
     else
       render 'edit'
     end
@@ -81,7 +98,7 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:start_date, :end_date, :capacity, :wage, :description, :job_type, :autoconfirm)
+    params.require(:project).permit(:start_date, :end_date, :capacity, :wage, :description, :job_type, :autoconfirm, qualification_ids: [])
   end
 
   def set_project
