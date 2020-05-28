@@ -36,7 +36,7 @@ document.addEventListener('turbolinks:load', () => {
   // initSelect2();
   clickableCheckbox();
   clickableTabs();
-  initMapbox();
   initAutocomplete();
+  initMapbox();
 });
 
