@@ -10,8 +10,10 @@ Rails.application.routes.draw do
     # get "sites", to: "users#sites"
     # get "placements", to: "users#placements"
     # get "projects", to: "users#projects"
-    resources :user_qualifications, only: [:create, :destroy]
+    resources :user_qualifications, only: [:create]
   end
+
+  resources :user_qualifications, only: [:destroy]
 
   resources :sites, except: [:index] do
     resources :projects, only: [:new, :create]

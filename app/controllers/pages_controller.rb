@@ -4,6 +4,5 @@ class PagesController < ApplicationController
   def home
     @projects = Project.all
     @sites = Site.all
-
   end
 end

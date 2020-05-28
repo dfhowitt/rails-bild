@@ -9,6 +9,12 @@ class UserQualificationsController < ApplicationController
     end
   end
 
+  def destroy
+    user_qualification = UserQualification.find(params[:id])
+    user_qualification.destroy
+    redirect_to user_dashboard_path(current_user)
+  end
+
   private
 
   def user_qualification_params

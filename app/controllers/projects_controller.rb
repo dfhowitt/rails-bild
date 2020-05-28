@@ -26,7 +26,23 @@ class ProjectsController < ApplicationController
       filter_projects_from_site(sites)
       @results = false
     end
+    # for filtering on index page
+    if params[:"site_type"]
+      @projects = @projects.select{|project| project.site.site_type == params[:"site_type"].capitalize}
+    end
 
+    if params[:autoconfirm].present?
+      @projects = @projects.select{|project| project.autoconfirm == true}
+    end
+
+    if params[:"start_date"].present?
+      date = params[:"start_date"].gsub('-', ",")
+      @projects = Project.where("projects.start_date >= ?", date)
+    end
+
+    if params[:"wage"]
+      @projects = @projects.select{|project|project.wage > params[:wage].to_i}
+    end
     # mark the map
     @markers = @projects.map do |project|
       {
@@ -34,7 +50,6 @@ class ProjectsController < ApplicationController
         lng: project.site.longitude
       }
     end
-
     # allows for one click apply
     @placement = Placement.new
   end
