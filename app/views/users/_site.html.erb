@@ -1,4 +1,7 @@
 <h1><%= site.name %></h1>
+<% if site.projects.empty? %>
+  <%= render 'projects/form', site: site, project: Project.new %>
+<% end %>
 <% site.projects.each do |project| %>
   <p>
     <a class="btn btn-secondary w-100" data-toggle="collapse" href="#collapse<%= project.id %>" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -79,3 +82,14 @@
     </div>
   </div>
 <% end %>
+
+<p>
+  <a class="btn btn-secondary w-100" data-toggle="collapse" href="#collapse-new-project" role="button" aria-expanded="false" aria-controls="collapseExample">
+  Add Another Project ✚
+  </a>
+</p>
+<div class="collapse mb-3 text-left" id="collapse-new-project">
+  <%= render 'projects/form', site: site, project: Project.new %>
+</div>
+
+

@@ -56,9 +56,13 @@ initSweetalert('#sweet-alert-apply', {
 //   }
 // });
 
+
+import { clickableCheckbox } from '../checkbox';
+
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
+  clickableCheckbox();
   clickableTabs();
   initAutocomplete();
   initMapbox();

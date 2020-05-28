@@ -56,7 +56,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     @project.site = @site
     if @project.save
-      redirect_to project_path(@project)
+      redirect_to user_dashboard_path(current_user)
     else
       render 'new'
     end
@@ -68,7 +68,7 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      redirect_to project_path(@project)
+      redirect_to user_dashboard_path(current_user)
     else
       render 'edit'
     end
@@ -83,7 +83,7 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:start_date, :end_date, :capacity, :wage, :description, :job_type, :autoconfirm)
+    params.require(:project).permit(:start_date, :end_date, :capacity, :wage, :description, :job_type, :autoconfirm, qualification_ids: [])
   end
 
   def set_project
