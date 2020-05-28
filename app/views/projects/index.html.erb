@@ -27,15 +27,14 @@
               </div>
 
               <div class="project-details">
-                <h1><%= project.job_type %></h1>
-                <p>Details: <%= project.description %></p>
+                <h5><%= project.job_type %></h5>
                 <p>Pay: <%= project.wage %></p>
                 <p>Spots Left: <%= project.capacity - project.placements.where(confirmed: true).count %></p>
                 <p>Length: <%= (project.end_date - project.start_date).to_i %></p>
               </div>
 
               <div class="project-location">
-                <h3><%= project.site.location %></h3>
+                <h6><%= project.site.location %></h6>
               </div>
             </div>
           <% end %>
