@@ -12,7 +12,7 @@ class PlacementsController < ApplicationController
     if @placement.update(confirmed: true)
       redirect_to user_dashboard_path(current_user, anchor: "site#{@placement.project.site.id}&project#{@placement.project.id}")
     else
-      redirect_to user_dashboard_path(current_user, anchor: "site#{@placement.project.site.id}&project#{@placement.project.id}")
+      flash.now[:alert] = "Not saved."
     end
   end
 end

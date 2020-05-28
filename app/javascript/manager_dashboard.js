@@ -1,5 +1,7 @@
 const linkToTabs = () => {
-  if (location.hash) {
+  const url_path = location.pathname.split("/")
+  const last_path_part = url_path[url_path.length - 1]
+  if (location.hash && last_path_part === "dashboard") {
     const url_hashes = location.hash.slice(1).split("&");
     const site = url_hashes[0];
     const project = url_hashes[1];
@@ -18,7 +20,8 @@ const linkToTabs = () => {
 
     // Adding show class to project passed in url
     const projectDiv = document.getElementById(project);
-    projectDiv.classList.add("show")
+    projectDiv.classList.add("show");
+    projectDiv.scrollIntoView();
   }
 }
 
