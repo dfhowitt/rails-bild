@@ -85,7 +85,7 @@ puts "creating projects"
 sites = Site.all
 
 job_types = ['Labourer', 'Skilled Labourer', 'Electrician', 'Asbestos Awareness', 'DBS Labourer']
-qualifications = ['CSCS', 'Blue CSCS', 'ECS', 'Asbestos Awareness', 'DBS']
+qualifications = ['CSCS', 'Blue CSCS (Skilled Labourer)', 'ECS', 'Asbestos Awareness', 'DBS']
 
 sites.each do |site|
   5.times do
