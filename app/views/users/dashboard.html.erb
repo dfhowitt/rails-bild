@@ -47,6 +47,13 @@
 
   <% else %>
 
+    <div class="dashboard-search">
+      <form method="get" action="/projects" class="w-50 p-3">
+        <input type="text" name="query" autocomplete="off" placeholder="Enter Postcode" tabindex="100" class="form-control" id="flat_address">
+        <input type="submit" value="Search" class="btn btn-flat">
+      </form>
+    </div>
+
     <ul class="nav nav-tabs">
       <li class="tab active" id="tab-placements"><a href="#">Upcoming</a></li>
       <li class="tab" id="tab-applications"><a href="#">Applications</a></li>
