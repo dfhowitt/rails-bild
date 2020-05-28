@@ -29,6 +29,7 @@ import "bootstrap";
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 import { clickableTabs } from '../dashboard_tabs';
+import { linkToTabs } from '../manager_dashboard';
 import { initMapbox } from '../plugins/init_mapbox';
 import { initAutocomplete } from '../plugins/init_autocomplete';
 import { initSweetalert } from '../plugins/init_sweetalert';
@@ -64,6 +65,8 @@ document.addEventListener('turbolinks:load', () => {
   // initSelect2();
   clickableCheckbox();
   clickableTabs();
+  linkToTabs();
+  initMapbox();
   initAutocomplete();
   initMapbox();
   initSweetalert();

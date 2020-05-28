@@ -4,11 +4,14 @@
 <% end %>
 <% site.projects.each do |project| %>
   <p>
-    <a class="btn btn-secondary w-100" data-toggle="collapse" href="#collapse<%= project.id %>" role="button" aria-expanded="false" aria-controls="collapseExample">
+    <button class="btn btn-secondary w-100" type="button" data-toggle="collapse" data-target="#project<%= project.id %>" aria-expanded="true" aria-controls="collapse<%= project.job_type %>">
       <%= project.job_type %>
-    </a>
+    </button>
+    <!-- <a class="btn btn-secondary w-100" data-toggle="collapse" href="#collapse<%= project.id %>" role="button" aria-expanded="false" aria-controls="collapseExample">
+      <%= project.job_type %>
+    </a> -->
   </p>
-  <div class="collapse mb-3 text-left" id="collapse<%= project.id %>">
+  <div class="collapse mb-3 text-left" id="project<%= project.id %>">
     <div class="project-card card-body">
       <div class="project_details">
         <h4><strong><%= project.job_type %></strong></h4>
@@ -68,7 +71,7 @@
               </div>
 
               <div class="placement-confirm d-flex align-items-center">
-                <%= simple_form_for [project, placement] do |f| %>
+                <%= simple_form_for([project, placement], remote: true) do |f| %>
                   <%= f.submit "Confirm", class: "btn btn-primary" %>
                 <% end %>
               </div>

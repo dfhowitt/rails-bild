@@ -1,8 +1,8 @@
-  <h3>Add a qualification</h3>
-    <%= simple_form_for [current_user, @new_qualification] do |f| %>
-      <%= f.association :qualification %>
-      <%= f.submit "Add Qualification" %>
-    <% end %>
+<h3>Add a qualification</h3>
+  <%= simple_form_for [current_user, @new_qualification] do |f| %>
+    <%= f.association :qualification %>
+    <%= f.submit "Add Qualification" %>
+  <% end %>
 
 <% @qualifications.each do |qualification| %>
   <div class="qualification-card d-flex justify-content-between">
