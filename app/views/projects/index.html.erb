@@ -39,11 +39,14 @@
             </div>
           <% end %>
 
-          <div class="apply-button">
-            <%= simple_form_for [project, @placement] do |f| %>
+            <div class="apply-button" id="sweet-alert-apply">
+              <%= simple_form_for [project, @placement] do |f| %>
               <%= f.submit "Apply now"%>
               <p>Autoconfirm?: <%= project.autoconfirm %></p>
-            <% end %>
+              <% end %>
+            </div>
+
+
           </div>
         </div>
       <% end %>

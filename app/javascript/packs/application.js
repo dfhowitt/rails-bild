@@ -9,6 +9,7 @@ require("@rails/activestorage").start()
 require("channels")
 
 
+
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
@@ -30,7 +31,34 @@ import "bootstrap";
 import { clickableTabs } from '../dashboard_tabs';
 import { initMapbox } from '../plugins/init_mapbox';
 import { initAutocomplete } from '../plugins/init_autocomplete';
+import { initSweetalert } from '../plugins/init_sweetalert';
+
+initSweetalert('#sweet-alert-apply', {
+  title: "Nice job!",
+  text: "You have successfully applied",
+  icon: "success"
+});
+
+// initSweetalert('#sweet-alert-delete', {
+//   title: "Are you sure?",
+//   text: "Once deleted, you will not be able to recover!",
+//   icon: "warning",
+//   buttons: true,
+//   dangerMode: true,
+// })
+// .then((willDelete) => {
+//   if (willDelete) {
+//     swal("You have succesfully deleted", {
+//       icon: "success",
+//     });
+//   } else {
+//     swal("Delete cancelled!");
+//   }
+// });
+
+
 import { clickableCheckbox } from '../checkbox';
+
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
@@ -38,5 +66,8 @@ document.addEventListener('turbolinks:load', () => {
   clickableTabs();
   initAutocomplete();
   initMapbox();
+  initSweetalert();
 });
+
+
 
