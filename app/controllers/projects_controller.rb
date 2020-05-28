@@ -2,22 +2,44 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   def index
     projects = Project.all
+
     # check search field
     @query = params[:query]
+
     # geocode search and check database for project results
     query_geocoder_results = Geocoder.search(@query)
     query_coords = query_geocoder_results.first&.coordinates
+
     # return sites(geocoded) that fit search
     sites = Site.geocoded.near(@query, 50)
+
     # filter through the sites and push all projects with capacity that the user didn't apply
     @projects = []
     filter_projects_from_site(sites)
     @results = true
+
     # return all available projects(geocoded) if nothing matches the search
     if @projects.empty? || !query_coords
       sites = Site.geocoded
       filter_projects_from_site(sites)
       @results = false
+    end
+    # for filtering on index page
+    if params[:"site_type"]
+      @projects = @projects.select{|project| project.site.site_type == params[:"site_type"].capitalize}
+    end
+
+    if params[:autoconfirm].present?
+      @projects = @projects.select{|project| project.autoconfirm == true}
+    end
+
+    if params[:"start_date"].present?
+      date = params[:"start_date"].gsub('-', ",")
+      @projects = Project.where("projects.start_date >= ?", date)
+    end
+
+    if params[:"wage"]
+      @projects = @projects.select{|project|project.wage > params[:wage].to_i}
     end
     # mark the map
     @markers = @projects.map do |project|
