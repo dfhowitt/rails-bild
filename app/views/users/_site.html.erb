@@ -5,7 +5,7 @@
 
     <% project_application_count = project.placements.select { |p| p.confirmed != true }.count %>
 
-    <div class="project-card card bg-transparent">
+    <div class="dashboard-project-card card bg-transparent">
 
       <button class="btn btn-secondary" id="<%= project.job_type %>" type="button" data-toggle="collapse" data-target="#project<%= project.id %>" aria-expanded="false" aria-controls="project <%= project.id %>">
         <%= project.job_type %>
@@ -51,7 +51,7 @@
                 </div>
               <% end %>
             <% else %>
-              <p class="text-center mb-0 mt-2">No confirmed placements, confirm some applicants</p>
+              <p class="text-center mb-0 mt-2">No confirmed placements</p>
             <% end %>
           </div>
 
@@ -83,7 +83,7 @@
                 </div>
               <% end %>
             <% else %>
-              <p class="text-center mb-0 mt-2">No confirmed placements</p>
+              <p class="text-center mb-0 mt-2">No applicants</p>
             <% end %>
           </div>
 
@@ -93,12 +93,12 @@
     </div>
   <% end %>
 
-  <div class="project-card card bg-transparent">
+  <div class="dashboard-project-card card bg-transparent">
     <button class="btn btn-secondary text-center" id="new-project" type="button" data-toggle="collapse" data-target="#new-project-form" aria-expanded="false" aria-controls="new-project-form">
       + Add New Project
     </button>
 
-    <div class="collapse mb-3 text-left" id="new-project-form" aria-labelledby="new-project" data-parent="#project-accordion">
+    <div class="collapse mb-3 text-left" id="new-project-form" aria-labelledby="new-project" data-parent="#project-accordion-<%= site.id %>">
       <div class="card-body">
         <%= render 'projects/form', site: site, project: Project.new %>
       </div>
