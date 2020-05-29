@@ -1,0 +1,8 @@
+<%= simple_form_for(site) do |f| %>
+    <%= f.input :name, input_html: { placeholder: "Enter a name for your site" } %>
+    <%= f.input :site_type,
+          collection: ["Commercial", "Industrial", "Residential"],
+          prompt: "-- Select the correct site type --" %>
+    <%= f.input :location, input_html: { placeholder: "Where is the site located.." } %>
+    <%= f.submit "Create Site", class: "btn btn-primary w-100"%>
+<% end %>

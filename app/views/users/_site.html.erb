@@ -1,9 +1,5 @@
 <h1><%= site.name %></h1>
 
-<% if site.projects.empty? %>
-  <%= render 'projects/form', site: site, project: Project.new %>
-<% end %>
-
 <div class="accordion" id="project-accordion">
   <% site.projects.each do |project| %>
 
@@ -94,7 +90,7 @@
 
   <div class="project-card card bg-transparent">
     <button class="btn btn-secondary" id="new-project" type="button" data-toggle="collapse" data-target="#new-project-form" aria-expanded="false" aria-controls="new-project-form">
-      Add Another Project ✚
+      + Add New Project
     </button>
 
     <div class="collapse mb-3 text-left" id="new-project-form" aria-labelledby="new-project" data-parent="#project-accordion">
