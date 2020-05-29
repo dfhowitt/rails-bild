@@ -1,98 +1,104 @@
 <h1><%= site.name %></h1>
-<% if site.projects.empty? %>
-  <%= render 'projects/form', site: site, project: Project.new %>
-<% end %>
-<% site.projects.each do |project| %>
-  <p>
-    <button class="btn btn-secondary w-100" type="button" data-toggle="collapse" data-target="#project<%= project.id %>" aria-expanded="true" aria-controls="collapse<%= project.job_type %>">
-      <%= project.job_type %>
+
+<div class="accordion" id="project-accordion-<%= site.id %>">
+  <% site.projects.each do |project| %>
+
+    <div class="project-card card bg-transparent">
+
+      <button class="btn btn-secondary" id="<%= project.job_type %>" type="button" data-toggle="collapse" data-target="#project<%= project.id %>" aria-expanded="false" aria-controls="project <%= project.id %>">
+        <%= project.job_type %>
+      </button>
+
+      <div id="project<%= project.id %>" class="collapse text-left" aria-labelledby="<%= project.job_type %>" data-parent="#project-accordion-<%= site.id %>">
+        <div class="card-body">
+
+          <div class="project_details">
+            <h4><strong><%= project.job_type %></strong></h4>
+            <p><%= project.description %></p>
+          </div>
+
+          <% confirmed_placements = project.placements.select{ |p| p.confirmed } %>
+          <% unconfirmed_placements = project.placements.select{ |p| !p.confirmed } %>
+
+          <div class="confirmed bg-secondary rounded mb-3 pb-2">
+
+            <div class="header d-flex justify-content-between bg-info p-2">
+              <h5 class= "m-0">Confirmed:</h5>
+              <p class= "m-0 badge-pill bg-success text-dark"><%= confirmed_placements.length %> / <%= project.capacity %></p>
+            </div>
+
+            <% if !confirmed_placements.empty? %>
+              <% confirmed_placements.each do |placement| %>
+                <div class="placement_card bg-secondary py-2 px-3 d-flex">
+
+                  <div class="placement-info d-flex align-items-center border-right pr-3">
+                    <p class="m-0"><strong><%= placement.user.first_name %> <%= placement.user.last_name %></strong></p>
+                  </div>
+
+                  <div class="placement-qualifications d-flex align-items-center flex-grow-1 px-3">
+                    <%= image_tag "cscs.svg", alt: "CSCS", height: 25 %>
+                  </div>
+
+                  <div class="placement-confirm d-flex align-items-center">
+                    Confirmed
+                  </div>
+
+                </div>
+              <% end %>
+            <% else %>
+              <p class="text-center mb-0 mt-2">No confirmed placements, confirm some applicants</p>
+            <% end %>
+          </div>
+
+          <div class="applicants bg-secondary rounded pb-2">
+
+            <div class="header d-flex justify-content-between bg-info p-2">
+              <h5 class= "m-0">Applicants:</h5>
+              <p class= "m-0 badge-pill bg-success text-dark"><%= project.capacity - confirmed_placements.length %> required</p>
+            </div>
+
+            <% if !unconfirmed_placements.empty? %>
+              <% unconfirmed_placements.each do |placement| %>
+                <div class="placement_card bg-secondary py-2 px-3 d-flex">
+
+                  <div class="placement-info d-flex align-items-center border-right pr-3">
+                    <p class="m-0"><strong><%= placement.user.first_name %> <%= placement.user.last_name %></strong></p>
+                  </div>
+
+                  <div class="placement-qualifications d-flex align-items-center flex-grow-1 px-3">
+                    <%= image_tag "cscs.svg", alt: "CSCS", height: 25 %>
+                  </div>
+
+                  <div class="placement-confirm d-flex align-items-center">
+                    <%= simple_form_for([project, placement], remote: true) do |f| %>
+                      <%= f.submit "Confirm", class: "btn btn-primary" %>
+                    <% end %>
+                  </div>
+
+                </div>
+              <% end %>
+            <% else %>
+              <p class="text-center mb-0 mt-2">No confirmed placements</p>
+            <% end %>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  <% end %>
+
+  <div class="project-card card bg-transparent">
+    <button class="btn btn-secondary" id="new-project" type="button" data-toggle="collapse" data-target="#new-project-form" aria-expanded="false" aria-controls="new-project-form">
+      + Add New Project
     </button>
-    <!-- <a class="btn btn-secondary w-100" data-toggle="collapse" href="#collapse<%= project.id %>" role="button" aria-expanded="false" aria-controls="collapseExample">
-      <%= project.job_type %>
-    </a> -->
-  </p>
-  <div class="collapse mb-3 text-left" id="project<%= project.id %>">
-    <div class="project-card card-body">
-      <div class="project_details">
-        <h4><strong><%= project.job_type %></strong></h4>
-        <p><%= project.description %></p>
-      </div>
 
-      <% confirmed_placements = project.placements.select{ |p| p.confirmed } %>
-      <% unconfirmed_placements = project.placements.select{ |p| !p.confirmed } %>
-
-      <div class="confirmed bg-secondary rounded mb-3 pb-2">
-
-        <div class="header d-flex justify-content-between bg-info p-2">
-          <h5 class= "m-0">Confirmed:</h5>
-          <p class= "m-0 badge-pill bg-success text-dark"><%= confirmed_placements.length %> / <%= project.capacity %></p>
-        </div>
-
-        <% if !confirmed_placements.empty? %>
-          <% confirmed_placements.each do |placement| %>
-            <div class="placement_card bg-secondary py-2 px-3 d-flex">
-
-              <div class="placement-info d-flex align-items-center border-right pr-3">
-                <p class="m-0"><strong><%= placement.user.first_name %> <%= placement.user.last_name %></strong></p>
-              </div>
-
-              <div class="placement-qualifications d-flex align-items-center flex-grow-1 px-3">
-                <%= image_tag "cscs.svg", alt: "CSCS", height: 25 %>
-              </div>
-
-              <div class="placement-confirm d-flex align-items-center">
-                Confirmed
-              </div>
-
-            </div>
-          <% end %>
-        <% else %>
-          <p class="text-center mb-0 mt-2">No confirmed placements, confirm some applicants</p>
-        <% end %>
-      </div>
-
-      <div class="applicants bg-secondary rounded pb-2">
-
-        <div class="header d-flex justify-content-between bg-info p-2">
-          <h5 class= "m-0">Applicants:</h5>
-          <p class= "m-0 badge-pill bg-success text-dark"><%= project.capacity - confirmed_placements.length %> required</p>
-        </div>
-
-        <% if !unconfirmed_placements.empty? %>
-          <% unconfirmed_placements.each do |placement| %>
-            <div class="placement_card bg-secondary py-2 px-3 d-flex">
-
-              <div class="placement-info d-flex align-items-center border-right pr-3">
-                <p class="m-0"><strong><%= placement.user.first_name %> <%= placement.user.last_name %></strong></p>
-              </div>
-
-              <div class="placement-qualifications d-flex align-items-center flex-grow-1 px-3">
-                <%= image_tag "cscs.svg", alt: "CSCS", height: 25 %>
-              </div>
-
-              <div class="placement-confirm d-flex align-items-center">
-                <%= simple_form_for([project, placement], remote: true) do |f| %>
-                  <%= f.submit "Confirm", class: "btn btn-primary" %>
-                <% end %>
-              </div>
-
-            </div>
-          <% end %>
-        <% else %>
-          <p class="text-center mb-0 mt-2">No confirmed placements</p>
-        <% end %>
+    <div class="collapse mb-3 text-left" id="new-project-form" aria-labelledby="new-project" data-parent="#project-accordion">
+      <div class="card-body">
+        <%= render 'projects/form', site: site, project: Project.new %>
       </div>
     </div>
   </div>
-<% end %>
-
-<p>
-  <a class="btn btn-secondary w-100" data-toggle="collapse" href="#collapse-new-project" role="button" aria-expanded="false" aria-controls="collapseExample">
-  Add Another Project ✚
-  </a>
-</p>
-<div class="collapse mb-3 text-left" id="collapse-new-project">
-  <%= render 'projects/form', site: site, project: Project.new %>
 </div>
 
 

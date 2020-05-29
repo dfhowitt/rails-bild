@@ -11,6 +11,7 @@
             <% next if i == 0 %>
             <a class="list-group-item list-group-item-action" data-toggle="list" href="#site<%= site.id %>" role="tab"><%= site.name %></a>
           <% end %>
+          <a class="list-group-item list-group-item-action text-center" data-toggle="list" href="#new-site" role="tab">+ Add a new site</a>
         </div>
 
         <!-- Tab panes -->
@@ -24,6 +25,9 @@
               <%= render partial: 'site', locals: {site: site} %>
             </div>
           <% end %>
+          <div class="tab-pane fade" id="new-site" role="tabpanel">
+            <%= render 'sites/form', site: @new_site %>
+          </div>
         </div>
       </div>
 
@@ -34,25 +38,29 @@
       <p class="text-center bg-info rounded py-2 border mb-5">You do not have any sites, please create one using the form below.</p>
       <h1 class="text-center">Create a Site:</h1>
       <div class="site-form col-sm-8 offset-sm-2">
-        <%= simple_form_for(@new_site) do |f| %>
-            <%= f.input :name, input_html: { placeholder: "Enter a name for your site" } %>
-            <%= f.input :site_type,
-                  collection: ["Commercial", "Industrial", "Residential"],
-                  prompt: "-- Select the correct site type --" %>
-            <%= f.input :location, input_html: { placeholder: "Where is the site located.." } %>
-            <%= f.submit "Create Site", class: "btn btn-primary w-100"%>
-        <% end %>
+        <%= render 'sites/form', site: @new_site %>
       </div>
     <% end %>
 
   <% else %>
 
-    <div class="dashboard-search">
+    <form novalidate="novalidate" method="get" action="/projects" class="simple_form search p-3">
+    <div class="search-form-control form-group">
+      <input type="text" name="query" autocomplete="off" placeholder="Enter Postcode" tabindex="100" class="form-control string required" id="flat_address">
+      <div class="search-button">
+        <button name="button" type="submit" class="btn btn-flat">
+          <i class="fas fa-search" id="search-icon"></i> Search
+        </button>
+      </div>
+    </div>
+  </form>
+
+    <!-- <div class="dashboard-search">
       <form method="get" action="/projects" class="w-50 p-3">
         <input type="text" name="query" autocomplete="off" placeholder="Enter Postcode" tabindex="100" class="form-control" id="flat_address">
         <input type="submit" value="Search" class="btn btn-flat">
       </form>
-    </div>
+    </div> -->
 
     <ul class="nav nav-tabs">
       <li class="tab active" id="tab-placements"><a href="#">Upcoming</a></li>
