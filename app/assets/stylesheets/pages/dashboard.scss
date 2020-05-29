@@ -1,0 +1,11 @@
+.list-group .list-group-item {
+  background-color: #6c747d;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.list-group-item.active {
+  color: black;
+  background-color: $yellow;
+}

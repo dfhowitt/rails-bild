@@ -1,6 +1,6 @@
 <h1><%= site.name %></h1>
 
-<div class="accordion" id="project-accordion">
+<div class="accordion" id="project-accordion-<%= site.id %>">
   <% site.projects.each do |project| %>
 
     <div class="project-card card bg-transparent">
@@ -9,7 +9,7 @@
         <%= project.job_type %>
       </button>
 
-      <div id="project<%= project.id %>" class="collapse text-left" aria-labelledby="<%= project.job_type %>" data-parent="#project-accordion">
+      <div id="project<%= project.id %>" class="collapse text-left" aria-labelledby="<%= project.job_type %>" data-parent="#project-accordion-<%= site.id %>">
         <div class="card-body">
 
           <div class="project_details">
