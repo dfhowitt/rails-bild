@@ -3,10 +3,15 @@
 <div class="accordion" id="project-accordion-<%= site.id %>">
   <% site.projects.each do |project| %>
 
+    <% project_application_count = project.placements.select { |p| p.confirmed != true }.count %>
+
     <div class="project-card card bg-transparent">
 
       <button class="btn btn-secondary" id="<%= project.job_type %>" type="button" data-toggle="collapse" data-target="#project<%= project.id %>" aria-expanded="false" aria-controls="project <%= project.id %>">
         <%= project.job_type %>
+        <% if project_application_count > 0 %>
+          <span class= "m-0 badge-pill bg-danger text-white"><%= project_application_count %></span>
+        <% end %>
       </button>
 
       <div id="project<%= project.id %>" class="collapse text-left" aria-labelledby="<%= project.job_type %>" data-parent="#project-accordion-<%= site.id %>">
@@ -89,7 +94,7 @@
   <% end %>
 
   <div class="project-card card bg-transparent">
-    <button class="btn btn-secondary" id="new-project" type="button" data-toggle="collapse" data-target="#new-project-form" aria-expanded="false" aria-controls="new-project-form">
+    <button class="btn btn-secondary text-center" id="new-project" type="button" data-toggle="collapse" data-target="#new-project-form" aria-expanded="false" aria-controls="new-project-form">
       + Add New Project
     </button>
 
