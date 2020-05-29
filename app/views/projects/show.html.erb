@@ -1,41 +1,43 @@
 <br>
 <div class="container">
-  <h1><%= @project.job_type %>, <%= @project.site.location %></h1>
+  <% project_length = (@project.end_date - @project.start_date).to_i%>
+  <h1><%= @project.site.name %>, <%= @project.site.location%></h1>
   <div class="project-show-card d-flex">
     <div class="project-card-photo">
-      <%= cl_image_tag @project.site.photo.key, height: 200, width: 240, alt: "Company Logo" %>
+      <%= cl_image_tag @project.site.photo.key, height: 150, width: 180, alt: "Company Logo" %>
     </div>
       <div class="project-show-card-info d-flex">
-        <div class="project-show-card-info-1">
-          <% project_length = (@project.end_date - @project.start_date).to_i%>
-          <h1><%= @project.site.name %> <%= number_to_currency(@project.wage, unit: "£", precision: 0) %>/hr <!-- (<%= (project_length + 1) %> days) --></h1>
-          <h3><%= @project.site.site_type %> development</h3>
+        <div class="project-show-card-info">
+          <h1>Job Details</h1>
+          <h2><%= @project.job_type %> <%= number_to_currency(@project.wage, unit: "£", precision: 0) %>/hr </h2>
           <h4><%=@project.capacity%> spots left! </h4>
         </div>
-        <div class="project-show-card-dates">
-          <h2>Start: <%= @project.start_date %> </h2>
-          <h2>End: <%= @project.end_date %></h2>
+      <div class="project-show-card-dates">
+        <h3>Start: <%= @project.start_date %> </h3>
+        <h3>End: <%= @project.end_date %></h3>
+        <h4>
           <% if @project.autoconfirm %>
             Autoconfirm: <i class="fa fa-check" aria-hidden="true"></i>
           <% else %>
             Autoconfirm: <i class="far fa-times-circle"></i>
           <% end %>
+        </h4>
           <div class="apply-button" id="sweet-alert-apply">
             <%= simple_form_for [@project, @placement] do |f| %>
             <%= f.submit "Apply now"%>
             <% end %>
           </div>
-        </div>
       </div>
     </div>
-      <div class="project-show-card-info-2">
-        <h3>Job Description</h3>
-        <h4><%= @project.description.capitalize%></h4>
-        <p><% @project.autoconfirm %></p>
-          <% @project.id %>
-          <% @project.project_qualifications.each do |pqualification| %>
-            <p><%= pqualification.qualification.name %></p>
-          <% end %>
+  </div>
+  <div class="project-show-card-description">
+    <h3><%= @project.site.site_type %> development</h3>
+    <h5><%= @project.description.capitalize%></h5>
+    <p><% @project.autoconfirm %></p>
+      <% @project.id %>
+      <% @project.project_qualifications.each do |pqualification| %>
+    <p><%= pqualification.qualification.name %></p>
+    <% end %>
   </div>
 </div>
 

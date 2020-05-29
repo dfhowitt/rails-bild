@@ -1,12 +1,21 @@
 .project-show-card {
+  width: 1500px;
 }
 
-.project-show-card-info-1 {
+.project-show-card-info {
   height: 200px;
-  margin: 0px 120px 0px 40px
+  margin: 0px 150px 0px 20px
 }
 
-.project-show-card-info-1 img {
+.project-show-card-info h2 {
+  margin-top: 16px;
+}
+
+.project-show-card-info h4 {
+  margin-top: 16px
+}
+
+.project-show-card-info img {
   height: 20px;
   width: 20px;
 }
@@ -15,10 +24,11 @@
   text-align: right;
 }
 
-.project-show-card-info-2 {
-  margin: 30px 0px 30px 0px
+.project-show-card-dates h4 {
+  margin-top: 12px;
+  text-align: right;
 }
 
 .project-show-card-dates .apply-button {
-  margin: 10px 0px 10px 0px;
+  margin: 12px 0px 0px 0px;
 }
