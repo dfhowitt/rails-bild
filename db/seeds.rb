@@ -86,6 +86,7 @@ sites = Site.all
 
 job_types = ['Labourer', 'Skilled Labourer', 'Electrician', 'Asbestos Awareness', 'DBS Labourer']
 qualifications = ['CSCS', 'Blue CSCS (Skilled Labourer)', 'ECS', 'Asbestos Awareness', 'DBS']
+descriptions = ['Worker needed for heavy lifiting. Must have good banter to get along with the other blokes.', 'Must have good tune selection so we can shubz on site.', 'Nifty worker needed to get in to the crooks and crannies of the site. Must also like to be thrown at a bulls-eye target like in Wolf of Wall Street', 'Essex Geezer needed. Must like Stella and can down 2 pints in under 20 seconds.']
 
 sites.each do |site|
   5.times do
@@ -96,7 +97,7 @@ sites.each do |site|
       end_date: res_start_date + rand(1..10),
       wage: rand(10..20),
       capacity: rand(1..20),
-      description: Faker::Cannabis.health_benefit,
+      description: descriptions.sample,
       site_id: site.id,
       job_type: job_types[index],
       autoconfirm: [true, false].sample
