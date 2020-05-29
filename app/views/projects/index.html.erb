@@ -3,7 +3,7 @@
   <div class="dashboard-search">
     <form method="get" action="/projects" class="w-100 p-3 d-flex justify-content-between" >
 
-      <input type="text" name="query" autocomplete="off" placeholder="<%= params[:query] %>" tabindex="100" class="form-control w-25" id="#flat_address">
+      <input type="text" name="query" autocomplete="off" value="<%= params[:query] %>" tabindex="100" class="form-control w-25" id="#flat_address">
 
       <div class="filter-site-type">
         <select id="site_type" name="site_type" class="form-control h-1.9 w-500">
