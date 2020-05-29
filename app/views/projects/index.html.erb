@@ -54,7 +54,7 @@
         <% @projects.each do |project| %>
           <div class="project-card d-flex">
             <div class="project-card-photo">
-              <%= cl_image_tag project.site.photo.key, width: 150, crop: :fit%>
+              <%= cl_image_tag project.site.photo.key, width: 120, height: 120, crop: :fit%>
             </div>
             <div class="project-card-details d-flex">
               <div class="project-title">
