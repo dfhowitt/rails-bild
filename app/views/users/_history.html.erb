@@ -7,7 +7,7 @@
     <div class="application-right">
       <p>Start: <%= placement.project.start_date %></p>
       <p>End: <%= placement.project.end_date %></p>
-      <p>Wage: <%= placement.project.wage.fdiv(100) %>/hr</p>
+      <p>Wage: <%= number_to_currency(placement.project.wage, unit: "£", precision: 0) %>/hr</p>
     </div>
     <div class="application-status w-25 text-right">
         <h4>Completed</h4>

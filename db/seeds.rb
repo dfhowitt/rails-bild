@@ -86,7 +86,7 @@ sites = Site.all
 
 job_types = ['Labourer', 'Skilled Labourer', 'Electrician', 'Asbestos Awareness', 'DBS Labourer']
 qualifications = ['CSCS', 'Blue CSCS (Skilled Labourer)', 'ECS', 'Asbestos Awareness', 'DBS']
-descriptions = ['Worker needed for heavy lifiting. Must have good banter to get along with the other blokes.', 'Must have good tune selection so we can shubz on site.', 'Nifty worker needed to get in to the crooks and crannies of the site. Must also like to be thrown at a bulls-eye target like in Wolf of Wall Street', 'Essex Geezer needed. Must like Stella and can down 2 pints in under 20 seconds.']
+descriptions = ['Worker needed for heavy lifiting. Must have good banter to get along with the other blokes.', 'Must have good tune selection so we can shubz on site.', 'Must like to be thrown at a bulls-eye target like in Wolf of Wall Street', 'Essex Geezer needed. Must like Stella and can down 2 pints in under 20 seconds.']
 
 sites.each do |site|
   5.times do

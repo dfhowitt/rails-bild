@@ -1,10 +1,12 @@
 .project-show-card {
-  width: 1500px;
+  width: 100%;
 }
 
 .project-show-card-info {
   height: 200px;
-  margin: 0px 150px 0px 20px
+  margin: 0px 20px 0px 20px;
+  justify-content: space-between;
+  flex-grow: 1;
 }
 
 .project-show-card-info h2 {
@@ -20,15 +22,15 @@
   width: 20px;
 }
 
-.project-show-card-dates {
+.project-show-card-right {
   text-align: right;
 }
 
-.project-show-card-dates h4 {
+.project-show-card-right h4 {
   margin-top: 12px;
   text-align: right;
 }
 
-.project-show-card-dates .apply-button {
+.project-show-card-right .apply-button {
   margin: 12px 0px 0px 0px;
 }

@@ -1,7 +1,7 @@
 <div class="container">
 
   <div class="dashboard-search">
-    <form method="get" action="/projects" class="w-200 p-3" >
+    <form method="get" action="/projects" class="w-100 p-3 d-flex justify-content-between" >
 
       <input type="text" name="query" autocomplete="off" placeholder="<%= params[:query] %>" tabindex="100" class="form-control w-25" id="#flat_address">
 
@@ -23,7 +23,7 @@
 
       <input type="submit" value="Search" class="btn btn-flat">
         <input type="checkbox" name="autoconfirm" class="m-2" id="autoconfirm">
-        <label for="autoconfirm" class = "">Auto-confirm only</label>
+        <label for="autoconfirm" class = "m-0" style="line-height: 2;">Auto-confirm</label>
 
     </form>
   </div>
@@ -71,14 +71,18 @@
               <div class="apply-button pr-3">
                 <div class="apply-header">
                   <% project_dates = (project.start_date .. project.end_date) %>
+                  <% conflict = false %>
                   <% @confirmed_placement_dates.each do |dates| %>
                     <% dates.to_a %>
                     <% project_dates.to_a %>
                     <% if project_dates.first <= dates.last && dates.first <= project_dates.last %>
-                      <p style="color:red"> CONFLICT</p>
-                    <% else %>
-                      <p>Spots remaining: <%= project.capacity - project.placements.where(confirmed: true).count %></p>
+                      <% conflict = true %>
                     <% end %>
+                  <% end %>
+                  <% if conflict %>
+                    <p style="color:red"> CONFLICT</p>
+                  <% else %>
+                    <p>Spots remaining: <%= project.capacity - project.placements.where(confirmed: true).count %></p>
                   <% end %>
                 </div>
 
