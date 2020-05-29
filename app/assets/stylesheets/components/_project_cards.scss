@@ -10,12 +10,30 @@
   display: flex;
   align-items: center;
   margin-bottom: 5px;
+  // align-content: space-around;
+
+}
+
+.project-card-body{
+  flex-grow: 1;
 }
 
 
-
 .project-card .project-card-details {
-  padding: 16px;
+  padding: 10px;
+}
+
+.apply-button{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.project-date{
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
 }
 
 .project-card-details h2 {

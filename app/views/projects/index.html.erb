@@ -34,14 +34,14 @@
         <h2>Results for "<%= @query %>":</h2>
 
         <!-- START testing unavailable date funcationality -->
-        <p> all: <% @all_placement_dates.each do |date| %>
-                       <%= date %>
-                     <% end %>
+<!--         <p> all: <%# @all_placement_dates.each do |date| %>
+                       <%#= date %>
+                     <%# end %>
         </p>
-        <p> confirmed: <% @confirmed_placement_dates.each do |date| %>
-                       <%= date %>
-                     <% end %>
-        </p>
+        <p> confirmed: <%# @confirmed_placement_dates.each do |date| %>
+                       <%#= date %>
+                     <%# end %>
+        </p> -->
         <!-- END -->
 
         <% unless @results %>
@@ -56,38 +56,43 @@
             <div class="project-card-photo">
               <%= cl_image_tag project.site.photo.key, width: 120, height: 120, crop: :fit%>
             </div>
-            <div class="project-card-details d-flex">
-              <div class="project-title">
-                <h2><%= link_to project.job_type, project_path(project) %></h2>
-                <h6><%= project.site.location %></h6>
-                <p>Length: <%= (project.end_date - project.start_date).to_i %></p>
+            <div class="project-card-body d-flex justify-content-between">
+              <div class="project-card-details">
+                <div class="project-title">
+                  <h2><%= link_to project.job_type, project_path(project) %></h2>
+                  <h6>Start: <%= project.start_date.strftime('%a %b %d') %> </h6>
+                  <h6>End: <%=  project.end_date.strftime('%a %b %d') %> </h6>
+                  <p>Days: <%= (project.end_date - project.start_date).to_i %></p>
+                  <p><%= number_to_currency(project.wage, unit: "£", precision: 0) %> / per hour</p>
+                </div>
+                <!-- <div class="project-dates">
+                </div> -->
               </div>
-              <div class="project-dates">
-                <p>Start: <%= project.start_date.strftime('%a %b %d') %> </p>
-                <p>End: <%=  project.end_date.strftime('%a %b %d') %> </p>
+
+              <div class="apply-button pr-3">
+                <div class="apply-header">
+                  <% project_dates = (project.start_date .. project.end_date) %>
+                  <% @confirmed_placement_dates.each do |dates| %>
+                    <% dates.to_a %>
+                    <% project_dates.to_a %>
+                    <% if project_dates.first <= dates.last && dates.first <= project_dates.last %>
+                      <p style="color:red"> CONFLICT</p>
+                    <% else %>
+                      <p>Spots remaining: <%= project.capacity - project.placements.where(confirmed: true).count %></p>
+                    <% end %>
+                  <% end %>
+                </div>
+
+                <div class="button">
+                  <%= simple_form_for [project, @placement], remote: true do |f| %>
+                    <%= f.submit "Apply now", class:"btn btn-primary" %>
+                    <% if project.autoconfirm == true %>
+                      <p style="color:#ffe100">Instant Confirm!</p>
+                    <% end %>
+                  <% end %>
+                </div>
               </div>
 
-                <p><%= number_to_currency(project.wage, unit: "£", precision: 0) %> / per hour</p>
-
-            </div>
-            <div class="apply-button">
-              <% project_dates = (project.start_date .. project.end_date) %>
-              <% @confirmed_placement_dates.each do |dates| %>
-                <% dates.to_a %>
-                <% project_dates.to_a %>
-                <% if project_dates.first <= dates.last && dates.first <= project_dates.last %>
-                  <p> CONFLICT</p>
-                <% else %>
-                  <p>Spots remaining: <%= project.capacity - project.placements.where(confirmed: true).count %></p>
-                <% end %>
-              <% end %>
-
-              <%= simple_form_for [project, @placement], remote: true do |f| %>
-                <%= f.submit "Apply now" %>
-                <% if project.autoconfirm == true %>
-                  <p>Instant Confirm!</p>
-                <% end %>
-              <% end %>
             </div>
           </div>
         <% end %>
