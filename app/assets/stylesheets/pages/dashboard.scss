@@ -9,3 +9,8 @@
   color: black;
   background-color: $yellow;
 }
+
+.project-card button {
+  display: flex;
+  justify-content: space-between;
+}
