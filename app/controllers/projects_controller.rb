@@ -23,12 +23,6 @@ class ProjectsController < ApplicationController
     filter_projects_from_site(sites)
     @results = true
 
-    # return all available projects(geocoded) if nothing matches the search
-    if @projects.empty? || !query_coords
-      sites = Site.geocoded
-      filter_projects_from_site(sites)
-      @results = false
-    end
     # for filtering on index page
     if params[:"site_type"]
       @projects = @projects.select{|project| project.site.site_type == params[:"site_type"].capitalize}
@@ -45,6 +39,13 @@ class ProjectsController < ApplicationController
 
     if params[:"wage"]
       @projects = @projects.select{|project|project.wage > params[:wage].to_i}
+    end
+
+    # return all available projects(geocoded) if nothing matches the search
+    if @projects.empty? || !query_coords
+      sites = Site.geocoded
+      filter_projects_from_site(sites)
+      @results = false
     end
     # mark the map
     @markers = @projects.map do |project|
