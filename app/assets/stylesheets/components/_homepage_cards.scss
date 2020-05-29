@@ -51,12 +51,12 @@
 }
 
 .homepage-project-card {
-  height: 300px;
 
 
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+  background-color: rgba(0,0,0,0.2);
 
   // background-size: cover;
 
@@ -87,7 +87,6 @@
   }
   .bottom {
     margin-top: auto;
-    background-color: rgba(0,0,0,0.2);
     box-shadow:  0 -10px 10px rgba(0,0,0,0.2);
     p {
       line-height: 1em;
