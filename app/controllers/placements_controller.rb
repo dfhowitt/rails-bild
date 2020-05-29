@@ -5,7 +5,7 @@ class PlacementsController < ApplicationController
     @placement.project = Project.find(params[:project_id])
     @placement.confirmed = true if @placement.project.autoconfirm == true
     if @placement.save
-      redirect_to projects_path
+      redirect_to request.referrer
     end
   end
 
