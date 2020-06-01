@@ -82,9 +82,9 @@
                     <% end %>
                   </div>
 
-                  <div class="placement-confirm d-flex align-items-center">
+                  <div class="placement-confirm ml-3 d-flex align-items-center">
                     <%= simple_form_for([project, placement], remote: true) do |f| %>
-                      <%= f.submit "Reject", class: "btn btn-danger" %>
+                      <%= f.submit "Reject", class: "btn btn-danger sweet-alert-reject" %>
                     <% end %>
                   </div>
 
