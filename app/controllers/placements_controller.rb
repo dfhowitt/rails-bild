@@ -1,11 +1,12 @@
 class PlacementsController < ApplicationController
+  before_action :set_placement, only: [:destroy]
   def create
     @placement = Placement.new
     @placement.user = current_user
     @placement.project = Project.find(params[:project_id])
     @placement.confirmed = true if @placement.project.autoconfirm == true
     if @placement.save
-      redirect_to request.referrer
+      redirect_back(fallback_location: root_path)
     end
   end
 
@@ -16,5 +17,20 @@ class PlacementsController < ApplicationController
     else
       flash.now[:alert] = "Not saved."
     end
+  end
+
+  def destroy
+    @placement.destroy
+    redirect_to user_dashboard_path(current_user)
+  end
+
+  private
+
+  def placement_params
+    params.require(:placement).permit(:confirmed, :user_id, :project_id)
+  end
+
+  def set_placement
+    @placement = Placement.find(params[:id])
   end
 end

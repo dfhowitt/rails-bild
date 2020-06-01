@@ -40,9 +40,18 @@ initSweetalert('#sweet-alert-apply', {
   icon: "success"
 });
 
-// initSweetalert('#sweet-alert-delete', {
+initSweetalert('#sweet-alert-cancel', {
+  title: "Are you sure?",
+  text: "Once cancelled, you will have to re-apply!",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+
+});
+
+// initSweetalert('#sweet-alert-reject', {
 //   title: "Are you sure?",
-//   text: "Once deleted, you will not be able to recover!",
+//   text: "Once , you will not be able to recover!",
 //   icon: "warning",
 //   buttons: true,
 //   dangerMode: true,
@@ -58,6 +67,8 @@ initSweetalert('#sweet-alert-apply', {
 // });
 
 
+
+
 import { clickableCheckbox } from '../checkbox';
 
 document.addEventListener('turbolinks:load', () => {
@@ -68,7 +79,6 @@ document.addEventListener('turbolinks:load', () => {
   linkToTabs();
   initMapbox();
   initAutocomplete();
-  initMapbox();
   initSweetalert();
 });
 
