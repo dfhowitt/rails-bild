@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   def dashboard
     # if current_user.manager
       @new_site = Site.new
@@ -17,4 +18,8 @@ class UsersController < ApplicationController
       @new_qualification = UserQualification.new
     # end
   end
+
+
+
+
 end
