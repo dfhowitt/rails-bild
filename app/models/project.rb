@@ -20,4 +20,5 @@ class Project < ApplicationRecord
       errors.add(end_date, "End date cannot be earlier than the start date")
     end
   end
+
 end
