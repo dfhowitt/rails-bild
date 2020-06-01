@@ -30,6 +30,7 @@ import "bootstrap";
 // import { initSelect2 } from '../components/init_select2';
 import { clickableTabs } from '../dashboard_tabs';
 import { linkToTabs } from '../manager_dashboard';
+import { mapModalButtons } from '../worker_dashboard';
 import { initMapbox } from '../plugins/init_mapbox';
 import { initMapboxTwo } from '../plugins/init_mapbox_two';
 import { initAutocomplete } from '../plugins/init_autocomplete';
@@ -93,6 +94,7 @@ document.addEventListener('turbolinks:load', () => {
   initMapboxTwo();
   initAutocomplete();
   initSweetalert();
+  mapModalButtons();
 });
 
 
