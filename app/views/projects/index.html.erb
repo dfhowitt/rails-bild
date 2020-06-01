@@ -1,15 +1,20 @@
 <div class="container">
 
   <div class="dashboard-search">
+
+
+
+
     <form method="get" action="/projects" class="w-100 p-3 d-flex justify-content-between" >
 
       <input type="text" name="query" autocomplete="off" value="<%= params[:query] %>" tabindex="100" class="form-control w-25" id="#flat_address">
 
       <div class="filter-site-type">
         <select id="site_type" name="site_type" class="form-control h-1.9 w-500">
-          <option value="commercial">Commercial</option>
-          <option value="residential">Residential</option>
-          <option value="industrial">Industrial</option>
+          <option value=""></option>
+          <% Site::SITE_TYPES.each do |name| %>
+            <option value="<%= name %>"><%= name %></option>
+          <% end %>
         </select>
       </div>
 
@@ -24,7 +29,6 @@
       <input type="submit" value="Search" class="btn btn-flat">
         <input type="checkbox" name="autoconfirm" class="m-2" id="autoconfirm">
         <label for="autoconfirm" class = "m-0" style="line-height: 2;">Auto-confirm</label>
-
     </form>
   </div>
 

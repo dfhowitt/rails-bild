@@ -17,7 +17,7 @@ class ProjectsController < ApplicationController
     query_coords = query_geocoder_results.first&.coordinates
 
     # return sites(geocoded) that fit search
-    sites = Site.geocoded.near(@query, 50)
+    sites = Site.geocoded.near(@query, 1)
 
     # filter through the sites and push all projects with capacity that the user didn't apply into @projects
     @projects = []
@@ -25,17 +25,19 @@ class ProjectsController < ApplicationController
     @results = true
 
     # for filtering on index page
-    if params[:"site_type"]
-      @projects = @projects.select{|project| project.site.site_type == params[:"site_type"].capitalize}
+    if params[:site_type].present?
+      @projects = @projects.select do |project|
+        project.site.site_type == params[:site_type]
+      end
     end
 
     if params[:autoconfirm].present?
       @projects = @projects.select{|project| project.autoconfirm == true}
     end
 
-    if params[:"start_date"].present?
-      date = params[:"start_date"].gsub('-', ",")
-      @projects = Project.where("projects.start_date >= ?", date)
+    if params[:start_date].present?
+      # date = params[:start_date].gsub('-', ",")
+      @projects = @projects.select{|project| project.start_date > Date.parse(params[:start_date])}
     end
 
     if params[:"wage"]
