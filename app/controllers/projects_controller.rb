@@ -50,6 +50,7 @@ class ProjectsController < ApplicationController
       filter_projects_from_site(sites)
       @results = false
     end
+
     # mark the map
     @markers = @projects.map do |project|
       {
@@ -57,6 +58,7 @@ class ProjectsController < ApplicationController
         lng: project.site.longitude
       }
     end
+
     # allows for one click apply
     @placement = Placement.new
   end
@@ -159,20 +161,6 @@ class ProjectsController < ApplicationController
       end
     return @projects
   end
-
-  # returns all PENDING applications project dates
-  # def check_user_application_dates(user)
-  #   application_dates = []
-  #   unconfirmed_placements = user.placements.where(:confirmed => nil)
-  #   if unconfirmed_placements.empty?
-  #     return application_dates
-  #   else
-  #     unconfirmed_placements.each do |placement|
-  #       application_dates << (placement.project.start_date..placement.project.end_date)
-  #     end
-  #     return application_dates
-  #   end
-  # end
 end
 
 
