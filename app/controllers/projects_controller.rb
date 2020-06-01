@@ -17,14 +17,24 @@ class ProjectsController < ApplicationController
     query_coords = query_geocoder_results.first&.coordinates
 
     # return sites(geocoded) that fit search
-    sites = Site.geocoded.near(@query, 10)
+    # sites = Site.geocoded.near(@query, 10)
 
-    # filter through the sites and push all projects with capacity that the user didn't apply into @projects
-    @projects = []
-    filter_projects_from_site(sites)
-    @results = true
+    # # filter through the sites and push all projects with capacity that the user didn't apply into @projects
+    # @projects = []
 
     # for filtering on index page
+    if params[:distance].present?
+      @projects = []
+      nearby_sites = Site.geocoded.near(@query, params[:distance].to_i)
+      filter_projects_from_site(nearby_sites)
+      @results = true
+    else
+      @projects = []
+      sites = Site.geocoded.near(@query, 10)
+      filter_projects_from_site(sites)
+      @results = true
+    end
+
     if params[:site_type].present?
       @projects = @projects.select do |project|
         project.site.site_type == params[:site_type]
