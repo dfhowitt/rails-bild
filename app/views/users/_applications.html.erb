@@ -1,20 +1,25 @@
-<% @applications.each do |application| %>
-  <div class="application-card d-flex justify-content-between">
-    <div class="application-left flex-grow-1">
-      <h4><%= application.project.site.name %> - <%= application.project.site.location %> - <%= application.project.job_type %></h4>
-      <p><%= application.project.description %></p>
-    </div>
-    <div class="application-right">
-      <p>Start: <%= application.project.start_date %></p>
-      <p>End: <%= application.project.end_date %></p>
-      <p>Wage: <%= number_to_currency(application.project.wage, unit: "£", precision: 0)%>/hr</p>
-    </div>
-    <div class="application-status w-25 text-right">
-      <% if application.confirmed %>
-        <h4>Confirmed</h4>
-      <% else %>
-        <h4>Pending</h4>
-      <% end %>
+<% @applications.each_with_index do |application, i| %>
+  <div class="application-card">
+    <div class="card-body d-flex justify-content-between">
+      <div class="application-left flex-grow-1">
+        <h4><%= application.project.site.name %> - <%= application.project.site.location %> - <%= application.project.job_type %></h4>
+        <p><%= application.project.description %></p>
+        <button class="btn btn-primary map-button" data-index="<%= i %>" data-latitude="<%= application.project.site.latitude %>" data-longitude="<%= application.project.site.longitude %>">
+          Show on map
+        </button>
+      </div>
+      <div class="application-right">
+        <p>Start: <%= application.project.start_date %></p>
+        <p>End: <%= application.project.end_date %></p>
+        <p>Wage: <%= number_to_currency(application.project.wage, unit: "£", precision: 0)%>/hr</p>
+      </div>
+      <div class="application-status w-25 text-right">
+        <% if application.confirmed %>
+          <h4>Confirmed</h4>
+        <% else %>
+          <h4>Pending</h4>
+        <% end %>
+      </div>
     </div>
   </div>
   <hr>
