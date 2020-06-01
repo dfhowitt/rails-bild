@@ -31,8 +31,8 @@
                   <!-- ID for testing -->
                   <!-- <p>ID<%#= project.id %></p> -->
                   <h2><%= link_to project.job_type, project_path(project) %></h2>
-                  <h6>Start: <%= project.start_date.strftime('%a %b %d') %> </h6>
-                  <h6>End: <%=  project.end_date.strftime('%a %b %d') %> </h6>
+                  <h6>Start: <%= project.start_date.strftime('%a, %b %d') %> </h6>
+                  <h6>End: <%=  project.end_date.strftime('%a, %b %d') %> </h6>
                   <p>Days: <%= (project.end_date - project.start_date).to_i %></p>
                   <p><%= number_to_currency(project.wage, unit: "£", precision: 0) %> / per hour</p>
                 </div>
