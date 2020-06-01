@@ -33,15 +33,15 @@
         <h2>Results for "<%= @query %>":</h2>
 
         <!-- START testing unavailable date funcationality -->
-        <!-- <p> all: <%# @all_placement_dates.each do |date| %>
-                       <%#= date %>
-                     <%# end %>
+        <p> all: <% @all_placement_dates.each do |date| %>
+                       <%= date %>
+                     <% end %>
         </p>
-        <p> confirmed: <%# @confirmed_placement_dates.each do |date| %>
-                       <%#= date %>
-                     <%# end %>
-        </p> -->
-        <!-- END -->
+        <p> confirmed: <% @confirmed_placement_dates.each do |date| %>
+                       <%= date %>
+                     <% end %>
+        </p>
+        END
 
         <% unless @results %>
           <div class="">
@@ -72,7 +72,7 @@
                 <div class="apply-header">
                   <% project_dates = (project.start_date .. project.end_date) %>
                   <% conflict = false %>
-                  <% @confirmed_placement_dates.each do |dates| %>
+                  <% @all_placement_dates.each do |dates| %>
                     <% dates.to_a %>
                     <% project_dates.to_a %>
                     <% if project_dates.first <= dates.last && dates.first <= project_dates.last %>
