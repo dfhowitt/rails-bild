@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
     query_coords = query_geocoder_results.first&.coordinates
 
     # return sites(geocoded) that fit search
-    sites = Site.geocoded.near(@query, 50)
+    sites = Site.geocoded.near(@query, 10)
 
     # filter through the sites and push all projects with capacity that the user didn't apply into @projects
     @projects = []
