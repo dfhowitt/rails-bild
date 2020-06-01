@@ -1,7 +1,8 @@
 import mapboxgl from 'mapbox-gl';
 
-const initMapbox = () => {
-  const mapElement = document.getElementById('map');
+const initMapboxTwo = () => {
+  const mapElement = document.getElementById('map-2');
+  console.log(mapElement)
 
   const fitMapToMarkers = (map, markers) => {
     const bounds = new mapboxgl.LngLatBounds();
@@ -20,10 +21,10 @@ const initMapbox = () => {
     });
   };
 
-  if (mapElement) { // only build a map if there's a div#map to inject into
+  if (mapElement) { // only build a map if there's a div#map-2 to inject into
     mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;
     const map = new mapboxgl.Map({
-      container: 'map',
+      container: 'map-2',
       style: 'mapbox://styles/mapbox/streets-v10'
     });
 
@@ -39,8 +40,4 @@ const initMapbox = () => {
   }
 };
 
-
-
-
-
-export { initMapbox };
+export { initMapboxTwo}
