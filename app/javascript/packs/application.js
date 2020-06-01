@@ -68,7 +68,6 @@ document.addEventListener('turbolinks:load', () => {
   linkToTabs();
   initMapbox();
   initAutocomplete();
-  initMapbox();
   initSweetalert();
 });
 
