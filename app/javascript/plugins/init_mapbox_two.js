@@ -1,7 +1,8 @@
 import mapboxgl from 'mapbox-gl';
 
-const initMapbox = (latitude=0, longitude=0) => {
-  const mapElement = document.getElementById('map');
+const initMapboxTwo = () => {
+  const mapElement = document.getElementById('map-2');
+  console.log(mapElement)
 
   const fitMapToMarkers = (map, markers) => {
     const bounds = new mapboxgl.LngLatBounds();
@@ -20,20 +21,14 @@ const initMapbox = (latitude=0, longitude=0) => {
     });
   };
 
-  if (mapElement) { // only build a map if there's a div#map to inject into
+  if (mapElement) { // only build a map if there's a div#map-2 to inject into
     mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;
-
     const map = new mapboxgl.Map({
-      container: 'map',
+      container: 'map-2',
       style: 'mapbox://styles/mapbox/streets-v10'
     });
 
-    if (latitude || longitude) {
-      var markers = [{lat: latitude, lng: longitude}];
-    } else {
-      var markers = JSON.parse(mapElement.dataset.markers);
-    }
-
+    const markers = JSON.parse(mapElement.dataset.markers);
     markers.forEach((marker) => {
       new mapboxgl.Marker()
         .setLngLat([ marker.lng, marker.lat ])
@@ -45,8 +40,4 @@ const initMapbox = (latitude=0, longitude=0) => {
   }
 };
 
-
-
-
-
-export { initMapbox };
+export { initMapboxTwo}

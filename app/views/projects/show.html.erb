@@ -25,6 +25,7 @@
           <div class="apply-button" id="sweet-alert-apply">
             <%= simple_form_for [@project, @placement] do |f| %>
             <%= f.submit "Apply now", class: "btn btn-primary" %>
+            <%= link_to "", project_path(@project), id: "sweet-alert-apply", class: "hidden" %>
             <% end %>
           </div>
       </div>

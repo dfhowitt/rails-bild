@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     resources :placements, only: [:create, :update]
   end
 
+  resources :placements, only: [:destroy]
 
 end
 

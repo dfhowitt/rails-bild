@@ -1,40 +1,53 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+
   def index
     projects = Project.all
 
 
-    @all_placement_dates = check_user_project_dates(current_user)
-    @confirmed_placement_dates = check_user_placements(current_user)
+    @unconfirmed_placement_dates = check_user_application_dates(current_user)
+    @confirmed_placement_dates = check_user_placement_dates(current_user)
 
 
     # check search field
     @query = params[:query]
 
     # geocode search and check database for project results
-    query_geocoder_results = Geocoder.search(@query)
-    query_coords = query_geocoder_results.first&.coordinates
+    @query_geocoder_results = Geocoder.search(@query)
+    @query_coords = @query_geocoder_results.first&.coordinates
 
     # return sites(geocoded) that fit search
-    sites = Site.geocoded.near(@query, 50)
+    # sites = Site.geocoded.near(@query, 10)
 
-    # filter through the sites and push all projects with capacity that the user didn't apply into @projects
-    @projects = []
-    filter_projects_from_site(sites)
-    @results = true
+    # # filter through the sites and push all projects with capacity that the user didn't apply into @projects
+    # @projects = []
 
     # for filtering on index page
-    if params[:"site_type"]
-      @projects = @projects.select{|project| project.site.site_type == params[:"site_type"].capitalize}
+    if params[:distance].present?
+      @projects = []
+      nearby_sites = Site.geocoded.near(@query, params[:distance].to_i)
+      filter_projects_from_site(nearby_sites)
+      @results = true
+    else
+      @projects = []
+      sites = Site.geocoded.near(@query, 10)
+      filter_projects_from_site(sites)
+      @results = true
+    end
+
+    if params[:site_type].present?
+      @projects = @projects.select do |project|
+        project.site.site_type == params[:site_type]
+      end
     end
 
     if params[:autoconfirm].present?
       @projects = @projects.select{|project| project.autoconfirm == true}
     end
 
-    if params[:"start_date"].present?
-      date = params[:"start_date"].gsub('-', ",")
-      @projects = Project.where("projects.start_date >= ?", date)
+    if params[:start_date].present?
+      # date = params[:start_date].gsub('-', ",")
+      @projects = @projects.select{|project| project.start_date > Date.parse(params[:start_date])}
     end
 
     if params[:"wage"]
@@ -42,18 +55,21 @@ class ProjectsController < ApplicationController
     end
 
     # return all available projects(geocoded) if nothing matches the search
-    if @projects.empty? || !query_coords
+    if @projects.empty? || !@query_coords
       sites = Site.geocoded
       filter_projects_from_site(sites)
       @results = false
     end
+
     # mark the map
     @markers = @projects.map do |project|
       {
         lat: project.site.latitude,
-        lng: project.site.longitude
+        lng: project.site.longitude,
+        infoWindow: render_to_string(partial: "info_window", locals: { project: project })
       }
     end
+
     # allows for one click apply
     @placement = Placement.new
   end
@@ -66,8 +82,6 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new
     @site = Site.find(params[:site_id])
-
-
   end
 
   def create
@@ -91,13 +105,13 @@ class ProjectsController < ApplicationController
     else
       render 'edit'
     end
-
   end
 
   def destroy
     @project.destroy
     redirect_to user_dashboard_path(current_user)
   end
+
 
   private
 
@@ -118,27 +132,8 @@ class ProjectsController < ApplicationController
     project.capacity - confirmed
   end
 
-  # removes anythign that was already applied to
-  def filter_projects_from_site(sites)
-    sites.each do |site|
-        site.projects.each do |project|
-          unless current_user.projects.include?(project)
-            @projects << project if find_remaining_capacity(project) > 0
-          end
-        end
-      end
-    return @projects
-  end
-
-  def check_user_project_dates(user)
-    project_dates = []
-    user.projects.each do |project|
-      project_dates << (project.start_date..project.end_date)
-    end
-    return project_dates
-  end
-
-  def check_user_placements(user)
+  # returns all ACCEPTED applications project dates
+  def check_user_placement_dates(user)
     placement_dates = []
     confirmed_placements = user.placements.where(:confirmed => true)
     if confirmed_placements.empty?
@@ -151,5 +146,32 @@ class ProjectsController < ApplicationController
     end
   end
 
+  # checks if project overlaps with confirmed application
+  def project_overlaps(project)
+    confirmed_placement_dates = check_user_placement_dates(current_user)
+    project_dates = (project.start_date..project.end_date)
+    conflict = false
+    confirmed_placement_dates.each do |dates|
+      dates.to_a
+      project_dates.to_a
+      if project_dates.first <= dates.last && dates.first <= project_dates.last
+        conflict = true
+      end
+    end
+    return conflict
+  end
+
+  # removes anythign that was already applied to or that overlaps with current placement
+  def filter_projects_from_site(sites)
+    sites.each do |site|
+        site.projects.each do |project|
+          unless current_user.projects.include?(project) || project_overlaps(project)
+            @projects << project if find_remaining_capacity(project) > 0
+          end
+        end
+      end
+    return @projects
+  end
 end
+
 

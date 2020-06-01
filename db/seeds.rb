@@ -16,8 +16,7 @@ Qualification.destroy_all
 Placement.destroy_all
 User.destroy_all
 
-
-puts "creating users everything :)"
+puts "creating users"
 
 user_names = %w(Faris Chris Gus Dan)
 
@@ -50,8 +49,60 @@ User.create(
   )
 
 site_types = ['Commercial', 'Residential', 'Industrial']
-locations = ['London', 'Madrid', 'Milan', 'Rome', 'Paris']
-names = ['Vinci', 'Strata', 'Bouygues', 'MITIE', 'GallifordTry', 'Wates', 'Keller', 'Kier']
+locations = [
+  '14 Jubilee Plc, London, SW3 3TD',
+  '93 Victoria Street, London, SW1 5JL',
+  '54 Islington Park St, London, N1 1PX',
+  '54 Duncan Street, Shoreditch, LONDON, N1 8BW',
+  '4 Compton Avenue, London, N1 2XD',
+  '1 Islington Green, London, N1 2XH',
+  'The Shopping Centre, 21, Parkfield St, London, N1 0PS',
+  '17 Draycott Ave, London, SW3 3BS',
+  '17A Dean\'s Yard, London, SW1P 3PB',
+  '42 Brixton Rd, London, SW9 6BT',
+  '73 Rye Ln, London, SE15 5EX',
+  '1 Canada Square, London, E14 5AX',
+  '142 Bow Rd, London, E3 3AH',
+  '6 Keystone Crescent, London, N1 9DS',
+  '132 Caledonian Rd, London, N1 9RE',
+  '112 Holloway Rd, London, N7 8JE',
+  '35 Harley Street, London, W1G, 8QG',
+  '15 Paddington Green, London, W2 1LG',
+  '324 Kingsland Rd, London, E8 4DE',
+  '45 Blackfriars Rd, London, SE1 8NZ',
+  'Via della Lungaretta, 17, 00153, Rome',
+  'Via Portuense, 251, 00146, Rome',
+  'Borgo Santo Spirito, 9A, 00193, Rome',
+  'Via Crescenzio, 62, 00193, Rome',
+  'Piazza Campo de\' Fiori, 27, 00186, Rome',
+  'Via dei Crociferi, 22, 00187, Rome',
+  'Via Sistina, 58b, 00187, Rome',
+  'Via Lazio, 6, 00187, Rome',
+  'Via Stefano Porcari, 4, 00193, Rome',
+  'Via Cola di Rienzo, 140, 00193, Rome',
+  '194 Rue Saint-Honoré, 75001, Paris',
+  '5 Rue de Bellechasse, 75007, Paris',
+  '31 Rue de Constantine, 75007, Paris',
+  '17 Boulevard des Invalides, 75007, Paris',
+  '18 Rue de Passy, 75016, Paris',
+  '216 Boulevard Raspail, 75014, Paris',
+  '12 Rue de Presbourg, 75116, Paris',
+  '10 Rue de Saint-Sénoch, 75117, Paris',
+  '20 Rue de Penthièvre, 75008, Paris',
+  '18 Rue de Madrid, 75008, Paris',
+  '116 Campbell Parade, NSW, 2026, Sydney',
+  '17 Blair St, NSW, 2026, Sydney',
+  '17 New S Head Rd, NSW, 2030, Syndey',
+  '319 Castlereagh St, NSW, 2000, Sydney',
+  '15 Bridge St, NSW, 2000, Sydney',
+  '78 Inkerman St, VIC, 3182, Melbourne',
+  '120 Jolimont Rd, VIC, 3002, Melbourne',
+  '660 Elizabeth St, VIC, 3000, Melbourne',
+  '77 Leveson St, VIC, 3051, Melbourne',
+  '136 Exhibition St, VIC, 3000, Melbourne'
+  ]
+
+names = ['Vinci', 'Strata', 'Bouygues', 'MITIE', 'HomeServe', 'Wates', 'Morgan Sindall', 'Kier']
 site_logos_array = [
                     "https://res.cloudinary.com/daxoj4nny/image/upload/v1590582694/bild%20company%20logos/Strata-Logo_dhxbtd.jpg",
                     "https://res.cloudinary.com/daxoj4nny/image/upload/v1590580745/bild%20company%20logos/OmjnWl3__400x400_rsginw.jpg",
@@ -65,20 +116,49 @@ site_logos_array = [
 
 counter = 0
 
-names.each do |company|
-  puts "creating site #{counter}"
-  logo = URI.open(site_logos_array[counter])
+puts "creating sites"
+locations.each do |location|
   site = Site.new(
-    name: company,
+    name: names.sample,
     site_type: site_types.sample,
-    location: locations.sample,
+    location: location,
     user_id: User.first.id
     )
-
+  if site.name == 'Strata'
+    logo = URI.open(site_logos_array[0])
+  elsif site.name == 'Kier'
+    logo = URI.open(site_logos_array[1])
+  elsif site.name == 'Morgan Sindall'
+    logo = URI.open(site_logos_array[2])
+  elsif site.name == 'HomeServe'
+    logo = URI.open(site_logos_array[3])
+  elsif site.name == 'MITIE'
+    logo = URI.open(site_logos_array[4])
+  elsif site.name == 'Wates'
+    logo = URI.open(site_logos_array[5])
+  elsif site.name == 'Bouygues'
+    logo = URI.open(site_logos_array[6])
+  elsif site.name == 'Vinci'
+    logo = URI.open(site_logos_array[7])
+  end
   site.photo.attach(io: logo, filename: 'logo_pic.jpg', content_type: 'image/jpg')
   site.save
-  counter += 1
 end
+
+# names.each do |company|
+#   puts "creating site #{counter}"
+#   logo = URI.open(site_logos_array[counter])
+#   site = Site.new(
+#     name: company,
+#     site_type: site_types.sample,
+#     location: locations.sample,
+#     user_id: User.first.id
+#     )
+
+#   site.photo.attach(io: logo, filename: 'logo_pic.jpg', content_type: 'image/jpg')
+#   site.save
+#   counter += 1
+# end
 
 puts "creating projects"
 
@@ -89,7 +169,7 @@ qualifications = ['CSCS', 'Blue CSCS (Skilled Labourer)', 'ECS', 'Asbestos Aware
 descriptions = ['Worker needed for heavy lifiting. Must have good banter to get along with the other blokes.', 'Must have good tune selection so we can shubz on site.', 'Must like to be thrown at a bulls-eye target like in Wolf of Wall Street', 'Essex Geezer needed. Must like Stella and can down 2 pints in under 20 seconds.']
 
 sites.each do |site|
-  5.times do
+  rand(1..4).times do
     res_start_date = Faker::Date.forward(days: rand(1..15))
     index = rand(1..4)
     project = Project.new(
@@ -148,7 +228,7 @@ past_project = Project.new(
   end_date: history_start_date + rand(1..3),
   wage: rand(10..20),
   capacity: rand(1..20),
-  description: Faker::Cannabis.health_benefit,
+  description: descriptions.sample,
   site_id: Site.first.id,
   job_type: 'Labourer'
   )

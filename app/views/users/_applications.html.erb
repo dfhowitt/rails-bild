@@ -19,6 +19,8 @@
         <% else %>
           <h4>Pending</h4>
         <% end %>
+        <button type="button" class="btn btn-danger mt-5" id="sweet-alert-cancel" data-id="<%= application.id %>">Cancel</button>
+        <%= link_to "", placement_path(application), method: :delete, id: "delete-link-#{application.id}", class: "hidden" %>
       </div>
     </div>
   </div>

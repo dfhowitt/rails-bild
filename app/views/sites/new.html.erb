@@ -1,6 +1,6 @@
 <%= simple_form_for(@site) do |f| %>
   <%= f.input :name %>
   <%= f.input :location %>
-  <%= f.input :site_type %>
+  <%= f.input :site_type, collection: Site::SITE_TYPES %>
   <%= f.submit "Add New Project" %>
 <% end %>
