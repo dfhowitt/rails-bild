@@ -1,10 +1,11 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+
   def index
     projects = Project.all
 
 
-    @all_placement_dates = check_user_project_dates(current_user)
+    @unconfirmed_placement_dates = check_user_application_dates(current_user)
     @confirmed_placement_dates = check_user_placement_dates(current_user)
 
 
@@ -66,8 +67,6 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new
     @site = Site.find(params[:site_id])
-
-
   end
 
   def create
@@ -91,13 +90,13 @@ class ProjectsController < ApplicationController
     else
       render 'edit'
     end
-
   end
 
   def destroy
     @project.destroy
     redirect_to user_dashboard_path(current_user)
   end
+
 
   private
 
@@ -118,7 +117,7 @@ class ProjectsController < ApplicationController
     project.capacity - confirmed
   end
 
-  # returns all accepted applications project dates
+  # returns all ACCEPTED applications project dates
   def check_user_placement_dates(user)
     placement_dates = []
     confirmed_placements = user.placements.where(:confirmed => true)
@@ -159,13 +158,19 @@ class ProjectsController < ApplicationController
     return @projects
   end
 
-
-  def check_user_project_dates(user)
-    project_dates = []
-    user.projects.each do |project|
-      project_dates << (project.start_date..project.end_date)
-    end
-    return project_dates
-  end
+  # returns all PENDING applications project dates
+  # def check_user_application_dates(user)
+  #   application_dates = []
+  #   unconfirmed_placements = user.placements.where(:confirmed => nil)
+  #   if unconfirmed_placements.empty?
+  #     return application_dates
+  #   else
+  #     unconfirmed_placements.each do |placement|
+  #       application_dates << (placement.project.start_date..placement.project.end_date)
+  #     end
+  #     return application_dates
+  #   end
+  # end
 end
+
 
