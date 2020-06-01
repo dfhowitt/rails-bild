@@ -28,76 +28,23 @@
     </form>
   </div>
 
-  <div class="projects-contatiner d-flex">
-      <div class="projects-card-holder w-800">
-        <h2>Results for "<%= @query %>":</h2>
+      <ul class="nav nav-tabs">
+      <li class="tab active" id="tab-list-view"><a href="#">List View</a></li>
+      <li class="tab" id="tab-map-view"><a href="#">Map View</a></li>
+      <li class="tab" id="tab-combined-view"><a href="#">Combined View</a></li>
+    </ul>
 
-        <!-- START of testing unavailable date funcationality -->
-        <p> unconfirmed: <% @unconfirmed_placement_dates.each do |date| %>
-                       <%= date %>
-                     <% end %>
-        </p>
-        <p> confirmed: <% @confirmed_placement_dates.each do |date| %>
-                       <%= date %>
-                     <% end %>
-        </p>
-        <!-- END of testing -->
-
-        <% unless @results %>
-          <div class="">
-            <p class="no-results"><i class="fas fa-times text-danger"></i>  No results for "<%= @query %></p>
-          </div>
-          <h2>We suggest:</h2>
-        <% end %>
-
-        <% @projects.each do |project| %>
-          <div class="project-card d-flex">
-            <div class="project-card-photo">
-              <%= cl_image_tag project.site.photo.key, width: 120, height: 120, crop: :fit%>
-            </div>
-            <div class="project-card-body d-flex justify-content-between">
-              <div class="project-card-details">
-                <div class="project-title">
-                  <!-- ID for testing -->
-                  <!-- <p>ID<%#= project.id %></p> -->
-                  <h2><%= link_to project.job_type, project_path(project) %></h2>
-                  <h6>Start: <%= project.start_date.strftime('%a %b %d') %> </h6>
-                  <h6>End: <%=  project.end_date.strftime('%a %b %d') %> </h6>
-                  <p>Days: <%= (project.end_date - project.start_date).to_i %></p>
-                  <p><%= number_to_currency(project.wage, unit: "£", precision: 0) %> / per hour</p>
-                </div>
-                <!-- <div class="project-dates">
-                </div> -->
-              </div>
-
-              <div class="apply-button pr-3">
-                <div class="apply-header">
-                  <% if check_project_for_application_overlap(project) %>
-                    <p style="color:red"> Project overlaps with open applications</p>
-                  <% end %>
-                    <p>Spots remaining: <%= project.capacity - project.placements.where(confirmed: true).count %></p>
-                </div>
-
-                <div class="apply-button">
-                  <%= simple_form_for [project, @placement], remote: true do |f| %>
-                    <%= f.submit "Apply now", class:"btn btn-primary" %>
-                    <% if project.autoconfirm == true %>
-                      <p style="color:#ffe100">Instant Confirm!</p>
-                    <% end %>
-                  <% end %>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        <% end %>
+    <div class="tab-content">
+      <div class="tab-pane active" id="list-view">
+        <%= render 'card_index' %>
       </div>
-
-      <div id="map"
-       style="width: 600px; height: 100vh; position: sticky; top: 0;"
-       data-markers="<%= @markers.to_json %>"
-       data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+      <div class="tab-pane" id="map-view">
+        <%= render 'map_index' %>
       </div>
-  </div>
+      <div class="tab-pane" id="combined-view">
+        <%= render 'card_plus_map_index' %>
+      </div>
+    </div>
+
 </div>
 
