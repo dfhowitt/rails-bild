@@ -1,11 +1,12 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+
   def index
     projects = Project.all
 
 
-    @all_placement_dates = check_user_project_dates(current_user)
-    @confirmed_placement_dates = check_user_placements(current_user)
+    @unconfirmed_placement_dates = check_user_application_dates(current_user)
+    @confirmed_placement_dates = check_user_placement_dates(current_user)
 
 
     # check search field
@@ -66,8 +67,6 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new
     @site = Site.find(params[:site_id])
-
-
   end
 
   def create
@@ -91,13 +90,13 @@ class ProjectsController < ApplicationController
     else
       render 'edit'
     end
-
   end
 
   def destroy
     @project.destroy
     redirect_to user_dashboard_path(current_user)
   end
+
 
   private
 
@@ -118,27 +117,8 @@ class ProjectsController < ApplicationController
     project.capacity - confirmed
   end
 
-  # removes anythign that was already applied to
-  def filter_projects_from_site(sites)
-    sites.each do |site|
-        site.projects.each do |project|
-          unless current_user.projects.include?(project)
-            @projects << project if find_remaining_capacity(project) > 0
-          end
-        end
-      end
-    return @projects
-  end
-
-  def check_user_project_dates(user)
-    project_dates = []
-    user.projects.each do |project|
-      project_dates << (project.start_date..project.end_date)
-    end
-    return project_dates
-  end
-
-  def check_user_placements(user)
+  # returns all ACCEPTED applications project dates
+  def check_user_placement_dates(user)
     placement_dates = []
     confirmed_placements = user.placements.where(:confirmed => true)
     if confirmed_placements.empty?
@@ -151,5 +131,46 @@ class ProjectsController < ApplicationController
     end
   end
 
+  # checks if project overlaps with confirmed application
+  def project_overlaps(project)
+    confirmed_placement_dates = check_user_placement_dates(current_user)
+    project_dates = (project.start_date..project.end_date)
+    conflict = false
+    confirmed_placement_dates.each do |dates|
+      dates.to_a
+      project_dates.to_a
+      if project_dates.first <= dates.last && dates.first <= project_dates.last
+        conflict = true
+      end
+    end
+    return conflict
+  end
+
+  # removes anythign that was already applied to or that overlaps with current placement
+  def filter_projects_from_site(sites)
+    sites.each do |site|
+        site.projects.each do |project|
+          unless current_user.projects.include?(project) || project_overlaps(project)
+            @projects << project if find_remaining_capacity(project) > 0
+          end
+        end
+      end
+    return @projects
+  end
+
+  # returns all PENDING applications project dates
+  # def check_user_application_dates(user)
+  #   application_dates = []
+  #   unconfirmed_placements = user.placements.where(:confirmed => nil)
+  #   if unconfirmed_placements.empty?
+  #     return application_dates
+  #   else
+  #     unconfirmed_placements.each do |placement|
+  #       application_dates << (placement.project.start_date..placement.project.end_date)
+  #     end
+  #     return application_dates
+  #   end
+  # end
 end
+
 
