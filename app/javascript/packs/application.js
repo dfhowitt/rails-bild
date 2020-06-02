@@ -35,6 +35,7 @@ import { initMapbox } from '../plugins/init_mapbox';
 import { initMapboxTwo } from '../plugins/init_mapbox_two';
 import { initAutocomplete } from '../plugins/init_autocomplete';
 import { initSweetalert } from '../plugins/init_sweetalert';
+import { initFullCalendar } from '../plugins/init_fullcalendar';
 
 initSweetalert('#sweet-alert-apply', {
   title: "Nice job!",
@@ -106,6 +107,7 @@ document.addEventListener('turbolinks:load', () => {
   initAutocomplete();
   initSweetalert();
   mapModalButtons();
+  initFullCalendar();
 });
 
 
