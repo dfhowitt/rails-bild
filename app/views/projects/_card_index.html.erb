@@ -58,9 +58,10 @@
                     <p>Spots remaining: <%= project.capacity - project.placements.where(confirmed: true).count %></p>
                 </div>
                 <% if check_project_qualification_requirements(project) %>
-                  <div class="apply-button">
+                  <div class="apply-button" id="sweet-alert-apply">
                     <%= simple_form_for [project, @placement], remote: true do |f| %>
                       <%= f.submit "Apply now", class:"btn btn-primary" %>
+                      <%= link_to "", project_path(project), id: "sweet-alert-apply", class: "hidden" %>
                       <% if project.autoconfirm == true %>
                         <p style="color:#ffe100">Instant Confirm!</p>
                       <% end %>

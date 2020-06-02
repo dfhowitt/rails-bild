@@ -1,4 +1,6 @@
 import mapboxgl from 'mapbox-gl';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+
 
 const initMapbox = (latitude=0, longitude=0) => {
   const mapElement = document.getElementById('map');
@@ -39,6 +41,15 @@ const initMapbox = (latitude=0, longitude=0) => {
         .setLngLat([ marker.lng, marker.lat ])
         .addTo(map);
     });
+    // adds search bar to map
+    // map.addControl(new MapboxGeocoder({ accessToken: mapboxgl.accessToken,
+    //                                   mapboxgl: mapboxgl }));
+
+
+    // map.on('load', function() {
+    //   map.resize();
+    // })
+
 
     fitMapToMarkers(map, markers);
     addMarkersToMap(map, markers);
