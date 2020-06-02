@@ -1,17 +1,40 @@
 <% @past_placements.each do |placement| %>
-  <div class="application-card d-flex justify-content-between">
-    <div class="application-left flex-grow-1">
-      <h4><%= placement.project.site.name %> - <%= placement.project.site.location %> - <%= placement.project.job_type %></h4>
-      <p><%= placement.project.description %></p>
+  <div class="completed-placement bg-info rounded">
+
+    <div class="completed-placement-site d-flex justify-content-between p-2">
+
+      <div class="image-square">
+        <%= cl_image_tag placement.project.site.photo.key, width: 48, height: 48, crop: :fit%>
+      </div>
+
+      <div class="completed-placement-site-left flex-grow-1 px-2 d-flex align-items-center">
+        <h3 class="m-0"><%= placement.project.site.name %> - <%= placement.project.job_type %></h3>
+      </div>
+
+      <div class="completed-placement-site-right d-flex align-items-center">
+        <p class="mr-2"><span class="badge-pill bg-primary text-dark"><%= placement.project.start_date %></span> - <span class="badge-pill bg-primary text-dark"><%= placement.project.end_date %></span></p>
+      </div>
+
     </div>
-    <div class="application-right">
-      <p>Start: <%= placement.project.start_date %></p>
-      <p>End: <%= placement.project.end_date %></p>
-      <p>Wage: <%= number_to_currency(placement.project.wage, unit: "£", precision: 0) %>/hr</p>
+
+    <div class="completed-placement-project d-flex justify-content-between p-3">
+
+      <div class="completed-placement-left flex-grow-1">
+        <p><strong>Job Description:</strong></p>
+        <p><%= placement.project.description.capitalize %></p>
+      </div>
+
+      <div class="completed-placement-card-right rounded bg-success p-2 text-white">
+        <% days = (placement.project.end_date - placement.project.start_date).to_i %>
+        <p><span>Length:</span> <%= days %> days</p>
+        <hr>
+        <p>Wage: <%= number_to_currency(placement.project.wage, unit: "£", precision: 0) %>/hr</p>
+        <hr>
+        <p>Pay: £ <%= placement.project.wage * days * 8 %></p>
+      </div>
+
     </div>
-    <div class="application-status w-25 text-right">
-        <h4>Completed</h4>
-    </div>
+
   </div>
   <hr>
 <% end %>
