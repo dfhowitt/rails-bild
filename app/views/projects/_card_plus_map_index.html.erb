@@ -1,6 +1,6 @@
 <div class="projects-contatiner d-flex">
       <div class="projects-card-holder w-800">
-        <h2>Results for "<%= @query %>":</h2>
+        <h2>We found <%= pluralize(@projects.count, 'project') %> near "<%= @query %>":</h2>
 
         <!-- START of testing unavailable date funcationality -->
         <p> unconfirmed: <% @unconfirmed_placement_dates.each do |date| %>
@@ -15,7 +15,7 @@
 
         <% unless @results %>
           <div class="">
-            <p class="no-results"><i class="fas fa-times text-danger"></i>  No results for "<%= @query %></p>
+            <p class="no-results"><i class="fas fa-times text-danger"></i>  No projects found near "<%= @query %>"</p>
           </div>
           <h2>We suggest:</h2>
         <% end %>

@@ -1,7 +1,7 @@
-<h2>Results for "<%= @query %>":</h2>
+<h2>We found <%= pluralize(@projects.count, 'project') %> near "<%= @query %>":</h2>
 <% unless @results %>
   <div class="">
-    <p class="no-results"><i class="fas fa-times text-danger"></i>  No results for "<%= @query %></p>
+    <p class="no-results"><i class="fas fa-times text-danger"></i>  No projects found near "<%= @query %>"</p>
   </div>
   <h2>We suggest:</h2>
 <% end %>
