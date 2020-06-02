@@ -168,6 +168,12 @@ job_types = ['Labourer', 'Skilled Labourer', 'Electrician', 'Asbestos Awareness'
 qualifications = ['CSCS', 'Blue CSCS (Skilled Labourer)', 'ECS', 'Asbestos Awareness', 'DBS']
 descriptions = ['Worker needed for heavy lifiting. Must have good banter to get along with the other blokes.', 'Must have good tune selection so we can shubz on site.', 'Must like to be thrown at a bulls-eye target like in Wolf of Wall Street', 'Essex Geezer needed. Must like Stella and can down 2 pints in under 20 seconds.']
 
+qualifications.each do |qualification|
+  Qualification.create(
+    name: qualification
+    )
+end
+
 sites.each do |site|
   rand(1..4).times do
     res_start_date = Faker::Date.forward(days: rand(1..15))
@@ -183,20 +189,16 @@ sites.each do |site|
       autoconfirm: [true, false].sample
       )
     project.save
-    ProjectQualification.create(
+    pq = ProjectQualification.new(
       project_id: project.id,
-      qualification_id: qualifications[index]
+      qualification_id: Qualification.find_by(name: qualifications[index]).id
     )
+    pq.save
   end
 end
 
 puts "creating qualifications"
 
-qualifications.each do |qualification|
-  Qualification.create(
-    name: qualification
-    )
-end
 
 User.all.each do |user|
   user_qualification_css = UserQualification.new(
@@ -215,8 +217,9 @@ User.all.each do |user|
   user_qualification.save
 end
 
+
 Project.all.each do |project|
-  project_qualification = ProjectQualification.new(
+  project_qualification = ProjectQualification.create(
     project_id: project.id,
     qualification_id: Qualification.find_by(name: qualifications[0]).id
     )

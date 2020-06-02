@@ -1,6 +1,6 @@
 <div class="projects-contatiner d-flex">
       <div class="projects-card-holder w-800">
-        <h2>Results for "<%= @query %>":</h2>
+        <h2>We found <%= pluralize(@projects.count, 'project') %> near "<%= @query %>":</h2>
 
         <!-- START of testing unavailable date funcationality -->
         <p> unconfirmed: <% @unconfirmed_placement_dates.each do |date| %>
@@ -11,11 +11,16 @@
                        <%= date %>
                      <% end %>
         </p>
+
+        <p> user qualifications: <% current_user.qualifications.each do |qualification| %>
+          <%= qualification.name %>
+          <% end %>
+        </p>
         <!-- END of testing -->
 
         <% unless @results %>
           <div class="">
-            <p class="no-results"><i class="fas fa-times text-danger"></i>  No results for "<%= @query %></p>
+            <p class="no-results"><i class="fas fa-times text-danger"></i>  No projects found near "<%= @query %>"</p>
           </div>
           <h2>We suggest:</h2>
         <% end %>
@@ -26,15 +31,23 @@
               <%= cl_image_tag project.site.photo.key, width: 120, height: 120, crop: :fit%>
             </div>
             <div class="project-card-body d-flex justify-content-between">
-              <div class="project-card-details">
+              <div class="project-card-details d-flex justify-content-between">
                 <div class="project-title">
                   <!-- ID for testing -->
                   <!-- <p>ID<%#= project.id %></p> -->
-                  <h2><%= link_to project.job_type, project_path(project) %></h2>
+
+                  <h2><%= link_to project.job_type, project_path(project) %> <%= Geocoder::Calculations.distance_between(@query_coords, [project.site.latitude, project.site.longitude]).round(1)%> km away</h2>
                   <h6>Start: <%= project.start_date.strftime('%a, %b %d') %> </h6>
                   <h6>End: <%=  project.end_date.strftime('%a, %b %d') %> </h6>
+
                   <p>Days: <%= (project.end_date - project.start_date).to_i %></p>
                   <p><%= number_to_currency(project.wage, unit: "£", precision: 0) %> / per hour</p>
+                </div>
+                <div class="project-card-qualifications">
+                  <p><% project.project_qualifications.each do |pq| %>
+                    <%= pq.qualification.name %>
+                    <% end %>
+                  </p>
                 </div>
                 <!-- <div class="project-dates">
                 </div> -->
@@ -47,23 +60,27 @@
                   <% end %>
                     <p>Spots remaining: <%= project.capacity - project.placements.where(confirmed: true).count %></p>
                 </div>
-
-                <div class="apply-button">
-                  <%= simple_form_for [project, @placement], remote: true do |f| %>
-                    <%= f.submit "Apply now", class:"btn btn-primary" %>
-                    <% if project.autoconfirm == true %>
-                      <p style="color:#ffe100">Instant Confirm!</p>
+                <% if check_project_qualification_requirements(project) %>
+                  <div class="apply-button">
+                    <%= simple_form_for [project, @placement], remote: true do |f| %>
+                      <%= f.submit "Apply now", class:"btn btn-primary" %>
+                      <% if project.autoconfirm == true %>
+                        <p style="color:#ffe100">Instant Confirm!</p>
+                      <% end %>
                     <% end %>
-                  <% end %>
-                </div>
+                  </div>
+                <% else %>
+                  <div class="innactive-apply-button">
+                    <p>You don't qualify</p>
+                  </div>
+                <% end %>
               </div>
 
             </div>
           </div>
         <% end %>
       </div>
-
-      <div id="map"
+      <div id="map-2"
        style="width: 600px; height: 100vh; position:sticky; top:0;"
        data-markers="<%= @markers.to_json %>"
        data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">

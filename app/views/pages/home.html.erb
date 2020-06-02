@@ -32,22 +32,22 @@ url('<%= image_path "banner.jpg", height: 400, crop: :fill %>'); background-size
     <div class="card-category" style="width: 22rem;">
       <div class="card-body">
         <i class="fas fa-map-marked-alt"></i>
-        <h3 class="card-title">Find</h3>
+        <h3 class="card-title">Find Jobs</h3>
         <p class="card-text">We give you access to every registered building site on our database, which you can filter based on location, pay, project duration and more.</p>
       </div>
     </div>
     <div class="card-category" style="width: 22rem;">
       <div class="card-body">
         <i class="fas fa-check"></i>
-        <h3 class="card-title">Confirm</h3>
-        <p class="card-text">Confirm with a click of a button. Some sites will require an application to prove you have the necessary skills.</p>
+        <h3 class="card-title">Apply</h3>
+        <p class="card-text">One click application makes applying to jobs easier than ever before.</p>
         </div>
     </div>
     <div class="card-category" style="width: 22rem;">
       <div class="card-body">
         <i class="far fa-comments"></i>
-        <h3 class="card-title">Messaging</h3>
-        <p class="card-text">Bild has an in-built multi purpose messaging platform that will keep you up to date once you're job is confirmed.</p>
+        <h3 class="card-title">Start Working</h3>
+        <p class="card-text">Manage your workflow, earn more and see your returns, giving you more control and visibility over your jobs</p>
       </div>
     </div>
   </div>
@@ -62,7 +62,8 @@ url('<%= image_path "banner.jpg", height: 400, crop: :fill %>'); background-size
 
 <div class="grid-container">
   <div class="home-projects-grid mx-3">
-      <%@projects.each do |project|%>
+      <%recent_jobs = @projects.sample(20) %>
+      <% recent_jobs.each do |project|%>
         <%= link_to project_path(project) do %>
           <div class="homepage-project-card">
             <%= cl_image_tag project.site.photo.key %>
@@ -70,8 +71,8 @@ url('<%= image_path "banner.jpg", height: 400, crop: :fill %>'); background-size
               <div class="homepage-project-card-info">
                 <div class="bottom text-right px-2 py-1">
                   <h5><%= project.job_type %></h5>
-                  <p><%= project.capacity %> Needed · <%= project.wage %>/hr · <%=project.start_date %> - <%=project.end_date %> </p>
-                  <p><%= project.description %></p>
+                  <p><%= project.capacity %> jobs left · <%=number_to_currency(project.wage, unit: "£", precision: 0) %>/hr </p>
+                  <p><%=project.start_date.strftime('%A %e %B') %> to <%=project.end_date.strftime('%A %e %B') %></p>
                   <p><%= project.site.location %></p>
                 </div>
               </div>
