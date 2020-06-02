@@ -2,9 +2,9 @@ import places from 'places.js';
 
 const initAutocomplete = () => {
   const addressInput = document.getElementById('flat_address');
-  // if (addressInput) {
-  //   places({ container: addressInput });
-  // }
+  if (addressInput) {
+
+
   var placesAutocomplete = places({
       appId: "pl3WU9QTDZBJ",
       apiKey: "6aa3740b6243254ed30dd08dcf54f8b7",
@@ -18,6 +18,7 @@ const initAutocomplete = () => {
     }).configure({
       type: "city",
     });
+  }
 };
 
 export { initAutocomplete };
