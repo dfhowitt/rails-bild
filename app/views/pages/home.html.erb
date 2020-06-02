@@ -33,7 +33,7 @@ url('<%= image_path "banner.jpg", height: 400, crop: :fill %>'); background-size
       <div class="card-body">
         <i class="fas fa-map-marked-alt"></i>
         <h3 class="card-title">Find Jobs</h3>
-        <p class="card-text">We give you access to every registered building site on our database, which you can filter based on location, pay, project duration and more.</p>
+        <p class="card-text">We give you access to every registered building site on our database</p>
       </div>
     </div>
     <div class="card-category" style="width: 22rem;">
@@ -45,9 +45,9 @@ url('<%= image_path "banner.jpg", height: 400, crop: :fill %>'); background-size
     </div>
     <div class="card-category" style="width: 22rem;">
       <div class="card-body">
-        <i class="far fa-comments"></i>
+        <i class="fas fa-hard-hat"></i>
         <h3 class="card-title">Start Working</h3>
-        <p class="card-text">Manage your workflow, earn more and see your returns, giving you more control and visibility over your jobs</p>
+        <p class="card-text">Manage your schedule and earn more. Take back control over your workflow</p>
       </div>
     </div>
   </div>
@@ -62,7 +62,7 @@ url('<%= image_path "banner.jpg", height: 400, crop: :fill %>'); background-size
 
 <div class="grid-container">
   <div class="home-projects-grid mx-3">
-      <%recent_jobs = @projects.sample(20) %>
+      <%recent_jobs = @projects.sample(3) %>
       <% recent_jobs.each do |project|%>
         <%= link_to project_path(project) do %>
           <div class="homepage-project-card">
