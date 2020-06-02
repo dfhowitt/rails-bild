@@ -2,7 +2,6 @@ import mapboxgl from 'mapbox-gl';
 
 const initMapboxTwo = () => {
   const mapElement = document.getElementById('map-2');
-  console.log(mapElement)
 
   const fitMapToMarkers = (map, markers) => {
     const bounds = new mapboxgl.LngLatBounds();
