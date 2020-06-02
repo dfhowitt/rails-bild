@@ -11,6 +11,11 @@
                        <%= date %>
                      <% end %>
         </p>
+
+        <p> user qualifications: <% current_user.qualifications.each do |qualification| %>
+          <%= qualification.name %>
+          <% end %>
+        </p>
         <!-- END of testing -->
 
         <% unless @results %>
