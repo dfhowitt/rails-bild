@@ -11,14 +11,14 @@ import swal from 'sweetalert';
 //   }
 // }
 
-const initSweetalert = (selector, options = {}, callback ) => {
+const initSweetalert = (selector, options = {}, callback = () => {} ) => {
   const swalButtons = document.querySelectorAll(selector);
   if (swalButtons) { // protect other pages
     swalButtons.forEach((swalButton) => {
-      console.log('sweet ready')
-      const id = swalButton.dataset.id
+      console.log('sweet ready');
+      const id = swalButton.dataset.id;
       swalButton.addEventListener('click', () => {
-        swal(options).then(callback(id))
+        swal(options).then(callback(id));
       });
     });
 
