@@ -36,6 +36,8 @@ import { initMapbox } from '../plugins/init_mapbox';
 import { initMapboxTwo } from '../plugins/init_mapbox_two';
 import { initAutocomplete } from '../plugins/init_autocomplete';
 import { initFullCalendar } from '../plugins/init_fullcalendar';
+import { initSweetalert } from '../plugins/init_sweetalert';
+
 
 
 const sweetAlert = () => {
@@ -100,7 +102,6 @@ const sweetAlert = () => {
 
 
 import { clickableCheckbox } from '../checkbox';
-import { sweetAlert } from '../sweetalert';
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
@@ -112,9 +113,7 @@ document.addEventListener('turbolinks:load', () => {
   initMapboxTwo();
   initAutocomplete();
   sweetAlert();
-
   // initSweetalert();
-
   mapModalButtons();
   initFullCalendar();
 });
