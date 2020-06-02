@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   add_flash_types :info, :error, :warning, :success
-  helper_method :check_project_for_application_overlap, :check_user_application_dates
+  helper_method :check_project_for_application_overlap, :check_user_application_dates, :check_project_qualification_requirements, :check_user_qualifications
 
 
 
@@ -42,6 +42,28 @@ class ApplicationController < ActionController::Base
       end
       return conflict
     end
+  end
+
+  # returns all user qualifications
+  def check_user_qualifications(user)
+    quals = []
+    user.qualifications.each do |qualification|
+      quals << qualification.id
+    end
+    return quals
+  end
+
+  # returns true if user qualifies for project
+  def check_project_qualification_requirements(project)
+    # check each project qualification to see if it is included in the user qulifications
+    qualifies = true
+    user_quals = check_user_qualifications(current_user)
+    project.qualifications.each do |qualification|
+      unless user_quals.include?(qualification.id)
+        qualifies = false
+      end
+    end
+    return qualifies
   end
 
 end
