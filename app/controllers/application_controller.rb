@@ -4,7 +4,9 @@ class ApplicationController < ActionController::Base
   add_flash_types :info, :error, :warning, :success
   helper_method :check_project_for_application_overlap, :check_user_application_dates, :check_project_qualification_requirements, :check_user_qualifications
 
-
+  def default_url_options
+    { host: ENV["DOMAIN"] || "localhost:3000" }
+  end
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :phone_number, :manager])
