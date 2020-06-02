@@ -1,20 +1,32 @@
-<h3>Add a qualification</h3>
+<div class="qualification-form bg-info rounded p-3">
+  <h4>Add a qualification:</h4>
   <%= simple_form_for [current_user, @new_qualification] do |f| %>
-    <%= f.association :qualification %>
-    <%= f.submit "Add Qualification" %>
+    <div class="form-inline d-flex">
+      <%= f.association :qualification, label: false, input_html: {class: "w-100"}, wrapper_html: { class: 'flex-grow-1' } %>
+      <%= f.submit "Add Qualification", class: "btn btn-primary ml-2" %>
+    </div>
   <% end %>
+</div>
 
-<% @qualifications.each do |qualification| %>
-  <div class="qualification-card d-flex justify-content-between">
-    <div class="qualification-left">
-      <h4><%= qualification.qualification.name %></h4>
+<div class="qualification-grid mt-4">
+  <% @qualifications.each do |qualification| %>
+    <div class="qualification-card rounded">
+
+      <div class="qualification-card-header d-flex justify-content-between px-3 pt-2">
+        <h4><%= qualification.qualification.name %></h4>
+
+        <div class="icons">
+          <%= link_to user_qualification_path(qualification), method: :delete, data:
+            { confirm: 'Are you certain you want to delete this?' } do %>
+            <i class="fas fa-trash"></i>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="qualification-badge d-flex align-items-center justify-content-center">
+        <%= image_tag "#{qualification.qualification.name.downcase.gsub(" ", "_")}.svg", alt: "#{qualification.qualification.name} badge", class: "qualification-img" %>
+      </div>
+
     </div>
-    <div class="icons">
-      <%= link_to user_qualification_path(qualification), method: :delete, data:
-        { confirm: 'Are you certain you want to delete this?' } do %>
-        <i class="fas fa-trash"></i>
-      <% end %>
-    </div>
-  </div>
-  <hr>
-<% end %>
+  <% end %>
+</div>

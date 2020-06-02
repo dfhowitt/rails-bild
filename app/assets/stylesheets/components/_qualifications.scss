@@ -1,0 +1,23 @@
+.qualification-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 16px;
+}
+
+.qualification-card {
+  box-shadow: 0 0 10px rgba(0,0,0, 0.3);
+}
+
+.qualification-card .icons i {
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.qualification-badge {
+  height: 25vh;
+  background-color: rgba(0,0,0,0.3)
+}
+
+.qualification-img {
+  height: 100px;
+}
