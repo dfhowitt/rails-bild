@@ -8,15 +8,16 @@ class UsersController < ApplicationController
     # else
       @applications = Placement.joins(:project)
                                .where("placements.user_id = ? AND projects.start_date > ?", current_user.id, DateTime.now)
-      @application_markers = @applications.map do |application|
-        {
-          lat: application.project.site.latitude,
-          lng: application.project.site.longitude
-        }
-      end
       @placements = Placement.joins(:project)
                              .where("placements.user_id = ? AND placements.confirmed = ? AND projects.end_date > ?", current_user.id, true, DateTime.now)
                              .order("projects.start_date")
+      @placement_dates = @placements.map do |placement|
+        {
+          title: placement.project.job_type,
+          start: placement.project.start_date,
+          end: placement.project.end_date
+        }
+      end
       @past_placements = Placement.joins(:project)
                                   .where("placements.user_id = ? AND projects.end_date < ?", current_user.id, DateTime.now)
                                   .order("projects.end_date")
