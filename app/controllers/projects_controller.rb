@@ -46,12 +46,19 @@ class ProjectsController < ApplicationController
     end
 
     if params[:start_date].present?
-      # date = params[:start_date].gsub('-', ",")
       @projects = @projects.select{|project| project.start_date > Date.parse(params[:start_date])}
     end
 
-    if params[:"wage"]
+    if params[:wage].present?
       @projects = @projects.select{|project|project.wage > params[:wage].to_i}
+    end
+
+    if params[:sort_by].present?
+      if params[:sort_by] == 'wage'
+        @projects = @projects.sort_by(&params[:sort_by].to_sym).reverse
+      elsif params[:sort_by] == 'start_date'
+        @projects = @projects.sort_by(&params[:sort_by].to_sym)
+      end
     end
 
     # return all available projects(geocoded) if nothing matches the search
