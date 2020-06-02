@@ -73,7 +73,7 @@ class ProjectsController < ApplicationController
       {
         lat: project.site.latitude,
         lng: project.site.longitude,
-        infoWindow: render_to_string(partial: "info_window", locals: { project: project })
+        infoWindow: render_to_string(partial: "info_window", locals: { project: project, placement: Placement.new })
       }
     end
 
