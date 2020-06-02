@@ -1,0 +1,35 @@
+.completed-placement-site {
+  background-color: rgba(0,0,0,0.3);
+}
+
+.completed-placement-card-right hr {
+  margin: 4px;
+}
+
+.card-body, .map-button {
+  border-radius: 8px;
+}
+
+.application-card h4 {
+  width: 130px;
+  text-align: center;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.image-square {
+  height: 48px;
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-button {
+  width: 6%;
+}
+
+.map-button i {
+  font-size: 32px;
+}

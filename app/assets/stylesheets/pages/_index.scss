@@ -1,3 +1,15 @@
 // Import page-specific CSS files here.
 @import "home";
 @import "dashboard";
+
+p {
+  margin-bottom: 0;
+}
+
+.bg-green {
+  background-color: $green !important;
+}
+
+.bg-lighter-gray {
+  background-color: $lighter-gray !important;
+}

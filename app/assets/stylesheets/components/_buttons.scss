@@ -1,37 +1,37 @@
-.btn-danger {
-  color: white;
-  padding: 6px 16px;
-  border-radius: 4px;
-  font-weight: bold;
-  // background: linear-gradient(#167FFB, #0F60C4);
-  transition: background 0.3s ease;
-  border: 1px solid red;
-}
+// .btn-danger {
+//   color: white;
+//   padding: 6px 16px;
+//   border-radius: 4px;
+//   font-weight: bold;
+//   // background: linear-gradient(#167FFB, #0F60C4);
+//   transition: background 0.3s ease;
+//   border: 1px solid red;
+// }
 
-.btn-danger:hover {
-  // background: linear-gradient(#147EFF, #0F67DA);
-  color: white;
-}
-
-
-.btn-danger {
-  &.btn-reject {
-    color: white;
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-weight: bold;
-    // background: linear-gradient(#167FFB, #0F60C4);
-    transition: background 0.3s ease;
-    border: 1px solid red;
-    width: 90px;
-  }
-}
+// .btn-danger:hover {
+//   // background: linear-gradient(#147EFF, #0F67DA);
+//   color: white;
+// }
 
 
+// .btn-danger {
+//   &.btn-reject {
+//     color: white;
+//     padding: 6px 12px;
+//     border-radius: 4px;
+//     font-weight: bold;
+//     // background: linear-gradient(#167FFB, #0F60C4);
+//     transition: background 0.3s ease;
+//     border: 1px solid red;
+//     width: 90px;
+//   }
+// }
 
-.btn-danger {
-  &.btn-reject:hover {
-    // background: linear-gradient(#147EFF, #0F67DA);
-    color: white;
-  }
-}
+
+
+// .btn-danger {
+//   &.btn-reject:hover {
+//     // background: linear-gradient(#147EFF, #0F67DA);
+//     color: white;
+//   }
+// }
