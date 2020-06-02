@@ -35,24 +35,6 @@ import { initMapbox } from '../plugins/init_mapbox';
 import { initMapboxTwo } from '../plugins/init_mapbox_two';
 import { initAutocomplete } from '../plugins/init_autocomplete';
 import { initFullCalendar } from '../plugins/init_fullcalendar';
-
-
-
-
-
-// .then((willDelete) => {
-//   if (willDelete) {
-//     swal("You have succesfully deleted", {
-//       icon: "success",
-//     });
-//   } else {
-//     swal("Delete cancelled!");
-//   }
-// });
-
-
-
-
 import { clickableCheckbox } from '../checkbox';
 import { sweetAlert } from '../sweetalert';
 
@@ -69,31 +51,6 @@ document.addEventListener('turbolinks:load', () => {
   mapModalButtons();
   initFullCalendar();
 });
-
-// $( document ).on('turbolinks:load', function() {
-//   clickableCheckbox();
-//   clickableTabs();
-//   linkToTabs();
-//   initMapbox();
-//   initMapboxTwo();
-//   initAutocomplete();
-//   initSweetalert();
-//   mapModalButtons();
-//   initFullCalendar();
-// })
-  // document.addEventListener('DOMContentLoaded', () => {
-  // //the event occurred
-  // console.log('loaded')
-  //   clickableCheckbox();
-  //   clickableTabs();
-  //   linkToTabs();
-  //   initMapbox();
-  //   initMapboxTwo();
-  //   initAutocomplete();
-  //   initSweetalert();
-  //   mapModalButtons();
-  //   initFullCalendar();
-  // })
 
 
 

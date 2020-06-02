@@ -42,5 +42,15 @@ export const sweetAlert = () => {
             link.click();
             value = false
           }
+
   }});
+  // .then((willDelete) => {
+  //   if (willDelete) {
+  //     swal("You have succesfully deleted", {
+  //       icon: "success",
+  //     });
+  //   } else {
+  //     swal("Delete cancelled!");
+  //   }
+  // });
 }
