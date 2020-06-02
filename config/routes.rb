@@ -11,6 +11,9 @@ Rails.application.routes.draw do
     # get "placements", to: "users#placements"
     # get "projects", to: "users#projects"
     resources :user_qualifications, only: [:create]
+    resources :conversations do
+      resources :messages
+    end
   end
 
   resources :user_qualifications, only: [:destroy]
