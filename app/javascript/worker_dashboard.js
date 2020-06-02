@@ -19,10 +19,12 @@ const mapModalButtons = () => {
 
   const closeButton = document.querySelector(".close-modal")
 
-  closeButton.addEventListener("click", (event) => {
-    mapModalBG.classList.remove("d-flex");
-    mapModalBG.classList.add("d-none");
-  });
+  if (closeButton) {
+    closeButton.addEventListener("click", (event) => {
+      mapModalBG.classList.remove("d-flex");
+      mapModalBG.classList.add("d-none");
+    });
+  }
 }
 
 export {mapModalButtons};
