@@ -10,54 +10,51 @@
   display: flex;
   align-items: center;
   margin-bottom: 5px;
-  // align-content: space-around;
 
 }
 
 .project-card-body{
-  flex-grow: 1;
-}
-
-
-.project-card .project-card-details {
-  padding: 10px;
-}
-
-.apply-button{
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+  padding: 0 10px;
+  justify-content: space-between;
+}
+
+.project-card-details-top{
+  display: flex;
+  justify-content: space-between;
+}
+
+.project-card-project-title{
+  display: flex;
   justify-content: center;
 }
 
-
-.project-date{
+.project-card-details-center {
   display: flex;
-  flex-wrap: wrap;
-  align-content: space-between;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.project-card-details h2 {
-  font-size: 16px;
-  font-weight: bold;
-}
-.project-card-details h6 {
-  font-size: 12px;
-  font-weight: bold;
-  margin-bottom: 0px;
+.project-card-project-dates {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-.project-card-details p {
-  font-size: 12px;
-  line-height: 1.4;
-  opacity: .7;
-  margin-bottom: 0;
-  margin-top: 8px;
+
+.project-card-details-bottom {
+  display: flex;
+  justify-content: space-between;
 }
 
-.apply-button p {
-  font-size: 12px;
-  line-height: 1.4;
-  opacity: .7;
-  margin-bottom: 0;
-  margin-top: 8px;
+.project-card-project-pay-info {
+  text-align: center;
 }
+
+.project-conflict{
+
+}
+
