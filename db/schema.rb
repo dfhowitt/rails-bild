@@ -134,7 +134,7 @@ ActiveRecord::Schema.define(version: 2020_06_03_092218) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "phone_number"
-    t.boolean "manager", default: false
+    t.boolean "manager"
     t.string "first_name"
     t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true
