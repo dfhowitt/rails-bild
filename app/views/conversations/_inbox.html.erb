@@ -1,0 +1,20 @@
+<div class="ui segment">
+  <h3>Inbox</h3>
+
+  <div class="ui list">
+    <div class="item">
+      <% @conversations.each do |conversation| %>
+        <% if conversation.messages.present? %>
+          <% if conversation.worker_id == current_user.id || conversation.manager_id == current_user.id %>
+            <% if conversation.worker_id == current_user.id %>
+              <% manager = User.find(conversation.manager_id) %>
+            <% else %>
+              <% manager = User.find(conversation.worker_id) %>
+            <% end %>
+            <%= link_to manager.first_name, user_conversation_messages_path(current_user, conversation)%>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

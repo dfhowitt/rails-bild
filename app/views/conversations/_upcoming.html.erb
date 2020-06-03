@@ -1,0 +1,25 @@
+<div class="ui segment">
+  <h3>Upcoming Jobs</h3>
+  <div class="ui list">
+    <% @placements.each do |placement| %>
+    <div class="item">
+      <h2><%=placement.project.site.name%> - <%=placement.project.job_type %></h2>
+      <% if current_user.manager %>
+        <% username = placement.user.first_name + " " + placement.user.last_name%>
+        <% if placement.conversation.nil? %>
+          <%= link_to "Message the worker: #{username}", placement_conversations_path(placement), method: :post %>
+        <% else %>
+          <%= link_to "Message the worker: #{username}", user_conversation_messages_path(placement.project.site.user, placement.conversation) %>
+        <% end %>
+      <% else %>
+        <% username = placement.project.site.user.first_name + " " + placement.project.site.user.last_name %>
+        <% if placement.conversation.nil? %>
+          <%= link_to "Message the manager: #{username}", placement_conversations_path(placement), method: :post %>
+        <% else %>
+          <%= link_to "Message the manager: #{username}", user_conversation_messages_path(placement.project.site.user, placement.conversation) %>
+        <% end %>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+</div>
