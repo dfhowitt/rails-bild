@@ -11,8 +11,8 @@ Rails.application.routes.draw do
     # get "placements", to: "users#placements"
     # get "projects", to: "users#projects"
     resources :user_qualifications, only: [:create]
-    resources :conversations do
-      resources :messages
+      resources :conversations, only: [:index] do
+        resources :messages, only: [:index, :create]
     end
   end
 
@@ -26,8 +26,9 @@ Rails.application.routes.draw do
     resources :placements, only: [:create, :update]
   end
 
-  resources :placements, only: [:destroy]
-
+  resources :placements, only: [:destroy] do
+    resources :conversations, only: [:create]
+  end
 end
 
 # def dashboard
