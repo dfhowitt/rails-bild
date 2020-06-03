@@ -37,8 +37,8 @@ import { initMapboxTwo } from '../plugins/init_mapbox_two';
 import { initAutocomplete } from '../plugins/init_autocomplete';
 import { initFullCalendar } from '../plugins/init_fullcalendar';
 import { initSweetalert } from '../plugins/init_sweetalert';
-
-
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 const sweetAlert = () => {
   console.log("sweet mofo")
