@@ -11,13 +11,11 @@ const initAutocomplete = () => {
       container: addressInput,
       templates: {
         value: function(suggestion) {
-          return suggestion.name + ", " + suggestion.county + ", " + suggestion.administrative
+          return suggestion.name + ", " + suggestion.county + ", " + suggestion.administrative + ", " + suggestion.country
         }
       }
 
-    }).configure({
-      type: "city",
-    });
+    })
   }
 };
 
