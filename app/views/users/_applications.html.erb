@@ -27,8 +27,8 @@
       <%= link_to "", placement_path(application), method: :delete, id: "delete-link-#{application.id}", class: "hidden" %>
 
     </div>
-    <button class="btn btn-primary text-center map-button ml-2" data-index="<%= i %>" data-latitude="<%= application.project.site.latitude %>" data-longitude="<%= application.project.site.longitude %>">
-      <span><i class="fas fa-map-marker-alt"></i></span>
+    <button class="btn btn-primary d-flex justify-content-center align-items-center map-button ml-2" data-index="<%= i %>" data-latitude="<%= application.project.site.latitude %>" data-longitude="<%= application.project.site.longitude %>">
+      <span> <i class="fas fa-map-marker-alt"></i></span>
     </button>
   </div>
 <% end %>
