@@ -22,9 +22,13 @@ Rails.application.routes.draw do
     resources :projects, only: [:new, :create]
   end
 
+  get 'projects/map', to: "projects#map_index"
+  get 'projects/combined', to: "projects#combined_index"
+
   resources :projects, except: [:new, :create] do
     resources :placements, only: [:create, :update]
   end
+
 
   resources :placements, only: [:destroy] do
     resources :conversations, only: [:create]

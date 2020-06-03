@@ -1,58 +1,107 @@
 <div class="container">
+  <%= render 'index_header' %>
+  <div class="projects-card-holder w-800">
+    <h2>We found <%= pluralize(@projects.count, 'project') %> near "<%= @query %>":</h2>
 
-  <div class="dashboard-search">
+    <!-- START of testing unavailable date funcationality -->
+    <p> unconfirmed: <% @unconfirmed_placement_dates.each do |date| %>
+                   <%= date %>
+                 <% end %>
+    </p>
+    <p> confirmed: <% @confirmed_placement_dates.each do |date| %>
+                   <%= date %>
+                 <% end %>
+    </p>
 
-    <form method="get" action="/projects" class="w-100 p-3 d-flex justify-content-between" >
-      <input type="text" name="query" autocomplete="off" value="<%= params[:query] %>" tabindex="100" class="form-control w-25" id="£flat_address">
-      <div class="filter-distance">
-        <input type="number" name="distance" autocomplete="off" placeholder="Enter Max distance" tabindex="50" class="form-control" id="max-distance">
+    <p> user qualifications: <% current_user.qualifications.each do |qualification| %>
+      <%= qualification.name %>
+      <% end %>
+    </p>
+    <!-- END of testing -->
+
+    <% unless @results %>
+      <div class="">
+        <p class="no-results"><i class="fas fa-times text-danger"></i>  No projects found near "<%= @query %>"</p>
       </div>
-      <div class="filter-site-type">
-        <select id="site_type" name="site_type" class="form-control h-1.9 w-500">
-          <option value=""></option>
-          <% Site::SITE_TYPES.each do |name| %>
-            <option value="<%= name %>"><%= name %></option>
-          <% end %>
-        </select>
+      <h2>We suggest:</h2>
+    <% end %>
+
+    <% @projects.each do |project| %>
+      <div class="project-card bg-info d-flex">
+
+        <div class="project-card-photo">
+          <%= cl_image_tag project.site.photo.key, width: 120, height: 120, crop: :fit%>
+        </div>
+
+        <div class="project-card-body">
+
+          <div class="project-card-details-top">
+            <div class="project-card-project-title">
+              <h2><%= link_to project.job_type, project_path(project) %> - <small><i> <%= Geocoder::Calculations.distance_between(@query_coords, [project.site.latitude, project.site.longitude]).round(1)%> km away </i></small></h2>
+            </div>
+
+            <div class="project-conflict">
+              <% if check_project_for_application_overlap(project) %>
+                <p style="color:red"> Project overlaps with open applications</p>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="project-card-details-center">
+            <div class="project-card-project-dates">
+              <h6><strong>Start: </strong> <%= project.start_date.strftime('%a - %B %-d, %Y') %> </h6>
+              <h6><strong>End: </strong> <%=  project.end_date.strftime('%a - %B %-d, %Y') %> </h6>
+            </div>
+
+            <div class="project-card-project-pay-info">
+              <h5 class="mb-0"><%= number_to_currency(project.wage, unit: "£", precision: 0) %> per hour </h5>
+              <p class="mb-0">Spots remaining: <%= project.capacity - project.placements.where(confirmed: true).count %></p>
+            </div>
+
+            <% if check_project_qualification_requirements(project) %>
+              <div class="apply-button">
+                <% if project.autoconfirm == true %>
+                  <%= simple_form_for [project, @placement], remote: true do |f| %>
+                    <%= f.submit "Instant Confirm", class:"btn btn-primary" %>
+                  <% end %>
+                <% else %>
+                  <%= simple_form_for [project, @placement], remote: true do |f| %>
+                    <%= f.submit "Submit Application", class:"btn btn-primary" %>
+                  <% end %>
+                <% end %>
+              </div>
+            <% else %>
+              <div class="innactive-apply-button">
+                <i class="btn btn-warning">Qualification Needed</i>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="project-card-details-bottom">
+            <div class="project-card-project-address">
+              <%= project.site.location %>
+            </div>
+
+            <div class="project-card-qualifications">
+              <p><% project.project_qualifications.each_with_index do |pq, i| %>
+                <% if i != project.project_qualifications.size - 1 %>
+                  <%= pq.qualification.name %> +
+                <% else %>
+                  <%= pq.qualification.name %>
+                <% end %>
+              <% end %>
+              </p>
+            </div>
+          </div>
+
+          <!-- end of card body -->
+        </div>
+        <!-- end of indiidual card -->
       </div>
-
-      <div class="filter-wage">
-        <input type="number" name="wage" autocomplete="off" placeholder="Enter Minimum Wage" tabindex="100" class="form-control" id="min-wage">
-      </div>
-
-      <div class="filter-start-date">
-        <input type="date" name="start_date" autocomplete="off" placeholder="Enter Start Date" tabindex="100" class="form-control" id="start-date">
-      </div>
-
-      <input type="submit" value="Search" class="btn btn-flat">
-        <input type="checkbox" name="autoconfirm" class="m-2" id="autoconfirm">
-        <label for="autoconfirm" class = "m-0" style="line-height: 2;">Auto-confirm</label>
-
-      <select id="sort_by" name="sort_by" class="form-control h-1.9 w-500">
-        <option value=""></option>
-        <option value="wage">Wage</option>
-        <option value="start_date">Start Date</option>
-      </select>
-    </form>
+      <!-- end of iteration -->
+    <% end %>
+    <!-- end of card holder -->
   </div>
-
-      <ul class="nav nav-tabs">
-      <li class="tab active" id="tab-list-view"><a href="#">List View</a></li>
-      <li class="tab" id="tab-map-view"><a href="#">Map View</a></li>
-      <li class="tab" id="tab-combined-view"><a href="#">Combined View</a></li>
-    </ul>
-
-    <div class="tab-content">
-      <div class="tab-pane active" id="list-view">
-        <%= render 'card_index' %>
-      </div>
-      <div class="tab-pane" id="map-view">
-        <%= render 'map_index' %>
-      </div>
-      <div class="tab-pane" id="combined-view">
-        <%= render 'card_plus_map_index' %>
-      </div>
-    </div>
-
+  <!-- end of container -->
 </div>
 

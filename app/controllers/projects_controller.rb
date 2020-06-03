@@ -81,6 +81,14 @@ class ProjectsController < ApplicationController
     @placement = Placement.new
   end
 
+  def map_index
+    index
+  end
+
+  def combined_index
+    index
+  end
+
 
   def show
     @placement = Placement.new

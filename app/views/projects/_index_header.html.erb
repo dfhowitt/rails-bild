@@ -1,0 +1,39 @@
+<!-- <div class="dashboard-search"> -->
+  <form method="get" action="/projects/#{params[:active]" class="w-100 p-3" >
+
+    <div class="form-group d-flex">
+      <input type="text" name="query" autocomplete="off" value="<%= params[:query] %>" tabindex="100" class="form-control w-50" id="£flat_address">
+      <input type="number" name="distance" autocomplete="off" placeholder="Enter Max distance" tabindex="50" class="form-control" id="max-distance">
+      <input type="text" name="start_date" autocomplete="off" placeholder="Enter Start Date" tabindex="100" class="form-control" id="start-date" onfocus="(this.type='date')">
+      <input type="number" name="wage" autocomplete="off" placeholder="Enter Minimum Wage" tabindex="100" class="form-control" id="min-wage">
+    </div>
+
+    <div class="form-group d-flex">
+      <select id="site_type" name="site_type" class="form-control h-1.9 w-500">
+        <option value="" disabled selected>Site Type</option>
+        <% Site::SITE_TYPES.each do |name| %>
+          <option value="<%= name %>"><%= name %></option>
+        <% end %>
+      </select>
+        <select id="sort_by" name="sort_by" class="form-control h-1.9 w-500">
+          <option value="" disabled selected>Sort By</option>
+          <option value="wage">Wage</option>
+          <option value="start_date">Start Date</option>
+        </select>
+      <div class="form-group">
+        <input type="checkbox" name="autoconfirm" class="m-2" id="autoconfirm">
+        <label for="autoconfirm" class = "m-0" style="line-height: 2;">Auto-confirm Only</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input type="submit" value="Search" class="btn btn-flat w-100">
+    </div>
+  </form>
+<!-- </div> -->
+
+<ul class="nav nav-tabs">
+  <li class="#tab active" id="#tab-list-view"><%= link_to "Project View", projects_path %></li>
+  <li class="#tab" id="#tab-map-view"><%= link_to "Map View", projects_map_path(active: "Map")  %></li>
+  <li class="#tab" id="#tab-combined-view"><%= link_to "Combined View", projects_combined_path(active: "Combined") %></li>
+</ul>
