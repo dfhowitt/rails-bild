@@ -15,6 +15,8 @@ Site.destroy_all
 Qualification.destroy_all
 Placement.destroy_all
 User.destroy_all
+Conversation.destroy_all
+Message.destroy_all
 
 puts "creating users"
 

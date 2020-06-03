@@ -23,10 +23,6 @@ class MessagesController < ApplicationController
     @message = Message.new
     end
 
-    def new
-      @message = Message.new
-    end
-
     def create
     @message = Message.new(message_params)
     @message.conversation_id = params[:conversation_id]
