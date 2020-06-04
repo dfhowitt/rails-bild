@@ -14,7 +14,6 @@ import Swal from 'sweetalert2'
 
 const managerSweetalert = (selector, options = {}, callback = () => {} ) => {
   const swalButtons = document.querySelectorAll(selector);
-  console.log(swalButtons)
   if (swalButtons) { // protect other pages
     swalButtons.forEach((swalButton) => {
 

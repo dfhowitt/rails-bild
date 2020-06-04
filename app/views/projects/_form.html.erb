@@ -23,21 +23,17 @@
 
   <div class="form-group">
     <div class="qualification-choices">
-      <div class="qualification-choice d-flex justify-content-around mb-2">
-        <input type="checkbox" class="d-none" name="project[autoconfirm]" id="project[autoconfirm]">
-        <label for="project[autoconfirm]" class="mb-0">
-          Auto-confirm?
-          <i class="fa fa-check"></i>
-        </label>
-      </div>
+      <input type="checkbox" class="d-none" name="project[autoconfirm]" id="project[autoconfirm]">
+      <label for="project[autoconfirm]" class="mb-2 qualification-choice">
+        Auto-confirm?
+        <i class="fa fa-check mb-0"></i>
+      </label>
       <% Qualification.all.each do |qualification| %>
-        <div class="qualification-choice d-flex justify-content-around mb-2">
-          <input type="checkbox" class="d-none" value="<%= qualification.id %>" name="project[qualification_ids][]" id="project_qualification_ids_<%= qualification.id %>">
-          <label for="project_qualification_ids_<%= qualification.id %>" class="mb-0">
-            <%= qualification.name %>
-            <i class="fa fa-check"></i>
-          </label>
-        </div>
+        <input type="checkbox" class="d-none" value="<%= qualification.id %>" name="project[qualification_ids][]" id="project_qualification_ids_<%= qualification.id %>">
+        <label for="project_qualification_ids_<%= qualification.id %>" class="mb-2 align-text-bottom qualification-choice">
+          <%= qualification.name.gsub(/\(.*/, '') %>
+          <i class="fa fa-check mb-0"></i>
+        </label>
       <% end %>
     </div>
   </div>
