@@ -72,36 +72,36 @@ locations = [
   '15 Paddington Green, London, W2 1LG',
   '324 Kingsland Rd, London, E8 4DE',
   '45 Blackfriars Rd, London, SE1 8NZ',
-  'Via della Lungaretta, 17, 00153, Rome',
-  'Via Portuense, 251, 00146, Rome',
-  'Borgo Santo Spirito, 9A, 00193, Rome',
-  'Via Crescenzio, 62, 00193, Rome',
-  'Piazza Campo de\' Fiori, 27, 00186, Rome',
-  'Via dei Crociferi, 22, 00187, Rome',
-  'Via Sistina, 58b, 00187, Rome',
-  'Via Lazio, 6, 00187, Rome',
-  'Via Stefano Porcari, 4, 00193, Rome',
-  'Via Cola di Rienzo, 140, 00193, Rome',
-  '194 Rue Saint-Honoré, 75001, Paris',
-  '5 Rue de Bellechasse, 75007, Paris',
-  '31 Rue de Constantine, 75007, Paris',
-  '17 Boulevard des Invalides, 75007, Paris',
-  '18 Rue de Passy, 75016, Paris',
-  '216 Boulevard Raspail, 75014, Paris',
-  '12 Rue de Presbourg, 75116, Paris',
-  '10 Rue de Saint-Sénoch, 75117, Paris',
-  '20 Rue de Penthièvre, 75008, Paris',
-  '18 Rue de Madrid, 75008, Paris',
-  '116 Campbell Parade, NSW, 2026, Sydney',
-  '17 Blair St, NSW, 2026, Sydney',
-  '17 New S Head Rd, NSW, 2030, Syndey',
-  '319 Castlereagh St, NSW, 2000, Sydney',
-  '15 Bridge St, NSW, 2000, Sydney',
-  '78 Inkerman St, VIC, 3182, Melbourne',
-  '120 Jolimont Rd, VIC, 3002, Melbourne',
-  '660 Elizabeth St, VIC, 3000, Melbourne',
-  '77 Leveson St, VIC, 3051, Melbourne',
-  '136 Exhibition St, VIC, 3000, Melbourne'
+  '7 Ovington Square, London, SW3 1LH',
+  '23 Exhibition Rd, London, SW7 2PA',
+  '2 Pelham Plc, London, SW7 2NH',
+  '38 Parkgate Rd, London, SW11 4NW',
+  '46 St George\'s Dr, London, SW1V 4BT',
+  '32 Lupus St, London, SW1V 3DZ',
+  '3 Mercer St, London WC2H 9QN',
+  '37 Neal St, London, WC2H 9PR',
+  '28 Bury Pl, London, WC1A 2JA',
+  '363 Strand, London, WC2E 7PX',
+  '89 Stamford St, London, SE1 9NB',
+  '8a London Bridge St, London SE1 9SG',
+  '300 Kennington Rd, London, SE11 5QZ',
+  '60 Cannon St, London, EC4N 6JP',
+  '66 Queen St, London, EC4R 1EB',
+  '106 Leadenhall St, London, EC3A 4AA',
+  '17 Commercial St, London, E1 6LW',
+  '71 Old Montague St, London, E1 5NL',
+  '7 Luke St, London, EC2A 4PX',
+  '18 Bethnal Green Rd, London, E1 6GY',
+  '145 Brick Ln, London, E1 6SB',
+  '19 De Beauvoir Rd, London, N1 5SF',
+  '37 Lawford Road, London, N1 5BJ',
+  '5 Englefield Rd, London, N1 4SB',
+  '328 Liverpool Rd, London, N7 8PU',
+  '24 Corsica St, London, N5 1JY',
+  '46 Rodney Rd, London, SE17 1NA',
+  '3 Aristotle Rd, London, SW4 7UY',
+  '10 The Pavement, London SW4 0HY',
+  '103 Gunterstone Rd, London, W14 9BT',
   ]
 
 names = ['Vinci', 'Strata', 'Bouygues', 'MITIE', 'HomeServe', 'Wates', 'Morgan Sindall', 'Kier']
@@ -116,15 +116,13 @@ site_logos_array = [
                     "https://res.cloudinary.com/daxoj4nny/image/upload/v1590582694/bild%20company%20logos/vinci-construction-logo_ylz1mo.jpg"
                    ]
 
-counter = 0
-
 puts "creating sites"
-locations.each do |location|
+locations[5..-1].each do |location|
   site = Site.new(
     name: names.sample,
     site_type: site_types.sample,
     location: location,
-    user_id: User.first.id
+    user_id: User.find_by(first_name: 'Chris').id
     )
   if site.name == 'Strata'
     logo = URI.open(site_logos_array[0])
@@ -146,6 +144,35 @@ locations.each do |location|
   site.photo.attach(io: logo, filename: 'logo_pic.jpg', content_type: 'image/jpg')
   site.save
 end
+
+locations[0..4].each do |location|
+  site = Site.new(
+    name: names.sample,
+    site_type: site_types.sample,
+    location: location,
+    user_id: User.find_by(first_name: 'Faris').id
+    )
+  if site.name == 'Strata'
+    logo = URI.open(site_logos_array[0])
+  elsif site.name == 'Kier'
+    logo = URI.open(site_logos_array[1])
+  elsif site.name == 'Morgan Sindall'
+    logo = URI.open(site_logos_array[2])
+  elsif site.name == 'HomeServe'
+    logo = URI.open(site_logos_array[3])
+  elsif site.name == 'MITIE'
+    logo = URI.open(site_logos_array[4])
+  elsif site.name == 'Wates'
+    logo = URI.open(site_logos_array[5])
+  elsif site.name == 'Bouygues'
+    logo = URI.open(site_logos_array[6])
+  elsif site.name == 'Vinci'
+    logo = URI.open(site_logos_array[7])
+  end
+  site.photo.attach(io: logo, filename: 'logo_pic.jpg', content_type: 'image/jpg')
+  site.save
+end
+
 
 # names.each do |company|
 #   puts "creating site #{counter}"
@@ -176,8 +203,32 @@ qualifications.each do |qualification|
     )
 end
 
-sites.each do |site|
-  rand(1..4).times do
+faris_sites = User.find_by(first_name: 'Faris').managed_sites
+chris_sites = User.find_by(first_name: 'Chris').managed_sites
+
+chris_sites.each do |site|
+    res_start_date = Faker::Date.forward(days: rand(1..15))
+    index = rand(1..4)
+    project = Project.new(
+      start_date: res_start_date,
+      end_date: res_start_date + rand(1..10),
+      wage: rand(10..20),
+      capacity: rand(1..20),
+      description: descriptions.sample,
+      site_id: site.id,
+      job_type: job_types[index],
+      autoconfirm: [true, false].sample
+      )
+    project.save
+    pq = ProjectQualification.new(
+      project_id: project.id,
+      qualification_id: Qualification.find_by(name: qualifications[index]).id
+    )
+    pq.save
+end
+
+faris_sites.each do |site|
+  rand(2..8).times do
     res_start_date = Faker::Date.forward(days: rand(1..15))
     index = rand(1..4)
     project = Project.new(
