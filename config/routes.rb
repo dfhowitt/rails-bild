@@ -4,9 +4,11 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show] do
     get "dashboard", to: "users#dashboard"
-    # get "applications", to: "users#applications"
+    get "application", to: "users#application"
+    get "qualification", to: "users#qualification"
+    get "history", to: "users#history"
+    get "schedule", to: "users#schedule"
     # get "my_placements", to: "users#my_placements"
-    # get "qualifications", to: "users#qualifications"
     # get "sites", to: "users#sites"
     # get "placements", to: "users#placements"
     # get "projects", to: "users#projects"
