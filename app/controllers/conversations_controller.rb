@@ -14,12 +14,14 @@ class ConversationsController < ApplicationController
 
   def create
     placement = Placement.find(params[:placement_id])
-    if current_user.manager
-      @conversation = Conversation.create!(worker_id: placement.user.id, manager_id: current_user.id, placement_id: placement.id)
-    else
-      @conversation = Conversation.create!(worker_id: current_user.id, manager_id: placement.project.site.user.id, placement_id: placement.id)
+    if placement.conversation.nil?
+      if current_user.manager
+        @conversation = Conversation.create!(worker_id: placement.user.id, manager_id: current_user.id, placement_id: placement.id)
+      else
+        @conversation = Conversation.create!(worker_id: current_user.id, manager_id: placement.project.site.user.id, placement_id: placement.id)
+      end
     end
-    redirect_to user_conversation_messages_path(current_user, @conversation)
+    redirect_to user_conversation_messages_path(current_user, placement.conversation)
   end
 
   private
