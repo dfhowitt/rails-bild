@@ -5,4 +5,8 @@ class PagesController < ApplicationController
     @projects = Project.all
     @sites = Site.all
   end
+
+  def about_us
+
+  end
 end
