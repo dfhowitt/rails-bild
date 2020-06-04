@@ -16,7 +16,7 @@
       <div class="qualification-card rounded">
 
         <div class="qualification-card-header d-flex justify-content-between px-3 pt-2">
-          <h4><%= qualification.qualification.name %></h4>
+          <h4><%= qualification.qualification.name.gsub(/\(.*/, '').gsub(/Aw.*/, 'Aware') %></h4>
 
           <div class="icons">
             <%= link_to qualification_destroy_path(qualification), method: :delete, data:

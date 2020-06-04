@@ -9,6 +9,13 @@
       <h3><%= @project.site.location%></h3>
     </div>
     <div class ="project-header-right justify-content-between">
+        <h4>
+          <% if @project.autoconfirm %>
+            Autoconfirm: <i class="fa fa-check" aria-hidden="true"></i>
+          <% else %>
+            Autoconfirm: <i class="far fa-times-circle"></i>
+          <% end %>
+        </h4>
       <p><%=@project.capacity%> spots left! </p>
       <%= link_to 'Back to search', projects_path %>
     </div>
@@ -19,7 +26,6 @@
           <h3><%= @project.job_type %> <%= number_to_currency(@project.wage, unit: "£", precision: 0) %>/hr </h3>
           <h3><%= @project.site.site_type %> development</h3>
           <h5><%= @project.description.capitalize%></h5>
-          <p><% @project.autoconfirm %></p>
           <p> Qualifications needed:
           <% @project.project_qualifications.each_with_index do |pq, i| %>
             <% if i != @project.project_qualifications.size - 1 %>
@@ -32,13 +38,6 @@
       <div class="project-show-card-right">
         <h3>Start: <%= @project.start_date.strftime('%a %b %d') %> </h3>
         <h3>End: <%= @project.end_date.strftime('%a %b %d') %></h3>
-        <h4>
-          <% if @project.autoconfirm %>
-            Autoconfirm: <i class="fa fa-check" aria-hidden="true"></i>
-          <% else %>
-            Autoconfirm: <i class="far fa-times-circle"></i>
-          <% end %>
-        </h4>
           <div class="apply-button" id="sweet-alert-apply">
             <%= simple_form_for [@project, @placement] do |f| %>
             <%= f.submit "Apply now", class: "btn btn-primary" %>
