@@ -1,14 +1,39 @@
 <% @placements.each do |placement| %>
   <div class="placement-card d-flex justify-content-between">
-    <div class="placement-left">
-      <h4><%= placement.project.site.name %> - <%= placement.project.site.location %> - <%= placement.project.job_type %></h4>
-      <p><%= placement.project.description %></p>
+
+    <div class="card-body bg-info d-flex justify-content-between align-items-center p-2">
+
+      <div class="image-square bg-dark rounded">
+        <%= cl_image_tag placement.project.site.photo.key, width: 48, height: 48, crop: :fit, class: "rounded" %>
+      </div>
+
+      <!-- <div class="application-left flex-grow-1 mx-2">
+        <p><strong><%#= application.project.site.name %> - <%#= application.project.job_type %></strong></p>
+        <p><%#= application.project.site.location %></p>
+      </div> -->
+
+
+      <div class="placement-left flex-grow-1 mx-2">
+        <p class="text-primary"><strong><%= placement.project.site.name %> - <%= placement.project.job_type %></strong></p>
+        <p><%= placement.project.site.location %></p>
+      </div>
+
+      <div class="placement-date">
+        <p><%= placement.project.start_date %> - <%= placement.project.end_date %></p>
+      </div>
+
+      <h4 class="placement-card-wage border-left h-100 px-3 ml-3 mb-0 d-flex align-items-center"><strong class="text-primary"><%= number_to_currency(placement.project.wage, unit: "£", precision: 0) %><small> /hr</small></strong></h4>
+
     </div>
-    <div class="placement-right">
-      <p>Start: <%= placement.project.start_date %></p>
-      <p>End: <%= placement.project.end_date %></p>
-      <p>Wage: <%= number_to_currency(placement.project.wage, unit: "£", precision: 0) %>/hr</p>
-    </div>
+
+    <button class="btn btn-primary d-flex justify-content-center align-items-center message-button ml-2" data-latitude="<%= placement.project.site.latitude %>" data-longitude="<%= placement.project.site.longitude %>">
+      <span><i class="fas fa-comment-alt"></i></span>
+    </button>
+
+    <button class="btn btn-primary d-flex justify-content-center align-items-center map-button ml-2" data-latitude="<%= placement.project.site.latitude %>" data-longitude="<%= placement.project.site.longitude %>">
+      <span><i class="fas fa-map-marker-alt"></i></span>
+    </button>
+
   </div>
   <hr>
 <% end %>

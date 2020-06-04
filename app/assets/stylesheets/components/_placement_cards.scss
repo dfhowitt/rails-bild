@@ -6,7 +6,10 @@
   margin: 4px;
 }
 
-.card-body, .map-button {
+.card-body,
+.map-button,
+.message-button,
+.placement-card {
   border-radius: 8px;
 }
 
@@ -26,8 +29,17 @@
   justify-content: center;
 }
 
-.map-button {
+.map-button,
+.message-button {
   width: 6%;
+}
+
+.message-button i {
+  font-size: 24px;
+}
+
+.message-button span {
+  margin-top: 6px;
 }
 
 .map-button i {
