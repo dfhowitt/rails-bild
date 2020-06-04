@@ -26,9 +26,11 @@
 
     </div>
 
-    <button class="btn btn-primary d-flex justify-content-center align-items-center message-button ml-2" data-latitude="<%= placement.project.site.latitude %>" data-longitude="<%= placement.project.site.longitude %>">
-      <span><i class="fas fa-comment-alt"></i></span>
-    </button>
+    <%= link_to placement_conversations_path(placement), method: "post", class: "message-button-link ml-2" do %>
+      <button class="btn btn-primary d-flex justify-content-center align-items-center message-button w-100 h-100" data-latitude="<%= placement.project.site.latitude %>" data-longitude="<%= placement.project.site.longitude %>">
+        <span><i class="fas fa-comment-alt"></i></span>
+      </button>
+    <% end %>
 
     <button class="btn btn-primary d-flex justify-content-center align-items-center map-button ml-2" data-latitude="<%= placement.project.site.latitude %>" data-longitude="<%= placement.project.site.longitude %>">
       <span><i class="fas fa-map-marker-alt"></i></span>
