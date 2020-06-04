@@ -10,13 +10,14 @@ require 'open-uri'
 
 puts "destroying everything"
 
+Message.destroy_all
+Conversation.destroy_all
+Placement.destroy_all
 Project.destroy_all
 Site.destroy_all
 Qualification.destroy_all
-Placement.destroy_all
 User.destroy_all
-Conversation.destroy_all
-Message.destroy_all
+
 
 puts "creating users"
 
@@ -53,14 +54,16 @@ User.create(
 site_types = ['Commercial', 'Residential', 'Industrial']
 locations = [
   '14 Jubilee Plc, London, SW3 3TD',
+  '17 Draycott Ave, London, SW3 3BS',
   '93 Victoria Street, London, SW1 5JL',
+  '17A Dean\'s Yard, London, SW1P 3PB',
+  '32 Lupus St, London, SW1V 3DZ',
+  '7 Ovington Square, London, SW3 1LH',
   '54 Islington Park St, London, N1 1PX',
   '54 Duncan Street, Shoreditch, LONDON, N1 8BW',
   '4 Compton Avenue, London, N1 2XD',
   '1 Islington Green, London, N1 2XH',
   'The Shopping Centre, 21, Parkfield St, London, N1 0PS',
-  '17 Draycott Ave, London, SW3 3BS',
-  '17A Dean\'s Yard, London, SW1P 3PB',
   '42 Brixton Rd, London, SW9 6BT',
   '73 Rye Ln, London, SE15 5EX',
   '1 Canada Square, London, E14 5AX',
@@ -72,12 +75,10 @@ locations = [
   '15 Paddington Green, London, W2 1LG',
   '324 Kingsland Rd, London, E8 4DE',
   '45 Blackfriars Rd, London, SE1 8NZ',
-  '7 Ovington Square, London, SW3 1LH',
   '23 Exhibition Rd, London, SW7 2PA',
   '2 Pelham Plc, London, SW7 2NH',
   '38 Parkgate Rd, London, SW11 4NW',
   '46 St George\'s Dr, London, SW1V 4BT',
-  '32 Lupus St, London, SW1V 3DZ',
   '3 Mercer St, London WC2H 9QN',
   '37 Neal St, London, WC2H 9PR',
   '28 Bury Pl, London, WC1A 2JA',
@@ -117,7 +118,7 @@ site_logos_array = [
                    ]
 
 puts "creating sites"
-locations[5..-1].each do |location|
+locations[6..-1].each do |location|
   site = Site.new(
     name: names.sample,
     site_type: site_types.sample,
@@ -145,7 +146,7 @@ locations[5..-1].each do |location|
   site.save
 end
 
-locations[0..4].each do |location|
+locations[0..5].each do |location|
   site = Site.new(
     name: names.sample,
     site_type: site_types.sample,
