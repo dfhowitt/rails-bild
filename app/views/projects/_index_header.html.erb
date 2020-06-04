@@ -1,39 +1,64 @@
-<!-- <div class="dashboard-search"> -->
-  <form method="get" action="/projects/#{params[:active]" class="w-100 p-3" >
+<!-- selects which tab results are directed to  -->
+<% if params[:active] == "map" %>
+  <form method="get" action="/projects/map" class="w-100 p-3" >
+<% elsif params[:active] == "combined" %>
+  <form method="get" action="/projects/combined" class="w-100 p-3" >
+<% else %>
+  <form method="get" action="/projects/" class="w-100 p-3" >
+<% end %>
 
-    <div class="form-group d-flex">
-      <input type="text" name="query" autocomplete="off" value="<%= params[:query] %>" tabindex="100" class="form-control w-50" id="£flat_address">
-      <input type="number" name="distance" autocomplete="off" placeholder="Enter Max distance" tabindex="50" class="form-control" id="max-distance">
-      <input type="text" name="start_date" autocomplete="off" placeholder="Enter Start Date" tabindex="100" class="form-control" id="start-date" onfocus="(this.type='date')">
-      <input type="number" name="wage" autocomplete="off" placeholder="Enter Minimum Wage" tabindex="100" class="form-control" id="min-wage">
-    </div>
+  <div class="form-group d-flex">
+    <input type="text" name="query" autocomplete="off" value="<%= params[:query] %>" tabindex="100" class="form-control w-50" id="£flat_address">
+    <input type="number" name="distance" autocomplete="off" placeholder="Enter Max distance" tabindex="50" class="form-control" id="max-distance">
+    <input type="text" name="start_date" autocomplete="off" placeholder="Enter Start Date" tabindex="100" class="form-control" id="start-date" onfocus="(this.type='date')">
+    <input type="number" name="wage" autocomplete="off" placeholder="Enter Minimum Wage" tabindex="100" class="form-control" id="min-wage">
+  </div>
 
-    <div class="form-group d-flex">
-      <select id="site_type" name="site_type" class="form-control h-1.9 w-500">
-        <option value="" disabled selected>Site Type</option>
-        <% Site::SITE_TYPES.each do |name| %>
-          <option value="<%= name %>"><%= name %></option>
-        <% end %>
+  <div class="form-group d-flex">
+    <select id="site_type" name="site_type" class="form-control h-1.9 w-500">
+      <option value="" disabled selected>Site Type</option>
+      <% Site::SITE_TYPES.each do |name| %>
+        <option value="<%= name %>"><%= name %></option>
+      <% end %>
+    </select>
+      <select id="sort_by" name="sort_by" class="form-control h-1.9 w-500">
+        <option value="" disabled selected>Sort By</option>
+        <option value="wage">Wage</option>
+        <option value="start_date">Start Date</option>
       </select>
-        <select id="sort_by" name="sort_by" class="form-control h-1.9 w-500">
-          <option value="" disabled selected>Sort By</option>
-          <option value="wage">Wage</option>
-          <option value="start_date">Start Date</option>
-        </select>
-      <div class="form-group">
-        <input type="checkbox" name="autoconfirm" class="m-2" id="autoconfirm">
-        <label for="autoconfirm" class = "m-0" style="line-height: 2;">Auto-confirm Only</label>
-      </div>
-    </div>
-
     <div class="form-group">
-      <input type="submit" value="Search" class="btn btn-flat w-100">
+      <input type="checkbox" name="autoconfirm" class="m-2" id="autoconfirm">
+      <label for="autoconfirm" class = "m-0" style="line-height: 2;">Auto-confirm Only</label>
     </div>
-  </form>
-<!-- </div> -->
 
+    <!-- sends tab tag with search for correct active tab css display on results -->
+    <% if params[:active] == "map" %>
+      <%= hidden_field_tag :active, 'map' %>
+    <% elsif params[:active] == "combined" %>
+      <%= hidden_field_tag :active, 'combined' %>
+    <% else %>
+      <%= hidden_field_tag :active, 'list' %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <input type="submit" value="Search" class="btn btn-flat w-100">
+  </div>
+</form>
+
+<!-- selects css active tab styling based on params -->
 <ul class="nav nav-tabs">
-  <li class="#tab active" id="#tab-list-view"><%= link_to "Project View", projects_path %></li>
-  <li class="#tab" id="#tab-map-view"><%= link_to "Map View", projects_map_path(active: "Map")  %></li>
-  <li class="#tab" id="#tab-combined-view"><%= link_to "Combined View", projects_combined_path(active: "Combined") %></li>
+  <% if params[:active] == "map" %>
+    <li class="#tab" id="#tab-list-view"><%= link_to "Project View", projects_path(active: "list") %></li>
+    <li class="#tab active" id="#tab-map-view"><%= link_to "Map View", projects_map_path(active: "map")  %></li>
+    <li class="#tab" id="#tab-combined-view"><%= link_to "Combined View", projects_combined_path(active: "combined") %></li>
+  <% elsif params[:active] == "combined" %>
+    <li class="#tab" id="#tab-list-view"><%= link_to "Project View", projects_path(active: "list") %></li>
+    <li class="#tab" id="#tab-map-view"><%= link_to "Map View", projects_map_path(active: "map")  %></li>
+    <li class="#tab active" id="#tab-combined-view"><%= link_to "Combined View", projects_combined_path(active: "combined") %></li>
+  <% else %>
+    <li class="#tab active" id="#tab-list-view"><%= link_to "Project View", projects_path(active: "list") %></li>
+    <li class="#tab" id="#tab-map-view"><%= link_to "Map View", projects_map_path(active: "map")  %></li>
+    <li class="#tab" id="#tab-combined-view"><%= link_to "Combined View", projects_combined_path(active: "combined") %></li>
+  <% end %>
 </ul>
