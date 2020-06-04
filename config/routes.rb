@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :user_qualifications, only: [:destroy]
+  resources :user_qualifications, only: [:destroy], as: :qualification_destroy
 
   resources :sites, except: [:index] do
     resources :projects, only: [:new, :create]
