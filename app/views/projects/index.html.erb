@@ -10,22 +10,6 @@
       <h2>Additional options:</h2>
     <% end %>
 
-    <!-- START of testing unavailable date funcationality -->
-    <p> unconfirmed: <% @unconfirmed_placement_dates.each do |date| %>
-                   <%= date %>
-                 <% end %>
-    </p>
-    <p> confirmed: <% @confirmed_placement_dates.each do |date| %>
-                   <%= date %>
-                 <% end %>
-    </p>
-
-    <p> user qualifications: <% current_user.qualifications.each do |qualification| %>
-      <%= qualification.name %>
-      <% end %>
-    </p>
-    <!-- END of testing -->
-
     <% @projects.each do |project| %>
       <div class="project-card bg-info d-flex justify-content-between align-items-center mb-2 p-2">
 
