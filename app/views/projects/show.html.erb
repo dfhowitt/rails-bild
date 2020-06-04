@@ -20,10 +20,14 @@
           <h3><%= @project.site.site_type %> development</h3>
           <h5><%= @project.description.capitalize%></h5>
           <p><% @project.autoconfirm %></p>
-          <p>Qualifications needed: <% @project.project_qualifications.each do |pqualification| %>
-            <%= pqualification.qualification.name %>
+          <p> Qualifications needed:
+          <% @project.project_qualifications.each_with_index do |pq, i| %>
+            <% if i != @project.project_qualifications.size - 1 %>
+              <%= pq.qualification.name %> +
+            <% else %>
+              <%= pq.qualification.name %>
             <% end %>
-            </p>
+          <% end %></p>
         </div>
       <div class="project-show-card-right">
         <h3>Start: <%= @project.start_date.strftime('%a %b %d') %> </h3>
