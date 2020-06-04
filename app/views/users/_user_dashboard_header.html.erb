@@ -1,0 +1,52 @@
+<form novalidate="novalidate" method="get" action="/projects" class="simple_form search p-3">
+<div class="search-form-control form-group">
+  <input type="text" name="query" autocomplete="off" placeholder="Enter Postcode" tabindex="100" class="form-control string required" id="flat_address">
+  <div class="search-button">
+    <button name="button" type="submit" class="btn btn-flat">
+      <i class="fas fa-search" id="search-icon"></i> Search
+    </button>
+  </div>
+</div>
+</form>
+
+<!-- <div class="dashboard-search">
+  <form method="get" action="/projects" class="w-50 p-3">
+    <input type="text" name="query" autocomplete="off" placeholder="Enter Postcode" tabindex="100" class="form-control" id="flat_address">
+    <input type="submit" value="Search" class="btn btn-flat">
+  </form>
+</div> -->
+
+<ul class="nav nav-tabs">
+  <% if params[:active] == "schedule" %>
+    <li class="#tab" id="#tab-placements"><%= link_to "Upcoming", user_dashboard_path(current_user, active: "upcoming") %></li>
+    <li class="#tab active" id="#tab-schedule"><%= link_to "Schedule", user_dashboard_path(current_user, active: "schedule") %></li>
+    <li class="#tab" id="#tab-applications"><%= link_to "Applications", user_dashboard_path(current_user, active: "applications") %></li>
+    <li class="#tab" id="#tab-history"><%= link_to "History", user_dashboard_path(current_user, active: "history") %></li>
+    <li class="#tab" id="#tab-qualifications"><%= link_to "User Qualifications", user_dashboard_path(current_user, active: "qualifications") %></li>
+  <% elsif params[:active] == "applications" %>
+    <li class="#tab" id="#tab-placements"><%= link_to "Upcoming", user_dashboard_path(current_user, active: "upcoming") %></li>
+    <li class="#tab" id="#tab-schedule"><%= link_to "Schedule", user_dashboard_path(current_user, active: "schedule") %></li>
+    <li class="#tab active" id="#tab-applications"><%= link_to "Applications", user_dashboard_path(current_user, active: "applications") %></li>
+    <li class="#tab" id="#tab-history"><%= link_to "History", user_dashboard_path(current_user, active: "history") %></li>
+    <li class="#tab" id="#tab-qualifications"><%= link_to "User Qualifications", user_dashboard_path(current_user, active: "qualifications") %></li>
+  <% elsif params[:active] == "history" %>
+    <li class="#tab" id="#tab-placements"><%= link_to "Upcoming", user_dashboard_path(current_user, active: "upcoming") %></li>
+    <li class="#tab" id="#tab-schedule"><%= link_to "Schedule", user_dashboard_path(current_user, active: "schedule") %></li>
+    <li class="#tab" id="#tab-applications"><%= link_to "Applications", user_dashboard_path(current_user, active: "applications") %></li>
+    <li class="#tab active" id="#tab-history"><%= link_to "History", user_dashboard_path(current_user, active: "history") %></li>
+    <li class="#tab" id="#tab-qualifications"><%= link_to "User Qualifications", user_dashboard_path(current_user, active: "qualifications") %></li>
+  <% elsif params[:active] == "qualifications" %>
+    <li class="#tab" id="#tab-placements"><%= link_to "Upcoming", user_dashboard_path(current_user, active: "upcoming") %></li>
+    <li class="#tab" id="#tab-schedule"><%= link_to "Schedule", user_dashboard_path(current_user, active: "schedule") %></li>
+    <li class="#tab" id="#tab-applications"><%= link_to "Applications", user_dashboard_path(current_user, active: "applications") %></li>
+    <li class="#tab" id="#tab-history"><%= link_to "History", user_dashboard_path(current_user, active: "history") %></li>
+    <li class="#tab active" id="#tab-qualifications"><%= link_to "User Qualifications", user_dashboard_path(current_user, active: "qualifications") %></li>
+  <% else %>
+    <li class="#tab active" id="#tab-placements"><%= link_to "Upcoming", user_dashboard_path(current_user, active: "upcoming") %></li>
+    <li class="#tab" id="#tab-schedule"><%= link_to "Schedule", user_dashboard_path(current_user, active: "schedule") %></li>
+    <li class="#tab" id="#tab-applications"><%= link_to "Applications", user_dashboard_path(current_user, active: "applications") %></li>
+    <li class="#tab" id="#tab-history"><%= link_to "History", user_dashboard_path(current_user, active: "history") %></li>
+    <li class="#tab" id="#tab-qualifications"><%= link_to "User Qualifications", user_dashboard_path(current_user, active: "qualifications") %></li>
+  <% end %>
+</ul>
+

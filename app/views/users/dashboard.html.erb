@@ -68,49 +68,22 @@
 
   <% else %>
 
-    <form novalidate="novalidate" method="get" action="/projects" class="simple_form search p-3">
-    <div class="search-form-control form-group">
-      <input type="text" name="query" autocomplete="off" placeholder="Enter Postcode" tabindex="100" class="form-control string required" id="flat_address">
-      <div class="search-button">
-        <button name="button" type="submit" class="btn btn-flat">
-          <i class="fas fa-search" id="search-icon"></i> Search
-        </button>
-      </div>
-    </div>
-  </form>
+    <%= render 'user_dashboard_header' %>
 
-    <!-- <div class="dashboard-search">
-      <form method="get" action="/projects" class="w-50 p-3">
-        <input type="text" name="query" autocomplete="off" placeholder="Enter Postcode" tabindex="100" class="form-control" id="flat_address">
-        <input type="submit" value="Search" class="btn btn-flat">
-      </form>
-    </div> -->
-
-    <ul class="nav nav-tabs">
-      <li class="tab active" id="tab-placements"><a href="#">Upcoming</a></li>
-      <li class="tab" id="tab-schedule"><a href="#">Schedule</a></li>
-      <li class="tab" id="tab-applications"><a href="#">Applications</a></li>
-      <li class="tab" id="tab-history"><a href="#">History</a></li>
-      <li class="tab" id="tab-qualifications"><a href="#">Your Qualifications</a></li>
-    </ul>
-
-    <div class="tab-content">
-      <div class="tab-pane active" id="placements">
-        <%= render 'placements' %>
+    <% @placements.each do |placement| %>
+      <div class="placement-card d-flex justify-content-between">
+        <div class="placement-left">
+          <h4><%= placement.project.site.name %> - <%= placement.project.site.location %> - <%= placement.project.job_type %></h4>
+          <p><%= placement.project.description %></p>
+        </div>
+        <div class="placement-right">
+          <p>Start: <%= placement.project.start_date %></p>
+          <p>End: <%= placement.project.end_date %></p>
+          <p>Wage: <%= number_to_currency(placement.project.wage, unit: "£", precision: 0) %>/hr</p>
+        </div>
       </div>
-      <div class="tab-pane" id="schedule">
-        <%= render 'schedule' %>
-      </div>
-      <div class="tab-pane" id="applications">
-        <%= render 'applications' %>
-      </div>
-      <div class="tab-pane" id="history">
-        <%= render 'history' %>
-      </div>
-      <div class="tab-pane" id="qualifications">
-        <%= render 'qualifications' %>
-      </div>
-    </div>
+      <hr>
+    <% end %>
 
   <% end %>
 </div>
