@@ -1,5 +1,6 @@
 class PlacementsController < ApplicationController
   before_action :set_placement, only: [:destroy]
+  skip_before_action :verify_authenticity_token, :only => [:update]
   def create
     @placement = Placement.new
     @placement.user = current_user

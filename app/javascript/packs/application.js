@@ -37,35 +37,36 @@ import { initMapboxTwo } from '../plugins/init_mapbox_two';
 import { initAutocomplete } from '../plugins/init_autocomplete';
 import { initFullCalendar } from '../plugins/init_fullcalendar';
 import { initSweetalert } from '../plugins/init_sweetalert';
+import { managerSweetalert } from '../plugins/manager_sweetalert';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
-const sweetAlert = () => {
-  console.log("sweet mofo")
-  initSweetalert('#sweet-alert-apply', {
-    title: "Nice job!",
-    text: "You have successfully applied",
-    icon: "success"
-  });
+// const sweetAlert = () => {
+//   // console.log("sweet mofo")
+//   // initSweetalert('#sweet-alert-apply', {
+//   //   title: "Nice job!",
+//   //   text: "You have successfully applied",
+//   //   icon: "success"
+//   // });
 
-  initSweetalert('#sweet-alert-cancel', {
-    title: "Are you sure?",
-    text: "Once cancelled, you will have to re-apply!",
-    icon: "warning",
-    buttons: true,
-    dangerMode: true,
+  // initSweetalert('#sweet-alert-reject', {
+  //   title: "Are you sure?",
+  //   text: "Once cancelled, you will have to re-apply!",
+  //   icon: "warning",
+  //   buttons: true,
+  //   dangerMode: true,
 
-  }, (id) => {
-     console.log(id)
-     return (value) => {
-          console.log(value)
-          if (value) {
-            const link = document.querySelector(`#delete-link-${id}`);
-            link.click();
-            value = false
-          }
-  }});
-}
+//   }, (id) => {
+//      console.log(id)
+//      return (value) => {
+//           console.log(value)
+//           if (value) {
+//             const link = document.querySelector(`#delete-link-${id}`);
+//             link.click();
+//             value = false
+//           }
+//   }});
+// }
 
 import { clickableCheckbox } from '../checkbox';
 
@@ -78,8 +79,9 @@ document.addEventListener('turbolinks:load', () => {
   initMapbox();
   initMapboxTwo();
   initAutocomplete();
-  sweetAlert();
-  // initSweetalert();
+  // sweetAlert();
+  initSweetalert('.sweet-alert-cancel');
+  managerSweetalert('.sweet-alert-reject');
   mapModalButtons();
   initFullCalendar();
 });
