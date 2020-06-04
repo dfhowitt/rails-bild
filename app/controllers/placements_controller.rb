@@ -25,7 +25,8 @@ class PlacementsController < ApplicationController
 
   def destroy
     @placement.destroy
-    redirect_to user_dashboard_path(current_user)
+    # redirect_to user_dashboard_path(current_user)
+    redirect_back(fallback_location: root_path)
   end
 
   private
