@@ -12,7 +12,7 @@ import Swal from 'sweetalert2'
 //   }
 // }
 
-const initSweetalert = (selector, options = {}, callback = () => {} ) => {
+const managerSweetalert = (selector, options = {}, callback = () => {} ) => {
   const swalButtons = document.querySelectorAll(selector);
   console.log(swalButtons)
   if (swalButtons) { // protect other pages
@@ -25,26 +25,26 @@ const initSweetalert = (selector, options = {}, callback = () => {} ) => {
         // swal(options).then(callback(id));
         Swal.fire({
           title: 'Are you sure?',
-          text: 'Once cancelled you will have to re-apply!',
+          text: 'This applicant will be rejected from this placement!',
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonText: 'Yes, cancel',
+          confirmButtonText: 'Yes, reject',
           cancelButtonText: 'No, keep it'
         }).then((result) => {
           if (result.value) {
             console.log(result)
             console.log(result.value)
             if (result.value) {
-              const link = document.querySelector(`#delete-link-${id}`);
+              const link = document.querySelector(`#reject-${id}`);
               setTimeout(function() {
-              link.click();
+              link.submit();
 
               }, 1500 );
 
             }
             Swal.fire(
-              'Cancelled!',
-              'This work placement has been cancelled',
+              'Rejected!',
+              'This application has been rejected',
               'success'
             )
           // For more information about handling dismissals please visit
@@ -52,7 +52,7 @@ const initSweetalert = (selector, options = {}, callback = () => {} ) => {
           } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire(
               'Aborted!',
-              'This work placement has NOT been cancelled',
+              'This application has NOT been rejected',
               'error'
             )
           }
@@ -65,4 +65,5 @@ const initSweetalert = (selector, options = {}, callback = () => {} ) => {
   };
 };
 
-export { initSweetalert };
+export { managerSweetalert };
+

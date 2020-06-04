@@ -23,7 +23,7 @@
         <h4 class="badge-pill bg-secondary text-white py-2 mx-3 mb-0">Pending</h4>
       <% end %>
 
-      <button type="button" class="bg-transparent text-white border-0 pl-0" id="sweet-alert-cancel" data-id="<%= application.id %>">Cancel</button>
+      <button type="button" class="bg-transparent sweet-alert-cancel text-white border-0 pl-0" data-id="<%= application.id %>">Cancel</button>
       <%= link_to "", placement_path(application), method: :delete, id: "delete-link-#{application.id}", class: "hidden" %>
 
     </div>
