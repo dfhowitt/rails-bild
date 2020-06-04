@@ -1,3 +1,39 @@
+.item a:hover {
+  text-decoration: none;
+}
+
+.inbox-card-all {
+  border-radius: 5px;
+}
+
 .inbox-card {
   margin-bottom: 16px;
+  & a:hover {
+    text-decoration: none;
+    background-color: rgba(0,0,0,0.2);
+  }
 }
+
+.inbox-card-content {
+  padding: 10px 0px 10px 0px;
+}
+
+.inbox-card-top {
+  background-color: rgba(0,0,0,0.3);
+  color: $lighter-gray;
+  border-radius: 5px 5px 0px 0px;
+}
+
+.inbox-card-top-right {
+  text-align: right;
+}
+
+.inbox-card-top-left h2 span {
+  font-size: 22px;
+}
+
+.inbox-card a {
+  color: $lighter-gray;
+  background-color: rgba(0,0,0,0.2);
+}
+
