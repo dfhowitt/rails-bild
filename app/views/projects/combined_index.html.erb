@@ -1,8 +1,9 @@
 <div class="container">
   <%= render 'index_header' %>
+</div>
 
-  <div class="projects-contatiner d-flex">
-    <div class="projects-card-holder w-800">
+  <div class="projects-container d-flex">
+    <div class="projects-card-holder mx-3">
       <% if @results %>
           <h2>We found <%= pluralize(@projects.count, 'project') %> near "<%= @query %>":</h2>
       <% else %>
@@ -11,76 +12,69 @@
         </div>
         <h2>Additional options:</h2>
       <% end %>
-      <!-- START of testing unavailable date funcationality -->
-      <p> unconfirmed: <% @unconfirmed_placement_dates.each do |date| %>
-                     <%= date %>
-                   <% end %>
-      </p>
-      <p> confirmed: <% @confirmed_placement_dates.each do |date| %>
-                     <%= date %>
-                   <% end %>
-      </p>
-
-      <p> user qualifications: <% current_user.qualifications.each do |qualification| %>
-        <%= qualification.name %>
-        <% end %>
-      </p>
-      <!-- END of testing -->
 
       <% @projects.each do |project| %>
-        <div class="project-card d-flex">
-          <div class="project-card-photo">
-            <%= cl_image_tag project.site.photo.key, width: 120, height: 120, crop: :fit%>
-          </div>
-          <div class="project-card-body d-flex justify-content-between">
-            <div class="project-card-details d-flex justify-content-between">
-              <div class="project-title">
-                <!-- ID for testing -->
-                <!-- <p>ID<%#= project.id %></p> -->
+      <div class="project-card bg-info d-flex justify-content-between align-items-center mb-2 p-2">
 
-                <h2><%= link_to project.job_type, project_path(project) %> <%= Geocoder::Calculations.distance_between(@query_coords, [project.site.latitude, project.site.longitude]).round(1)%> km away</h2>
-                <h6>Start: <%= project.start_date.strftime('%a, %b %d') %> </h6>
-                <h6>End: <%=  project.end_date.strftime('%a, %b %d') %> </h6>
+        <div class="project-card-photo bg-dark rounded d-flex align-items-center">
+          <%= cl_image_tag project.site.photo.key, width: 72, height: 72, crop: :fit, class: "rounded" %>
+        </div>
 
-                <p>Days: <%= (project.end_date - project.start_date).to_i %></p>
-                <p><%= number_to_currency(project.wage, unit: "£", precision: 0) %> / per hour</p>
-              </div>
-              <div class="project-card-qualifications">
-                <p><% project.project_qualifications.each do |pq| %>
-                  <%= pq.qualification.name %>
-                  <% end %>
-                </p>
-              </div>
-              <!-- <div class="project-dates">
-              </div> -->
-            </div>
+        <div class="project-card-details flex-grow-1 mx-2">
 
-            <div class="apply-button pr-3">
-              <div class="apply-header">
-                <% if check_project_for_application_overlap(project) %>
-                  <p style="color:red"> Project overlaps with open applications</p>
-                <% end %>
-                  <p>Spots remaining: <%= project.capacity - project.placements.where(confirmed: true).count %></p>
-              </div>
-              <% if check_project_qualification_requirements(project) %>
-                <div class="apply-button">
-                  <%= simple_form_for [project, @placement], remote: true do |f| %>
-                    <%= f.submit "Apply now", class:"btn btn-primary" %>
-                    <% if project.autoconfirm == true %>
-                      <p style="color:#ffe100">Instant Confirm!</p>
-                    <% end %>
-                  <% end %>
-                </div>
+          <p><strong><%= link_to project.job_type, project_path(project) %></strong> - <small><i> <%= Geocoder::Calculations.distance_between(@query_coords, [project.site.latitude, project.site.longitude]).round(1)%> km away </i></small></p>
+
+          <p>
+            <% project.project_qualifications.each_with_index do |pq, i| %>
+              <% if i != project.project_qualifications.size - 1 %>
+                <%= pq.qualification.name %> +
               <% else %>
-                <div class="innactive-apply-button">
-                  <p>You don't qualify</p>
-                </div>
+                <%= pq.qualification.name %>
+              <% end %>
+            <% end %>
+          </p>
+
+          <% if check_project_for_application_overlap(project) %>
+            <p style="color:red"> Project overlaps with open applications</p>
+          <% end %>
+
+        </div>
+
+        <div class="project-card-project-pay-info border-right align-self-stretch d-flex mr-3 pr-3 align-items-end justify-content-between">
+          <p><%= project.start_date %></p>
+          <p><%= project.end_date %></p>
+          <div class="flex-grow-1"></div>
+          <h5 class="mb-0 text-primary"><%= number_to_currency(project.wage, unit: "£", precision: 0) %> /hr </h5>
+        </div>
+
+        <div class="project-card-right-combined text-center">
+
+          <% if check_project_qualification_requirements(project) %>
+            <div class="apply-button">
+              <% if project.autoconfirm == true %>
+                <%= simple_form_for [project, @placement], remote: true do |f| %>
+                  <%= f.submit "Instant Confirm", class:"btn btn-primary w-100" %>
+                <% end %>
+              <% else %>
+                <%= simple_form_for [project, @placement], remote: true do |f| %>
+                  <%= f.submit "Submit Application", class:"btn btn-primary w-100" %>
+                <% end %>
               <% end %>
             </div>
+          <% else %>
+            <div class="apply-button inactive">
+              <div class="bg-secondary rounded py-2 w-100">Qualification Needed</div>
+            </div>
+          <% end %>
 
-          </div>
+          <p class="mb-0"><%= project.capacity - project.placements.where(confirmed: true).count %> spots remaining</p>
+
+          <!-- end of card body -->
         </div>
-      <% end %>
+        <!-- end of indiidual card -->
+      </div>
+      <!-- end of iteration -->
+    <% end %>
     </div>
 
     <div id="map-2"
@@ -90,4 +84,3 @@
     </div>
 
   </div>
-</div>

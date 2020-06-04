@@ -19,12 +19,16 @@
 
 .project-card-project-pay-info {
   text-align: center;
-  border-right: 1px white solid;
+  // border-right: 1px white solid;
   flex-direction: column;
 }
 
 .project-card-right {
   width: 20%;
+}
+
+.project-card-right-combined {
+  width: 22%;
 }
 
 // .apply-button .btn {
