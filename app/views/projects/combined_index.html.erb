@@ -3,8 +3,14 @@
 
   <div class="projects-contatiner d-flex">
     <div class="projects-card-holder w-800">
-      <h2>We found <%= pluralize(@projects.count, 'project') %> near "<%= @query %>":</h2>
-
+      <% if @results %>
+          <h2>We found <%= pluralize(@projects.count, 'project') %> near "<%= @query %>":</h2>
+      <% else %>
+        <div class="">
+          <p class="no-results"><i class="fas fa-times text-danger"></i>  No projects found near "<%= @query %>"</p>
+        </div>
+        <h2>Additional options:</h2>
+      <% end %>
       <!-- START of testing unavailable date funcationality -->
       <p> unconfirmed: <% @unconfirmed_placement_dates.each do |date| %>
                      <%= date %>
@@ -20,13 +26,6 @@
         <% end %>
       </p>
       <!-- END of testing -->
-
-      <% unless @results %>
-        <div class="">
-          <p class="no-results"><i class="fas fa-times text-danger"></i>  No projects found near "<%= @query %>"</p>
-        </div>
-        <h2>We suggest:</h2>
-      <% end %>
 
       <% @projects.each do |project| %>
         <div class="project-card d-flex">
