@@ -1,11 +1,12 @@
 <div class="container">
   <%= render 'index_header' %>
-  <h2>We found <%= pluralize(@projects.count, 'project') %> near "<%= @query %>":</h2>
-  <% unless @results %>
+  <% if @results %>
+      <h2>We found <%= pluralize(@projects.count, 'project') %> near "<%= @query %>":</h2>
+  <% else %>
     <div class="">
       <p class="no-results"><i class="fas fa-times text-danger"></i>  No projects found near "<%= @query %>"</p>
     </div>
-    <h2>We suggest:</h2>
+    <h2>Additional options:</h2>
   <% end %>
 
 
