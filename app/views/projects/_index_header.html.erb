@@ -15,19 +15,19 @@
   </div>
 
   <div class="form-group d-flex">
-    <select id="site_type" name="site_type" class="form-control h-1.9 w-500">
+    <select id="site_type" name="site_type" tabindex="100" class="form-control h-1.9 w-500">
       <option value="" disabled <%= 'selected' unless params[:site_type] %>>Site Type</option>
       <% Site::SITE_TYPES.each do |name| %>
         <option value="<%= name %>" <%= 'selected' if params[:site_type] == name %>><%= name %></option>
       <% end %>
     </select>
-      <select id="sort_by" name="sort_by" class="form-control h-1.9 w-500">
+      <select id="sort_by" tabindex="100" name="sort_by" class="form-control h-1.9 w-500">
         <option value="" disabled <%= 'selected' unless params[:sort_by] %>>Sort By</option>
         <option value="wage" <%= 'selected' if params[:sort_by] == 'wage' %>>Wage</option>
         <option value="start_date" <%= 'selected' if params[:sort_by] == 'start_date'%>>Start Date</option>
       </select>
     <div class="form-group">
-      <input type="checkbox" name="autoconfirm" class="m-2" id="autoconfirm" <%= 'checked' if params[:autoconfirm] == 'on' %>>
+      <input type="checkbox" tabindex="100" name="autoconfirm" class="m-2" id="autoconfirm" <%= 'checked' if params[:autoconfirm] == 'on' %>>
       <label for="autoconfirm" class = "m-0" style="line-height: 2;">Auto-confirm Only</label>
     </div>
 
@@ -42,7 +42,7 @@
   </div>
 
   <div class="form-group">
-    <input type="submit" value="Search" class="btn btn-flat w-100">
+    <input type="submit" value="Search" tabindex="100" class="btn btn-flat w-100">
   </div>
 </form>
 
