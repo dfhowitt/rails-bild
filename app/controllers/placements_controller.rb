@@ -6,7 +6,10 @@ class PlacementsController < ApplicationController
     @placement.project = Project.find(params[:project_id])
     @placement.confirmed = true if @placement.project.autoconfirm == true
     if @placement.save
-      redirect_back(fallback_location: root_path)
+      redirect_back(fallback_location: root_path, success: "Application sent!")
+    else
+      # render request.env["HTTP_REFERER"]
+      flash.alert = "Application did not come through, please try again."
     end
   end
 

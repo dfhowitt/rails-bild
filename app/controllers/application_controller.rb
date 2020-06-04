@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
-  add_flash_types :info, :error, :warning, :success
+  add_flash_types :success
   helper_method :check_project_for_application_overlap, :check_user_application_dates, :check_project_qualification_requirements, :check_user_qualifications
 
   def default_url_options
