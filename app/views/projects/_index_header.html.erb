@@ -8,27 +8,27 @@
 <% end %>
 
   <div class="form-group d-flex">
-    <input type="text" name="query" autocomplete="off" value="<%= params[:query] %>" tabindex="100" class="form-control w-50" id="£flat_address">
+    <input type="text" name="query" autocomplete="off" value="<%= params[:query] %>" placeholder="Enter Postcode" tabindex="100" class="form-control" id="£flat_address">
     <input type="number" name="distance" autocomplete="off" value="<%= params[:distance] %>" placeholder="Enter Max distance" tabindex="100" class="form-control" id="max-distance">
     <input type="text" name="start_date" autocomplete="off" value="<%= params[:start_date] %>"placeholder="Enter Start Date" tabindex="100" class="form-control" id="start-date" onfocus="(this.type='date')">
     <input type="number" name="wage" autocomplete="off" value="<%= params[:wage] %>" placeholder="Enter Minimum Wage" tabindex="100" class="form-control" id="min-wage">
   </div>
 
-  <div class="form-group d-flex">
-    <select id="site_type" name="site_type" tabindex="100" class="form-control h-1.9 w-500">
+  <div class="form-group d-flex justify-content-center">
+    <select id="site_type" name="site_type" tabindex="100" class="form-control w-25">
       <option value="" disabled <%= 'selected' unless params[:site_type] %>>Site Type</option>
       <% Site::SITE_TYPES.each do |name| %>
         <option value="<%= name %>" <%= 'selected' if params[:site_type] == name %>><%= name %></option>
       <% end %>
     </select>
-      <select id="sort_by" tabindex="100" name="sort_by" class="form-control h-1.9 w-500">
+      <select id="sort_by" tabindex="100" name="sort_by" class="form-control w-25">
         <option value="" disabled <%= 'selected' unless params[:sort_by] %>>Sort By</option>
         <option value="wage" <%= 'selected' if params[:sort_by] == 'wage' %>>Wage</option>
         <option value="start_date" <%= 'selected' if params[:sort_by] == 'start_date'%>>Start Date</option>
       </select>
     <div class="form-group">
       <input type="checkbox" tabindex="100" name="autoconfirm" class="m-2" id="autoconfirm" <%= 'checked' if params[:autoconfirm] == 'on' %>>
-      <label for="autoconfirm" class = "m-0" style="line-height: 2;">Auto-confirm Only</label>
+      <label for="autoconfirm" class = "m-0" style="line-height: 2;">Auto-Confirm Only</label>
     </div>
 
     <!-- sends tab tag with search for correct active tab css display on results -->
