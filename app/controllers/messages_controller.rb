@@ -5,6 +5,12 @@ class MessagesController < ApplicationController
 
   def index
     @messages = @conversation.messages
+    @messages.each do |message|
+      if message.user != current_user
+        message.update(read: true)
+      end
+    end
+
     if @messages.length > 10
       @over_ten = true
       @messages = @messages[-10..-1]
@@ -21,16 +27,16 @@ class MessagesController < ApplicationController
       end
     end
     @message = Message.new
-    end
+  end
 
-    def create
+  def create
     @message = Message.new(message_params)
     @message.conversation_id = params[:conversation_id]
     @message.user = current_user
-      if @message.save!
-        redirect_to user_conversation_messages_path(current_user, @conversation)
-      end
+    if @message.save!
+      redirect_to user_conversation_messages_path(current_user, @conversation)
     end
+  end
 
   private
 

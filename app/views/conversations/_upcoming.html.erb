@@ -1,6 +1,4 @@
   <div class="ui segment">
-    <h3>Upcoming Jobs</h3>
-    <br>
     <div class="ui list">
       <% @placements.each do |placement| %>
         <div class="upcoming-card bg-info rounded">
@@ -25,6 +23,9 @@
             <div class="upcoming-card-project-left flex-grow-1">
               <p><strong>Job Description:</strong></p>
               <p><%= placement.project.description.capitalize %></p>
+              <br>
+              <p><strong>Address:</strong></p>
+              <p><%= placement.project.site.location %></p>
             </div>
 
             <div class="upcoming-card-project-right rounded bg-success p-2 text-white">
@@ -48,7 +49,7 @@
               <% if placement.conversation.nil? %>
                 <%= link_to "Message #{username}", placement_conversations_path(placement), method: :post, class: "btn btn-primary" %>
               <% else %>
-                <%= link_to "Message #{username}", user_conversation_messages_path(placement.project.site.user, placement.conversation), class: "btn btn-primary" %>
+                <%= link_to "Message #{username}", user_conversation_messages_path(placement.user, placement.conversation), class: "btn btn-primary" %>
               <% end %>
             <% end %>
           </div>

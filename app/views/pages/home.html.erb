@@ -71,9 +71,9 @@ url('<%= image_path "banner.jpg", height: 400, crop: :fill %>'); background-size
               <div class="homepage-project-card-info">
                 <div class="bottom text-right px-2 py-1">
                   <h5><%= project.job_type %></h5>
-                  <p><%= project.capacity %> jobs left · <%=number_to_currency(project.wage, unit: "£", precision: 0) %>/hr </p>
-                  <p><%=project.start_date.strftime('%A %e %B') %> to <%=project.end_date.strftime('%A %e %B') %></p>
-                  <p><%= project.site.location %></p>
+                  <h7><%= project.capacity %> jobs left · <%=number_to_currency(project.wage, unit: "£", precision: 0) %>/hr </h7>
+                  <br>
+                  <h7><%=project.start_date.strftime('%A %e %B') %> to <%=project.end_date.strftime('%A %e %B') %></h7>
                 </div>
               </div>
             <% else %>

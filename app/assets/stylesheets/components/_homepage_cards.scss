@@ -14,7 +14,7 @@
   color: white;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
   border-radius: 5px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  background-color: $info;
 }
 
 .card-title {
@@ -31,10 +31,6 @@
 
 }
 
-
-
-
-
 .grid-container {
   width: 100%;
   display: flex;
@@ -43,23 +39,21 @@
 
 
 .home-projects-grid {
-
   display: grid;
   width: 80%;
 
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 32px 32px;
-
+  & a:hover {
+  text-decoration: none;
+  }
 }
 
 .homepage-project-card {
-
-
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   background-color: rgba(0,0,0,0.2);
-
   // background-size: cover;
 
   // background-position: center;
