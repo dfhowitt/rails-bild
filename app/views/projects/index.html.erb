@@ -47,16 +47,10 @@
             <% end %>
           </p>
 
-        </div>
-
-        <div class="project-card-project-dates">
-
-        </div>
-
-        <div class="project-conflict">
           <% if check_project_for_application_overlap(project) %>
             <p style="color:red"> Project overlaps with open applications</p>
           <% end %>
+
         </div>
 
         <div class="project-card-project-pay-info d-flex h-100 mr-3 pr-3 align-items-end justify-content-between">
@@ -80,7 +74,7 @@
             </div>
           <% else %>
             <div class="apply-button inactive">
-              <div class="btn btn-warning w-100">Qualification Needed</div>
+              <div class="bg-secondary rounded py-2 w-100">Qualification Needed</div>
             </div>
           <% end %>
 
