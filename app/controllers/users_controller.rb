@@ -26,7 +26,19 @@ class UsersController < ApplicationController
     # end
   end
 
+  def application
+    dashboard
+  end
 
+  def history
+    dashboard
+  end
 
+  def qualification
+    dashboard
+  end
 
+  def schedule
+    dashboard
+  end
 end
