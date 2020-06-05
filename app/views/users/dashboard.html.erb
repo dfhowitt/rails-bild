@@ -100,6 +100,7 @@
 
             <div class="placement-date">
               <p><%= placement.project.start_date %> - <%= placement.project.end_date %></p>
+              <p>Manager: <%= placement.project.site.user.first_name + " " + placement.project.site.user.last_name %></p>
             </div>
 
             <h4 class="placement-card-wage border-left h-100 px-3 ml-3 mb-0 d-flex align-items-center"><strong class="text-primary"><%= number_to_currency(placement.project.wage, unit: "£", precision: 0) %><small> /hr</small></strong></h4>
