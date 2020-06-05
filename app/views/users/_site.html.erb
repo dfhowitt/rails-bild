@@ -3,14 +3,15 @@
 <div class="accordion" id="project-accordion-<%= site.id %>">
   <% site.projects.each do |project| %>
 
-    <% project_application_count = project.placements.select { |p| p.confirmed != true }.count %>
+    <% confirmed_placements = project.placements.select{ |p| p.confirmed } %>
+    <% unconfirmed_placements = project.placements.select{ |p| p.confirmed == nil } %>
 
     <div class="dashboard-project-card card bg-transparent">
 
       <button class="btn btn-secondary" id="<%= project.job_type %>" type="button" data-toggle="collapse" data-target="#project<%= project.id %>" aria-expanded="false" aria-controls="project <%= project.id %>">
         <%= project.job_type %>
-        <% if project_application_count > 0 %>
-          <span class= "m-0 badge-pill bg-danger text-white"><%= project_application_count %></span>
+        <% if unconfirmed_placements.count > 0 %>
+          <span class= "m-0 badge-pill bg-danger text-white"><%= unconfirmed_placements.count %></span>
         <% end %>
       </button>
 
@@ -22,8 +23,7 @@
             <p><%= project.description %></p>
           </div>
 
-          <% confirmed_placements = project.placements.select{ |p| p.confirmed } %>
-          <% unconfirmed_placements = project.placements.select{ |p| !p.confirmed } %>
+
 
           <div class="confirmed bg-secondary rounded mb-3 pb-2">
 
@@ -70,23 +70,27 @@
                     <p class="m-0"><strong><%= placement.user.first_name %> <%= placement.user.last_name %></strong></p>
                   </div>
 
-                  <div class="placement-qualifications d-flex align-items-center flex-grow-1 px-3">
-                    <%= image_tag "cscs.svg", alt: "CSCS", height: 25 %>
+                  <div class="placement-qualifications d-flex flex-grow-1">
+                    <div class="qualification-box d-flex align-items-center rounded pl-2 pr-1 py-2 ml-3">
+                      <% placement.user.qualifications.each do |qualification| %>
+                        <%= image_tag "#{qualification.name.downcase.gsub(" ", "_")}.svg", alt: "#{qualification.name}", height: 40, class: "mr-2" %>
+                      <% end %>
+                    </div>
                   </div>
 
 
                   <div class="placement-confirm d-flex align-items-center">
                     <%= simple_form_for([project, placement], remote: true) do |f| %>
+                      <%= f.input :confirm, :as => :hidden, :input_html => { :value => "true" }, wrapper_html: { class: "m-0" } %>
                       <%= f.submit "Confirm", class: "btn btn-primary" %>
-
                     <% end %>
                   </div>
 
                   <div class="placement-reject ml-3 d-flex align-items-center">
                     <button type="button" class="btn btn-danger sweet-alert-reject" data-id="<%= placement.id %>">Reject</button>
                     <%= simple_form_for([project, placement], remote: true, :html => {id: "reject-#{placement.id}"}) do |f| %>
+                      <%= f.input :confirm, :as => :hidden, input_html: { value: "false" } %>
                       <%= f.submit "Reject", type: "hidden" %>
-
                     <% end %>
                   </div>
 
