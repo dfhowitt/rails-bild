@@ -40,10 +40,10 @@
 
 .home-projects-grid {
   display: grid;
-  width: 80%;
+  width: 100%;
 
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 32px 32px;
+  grid-gap: 16px 16px;
   & a:hover {
   text-decoration: none;
   }

@@ -38,6 +38,7 @@ import { initAutocomplete } from '../plugins/init_autocomplete';
 import { initFullCalendar } from '../plugins/init_fullcalendar';
 import { initSweetalert } from '../plugins/init_sweetalert';
 import { managerSweetalert } from '../plugins/manager_sweetalert';
+import { qualificationSweetalert } from '../plugins/qualification_sweetalert';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
@@ -82,6 +83,7 @@ document.addEventListener('turbolinks:load', () => {
   // sweetAlert();
   initSweetalert('.sweet-alert-cancel');
   managerSweetalert('.sweet-alert-reject');
+  qualificationSweetalert('.sweet-alert-delete');
   mapModalButtons();
   initFullCalendar();
 });

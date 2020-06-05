@@ -196,7 +196,7 @@ sites = Site.all
 
 job_types = ['Labourer', 'Skilled Labourer', 'Electrician', 'Asbestos Awareness', 'DBS Labourer']
 qualifications = ['CSCS', 'Blue CSCS (Skilled Labourer)', 'ECS', 'Asbestos Awareness', 'DBS']
-descriptions = ['Worker needed for heavy lifiting. Must have good banter to get along with the other blokes.', 'Must have good tune selection so we can shubz on site.', 'Must like to be thrown at a bulls-eye target like in Wolf of Wall Street', 'Essex Geezer needed. Must like Stella and can down 2 pints in under 20 seconds.']
+descriptions = ['Worker needed for heavy lifiting.', 'Worker needed for large commercial project.', 'Worker needed for small residential project.', 'Worker needed for large industrial project.', 'Worker needed for short-term project. High salary.', 'Worker needed for long-term project. Modest salary.', 'Labourer needed. Weekly pay.', 'Multiple labourers needed. Short-term project but scope for hiring again in the future.']
 
 qualifications.each do |qualification|
   Qualification.create(
