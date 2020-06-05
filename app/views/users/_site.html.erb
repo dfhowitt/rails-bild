@@ -49,8 +49,12 @@
                     <p class="m-0"><strong><%= placement.user.first_name %> <%= placement.user.last_name %></strong></p>
                   </div>
 
-                  <div class="placement-qualifications d-flex align-items-center flex-grow-1 px-3">
-                    <%= image_tag "cscs.svg", alt: "CSCS", height: 25 %>
+                  <div class="placement-qualifications d-flex flex-grow-1">
+                    <div class="qualification-box d-flex align-items-center rounded pl-2 pr-1 py-2 ml-3">
+                      <% placement.user.qualifications.each do |qualification| %>
+                        <%= image_tag "#{qualification.name.downcase.gsub(" ", "_")}.svg", alt: "#{qualification.name}", height: 40, class: "mr-2" %>
+                      <% end %>
+                    </div>
                   </div>
 
                   <div class="placement-confirm d-flex align-items-center">
