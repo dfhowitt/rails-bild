@@ -56,7 +56,8 @@
       </div>
 
     <% elsif @sites.length == 1 %>
-      <%= render 'site', site: first_site %>
+      <% site = @sites[0] %>
+      <%= render 'site', site: site %>
 
     <% else %>
       <p class="text-center bg-info rounded py-2 border mb-5">You do not have any sites, please create one using the form below.</p>
