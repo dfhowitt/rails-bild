@@ -11,6 +11,8 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(user)
     if user.manager
       user_dashboard_path(user)
+    else
+      root_path
     end
   end
 
