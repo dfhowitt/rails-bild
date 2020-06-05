@@ -13,6 +13,33 @@
 <div class="container">
   <%= render 'user_dashboard_header' %>
 
+    <div class="look-for-jobs bg-info rounded mb-3">
+      <div class="d-flex align-items-center justify-content-center py-3">
+        <div class="dashboard-apply-cta mr-3">
+          <% if @applications.empty? %>
+            <h2 class="mb-0">Find jobs</h2>
+          <% else %>
+            <h2 class="mb-0">Find more jobs</h2>
+          <% end %>
+        </div>
+        <button class="btn btn-primary rounded-circle" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
+          <h1 class="mb-0 dashboard-plus">+</h1>
+        </button>
+      </div>
+      <div class="collapse" id="collapseSearch">
+        <form novalidate="novalidate" method="get" action="/projects" class="simple_form search px-3 pb-3">
+          <div class="search-form-control form-group mb-0">
+            <input type="text" name="query" autocomplete="off" placeholder="Enter Postcode" tabindex="100" class="form-control string required" id="flat_address">
+            <div class="search-button">
+              <button name="button" type="submit" class="btn btn-primary">
+                <i class="fas fa-search" id="search-icon"></i> Search
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
   <% @applications.each_with_index do |application, i| %>
     <div class="application-card d-flex justify-content-between pb-2">
       <div class="card-body bg-info d-flex justify-content-between align-items-center p-2">
