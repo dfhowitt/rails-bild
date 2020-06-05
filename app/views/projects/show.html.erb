@@ -1,22 +1,23 @@
 <div class="container">
-  <div class="header-photo d-flex justify-content-center mb-5">
-  <%= cl_image_tag @project.site.photo.key, height: 150, width: 300, alt: "Company Logo" %>
-  </div>
-  <% project_length = (@project.end_date - @project.start_date).to_i%>
-  <div class="project-header pb-3 border-bottom">
-    <div class="header-top d-flex justify-content-between">
-      <div class="project-header-top-left">
-        <h1><%= @project.site.name %> </h1>
-        <h3><%= @project.site.location%></h3>
+
+  <div class="project-header mt-5  border-bottom">
+    <div class="header-top pb-2 d-flex justify-content-between">
+     <div class="project-top-header-left d-flex">
+        <div class="project-header-left-photo">
+          <%= cl_image_tag @project.site.photo.key, height: 100, width: 100, alt: "Company Logo" %>
+        </div>
+        <div class="project-header-left-text ml-2 d-flex flex-column justify-content-end">
+          <h1 class="mb-0"><%= @project.site.name %> </h1>
+          <h3 class="mb-0"><%= @project.site.location%></h3>
+        </div>
       </div>
 
       <div class ="project-header-top-right d-flex flex-column justify-content-between align-items-end mt-3">
         <%= link_to 'Back to search', projects_path %>
-          <h3><%= @project.site.site_type %> development</h3>
+        <h3 class="mb-0"><%= @project.site.site_type %> development</h3>
       </div>
     </div>
-
-    <div class="header-bottom">
+    <div class="header-bottom mb-1">
       <% if check_project_qualification_requirements(@project) %>
         <div class="apply-button">
           <% if @project.autoconfirm == true %>
@@ -31,26 +32,28 @@
         </div>
       <% else %>
         <div class="apply-button inactive">
-          <div class="bg-secondary rounded py-2 w-100">Qualification Needed</div>
+          <div class="bg-secondary rounded py-2 w-100" align="center">Qualification Needed</div>
         </div>
       <% end %>
     </div>
   </div>
-  <div class="project-show-card d-flex">
-      <div class="project-show-card-info mt-5">
-        <h3><%= @project.job_type %>  </h3>
-        <h5><%= @project.start_date.strftime('%a, %b %d') %> - <%= @project.end_date.strftime('%a, %b %d')  %> </h5>
-        <h6><%= number_to_currency(@project.wage, unit: "£", precision: 0) %> / per hour</h6>
-        <p><%= @project.description.capitalize%></p>
-        <p class=><%=@project.capacity%> spots left! </p>
-          <p> Qualifications needed:
-          <% @project.project_qualifications.each_with_index do |pq, i| %>
-            <% if i != @project.project_qualifications.size - 1 %>
-              <%= pq.qualification.name %> +
-            <% else %>
-              <%= pq.qualification.name %>
-            <% end %>
-          <% end %></p>
+  <div class="project-show-card d-flex justify-content-between mt-3">
+    <div class="project-show-card-body">
+      <h3><%= @project.job_type %> - <%= number_to_currency(@project.wage, unit: "£", precision: 0) %> / per hour </h3>
+      <h5><%= @project.start_date.strftime('%a, %b %d') %> - <%= @project.end_date.strftime('%a, %b %d')  %> </h5>
+      <p><%= @project.description.capitalize%></p>
+        <p><% @project.project_qualifications.each_with_index do |pq, i| %>
+          <% if i != @project.project_qualifications.size - 1 %>
+            <%= pq.qualification.name %> +
+          <% else %>
+            <%= pq.qualification.name %>
+          <% end %>
+        <% end %></p>
+    </div>
+    <div id="map-2"
+     style="width: 600px; height: 300px;"
+     data-markers="<%= @markers.to_json %>"
+     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
     </div>
   </div>
 </div>

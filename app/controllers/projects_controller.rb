@@ -92,6 +92,13 @@ class ProjectsController < ApplicationController
 
   def show
     @placement = Placement.new
+    @markers =
+      {
+        lat: @project.site.latitude,
+        lng: @project.site.longitude,
+        infoWindow: render_to_string(partial: "info_window", locals: { project: @project, placement: Placement.new })
+      }
+      # raise
   end
 
   def new
