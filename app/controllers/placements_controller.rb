@@ -9,14 +9,14 @@ class PlacementsController < ApplicationController
     if @placement.save
       redirect_back(fallback_location: root_path, success: "Application sent!")
     else
-      # render request.env["HTTP_REFERER"]
       flash.alert = "Application did not come through, please try again."
     end
   end
 
   def update
     @placement = Placement.find(params[:id])
-    if @placement.update(confirmed: true)
+    confirm = params[:placement][:confirm] == "true"
+    if @placement.update(confirmed: confirm)
       redirect_to user_dashboard_path(current_user, anchor: "site#{@placement.project.site.id}&project#{@placement.project.id}")
     else
       flash.now[:alert] = "Not saved."
@@ -25,7 +25,6 @@ class PlacementsController < ApplicationController
 
   def destroy
     @placement.destroy
-    # redirect_to user_dashboard_path(current_user)
     redirect_back(fallback_location: root_path)
   end
 

@@ -14,10 +14,14 @@
 }
 
 .qualification-badge {
-  height: 25vh;
-  background-color: rgba(0,0,0,0.3)
+  // background-color: rgba(255,255,255,0.9);
+  height: 20vh;
+}
+
+.qualification-card-header {
+  background-color: $gray;
 }
 
 .qualification-img {
-  height: 100px;
+  width: 100%;
 }
