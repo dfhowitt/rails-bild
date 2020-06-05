@@ -3,10 +3,14 @@
   <% if @results %>
       <h2>We found <%= pluralize(@projects.count, 'project') %> near "<%= @query %>":</h2>
   <% else %>
-    <div class="">
-      <p class="no-results"><i class="fas fa-times text-danger"></i>  No projects found near "<%= @query %>"</p>
-    </div>
-    <h2>Additional options:</h2>
+    <% if @query == "" %>
+      <h2> All Projects: </h2>
+    <% else %>
+      <div class="">
+        <p class="no-results"><i class="fas fa-times text-danger"></i>  No projects found near "<%= @query %>"</p>
+      </div>
+      <h2>Additional options:</h2>
+    <% end %>
   <% end %>
 
 
