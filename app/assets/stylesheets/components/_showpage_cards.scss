@@ -34,3 +34,15 @@
 .project-show-card-right .apply-button {
   margin: 12px 0px 0px 0px;
 }
+
+.project-show-card-body,
+.map-section {
+  background-color: rgba(0,0,0,0.3);
+}
+
+.project-show-card-body-section {
+  border-radius: 3px;
+  background-color: rgba(0,0,0,0.3);
+  padding: 8px;
+  margin-bottom: 8px;
+}
