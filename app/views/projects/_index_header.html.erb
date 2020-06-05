@@ -7,43 +7,55 @@
   <form method="get" action="/projects/" class="w-100 p-3" >
 <% end %>
 
-  <div class="form-group d-flex">
-    <input type="text" name="query" autocomplete="off" value="<%= params[:query] %>" placeholder="Enter Postcode" tabindex="100" class="form-control" id="£flat_address">
-    <input type="number" name="distance" autocomplete="off" value="<%= params[:distance] %>" placeholder="Enter Max distance" tabindex="100" class="form-control" id="max-distance">
-    <input type="text" name="start_date" autocomplete="off" value="<%= params[:start_date] %>"placeholder="Enter Start Date" tabindex="100" class="form-control" id="start-date" onfocus="(this.type='date')">
-    <input type="number" name="wage" autocomplete="off" value="<%= params[:wage] %>" placeholder="Enter Minimum Wage" tabindex="100" class="form-control" id="min-wage">
-  </div>
-
   <div class="form-group d-flex justify-content-center">
-    <select id="site_type" name="site_type" tabindex="100" class="form-control w-25">
-      <option value="" disabled <%= 'selected' unless params[:site_type] %>>Site Type</option>
-      <% Site::SITE_TYPES.each do |name| %>
-        <option value="<%= name %>" <%= 'selected' if params[:site_type] == name %>><%= name %></option>
-      <% end %>
+
+  </div>
+
+  <div class="form-group d-flex align-items-center">
+    <input type="text" name="query" autocomplete="off" value="<%= params[:query] %>" placeholder="Enter Postcode" tabindex="100" class="form-control flex-grow-1" id="£flat_address">
+    <input type="submit" value="Search" tabindex="100" class="btn btn-primary ml-2">
+    <input type="checkbox" tabindex="100" name="autoconfirm" class="m-2" id="autoconfirm" <%= 'checked' if params[:autoconfirm] == 'on' %>>
+    <label for="autoconfirm" class="autoconfirm-label m-0" style="line-height: 2;">Auto-Confirm Only</label>
+  </div>
+
+  <hr class="bg-info">
+
+  <div class="form-group d-flex justify-content-between">
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters">
+      Filter ▾
+    </button>
+    <select id="sort_by" tabindex="100" name="sort_by" class="form-control w-25" onchange="this.form.submit()">
+      <option value="" disabled <%= 'selected' unless params[:sort_by] %>>Sort By</option>
+      <option value="wage" <%= 'selected' if params[:sort_by] == 'wage' %>>Wage</option>
+      <option value="start_date" <%= 'selected' if params[:sort_by] == 'start_date'%>>Start Date</option>
     </select>
-      <select id="sort_by" tabindex="100" name="sort_by" class="form-control w-25">
-        <option value="" disabled <%= 'selected' unless params[:sort_by] %>>Sort By</option>
-        <option value="wage" <%= 'selected' if params[:sort_by] == 'wage' %>>Wage</option>
-        <option value="start_date" <%= 'selected' if params[:sort_by] == 'start_date'%>>Start Date</option>
-      </select>
-    <div class="form-group">
-      <input type="checkbox" tabindex="100" name="autoconfirm" class="m-2" id="autoconfirm" <%= 'checked' if params[:autoconfirm] == 'on' %>>
-      <label for="autoconfirm" class = "m-0" style="line-height: 2;">Auto-Confirm Only</label>
-    </div>
-
-    <!-- sends tab tag with search for correct active tab css display on results -->
-    <% if params[:active] == "map" %>
-      <%= hidden_field_tag :active, 'map' %>
-    <% elsif params[:active] == "combined" %>
-      <%= hidden_field_tag :active, 'combined' %>
-    <% else %>
-      <%= hidden_field_tag :active, 'list' %>
-    <% end %>
   </div>
 
-  <div class="form-group">
-    <input type="submit" value="Search" tabindex="100" class="btn btn-primary w-100">
+  <div class="collapse" id="collapseFilters">
+      <div class="form-group d-flex bg-info rounded p-2">
+        <input type="number" name="distance" autocomplete="off" value="<%= params[:distance] %>" placeholder="Enter Max distance" tabindex="100" class="form-control mr-2" id="max-distance">
+        <input type="text" name="start_date" autocomplete="off" value="<%= params[:start_date] %>"placeholder="Enter Start Date" tabindex="100" class="form-control mr-2" id="start-date" onfocus="(this.type='date')">
+        <input type="number" name="wage" autocomplete="off" value="<%= params[:wage] %>" placeholder="Enter Minimum Wage" tabindex="100" class="form-control mr-2" id="min-wage">
+        <select id="site_type" name="site_type" tabindex="100" class="form-control">
+          <option value="" disabled <%= 'selected' unless params[:site_type] %>>Site Type</option>
+          <% Site::SITE_TYPES.each do |name| %>
+            <option value="<%= name %>" <%= 'selected' if params[:site_type] == name %>><%= name %></option>
+          <% end %>
+        </select>
+
+        <!-- sends tab tag with search for correct active tab css display on results -->
+        <% if params[:active] == "map" %>
+          <%= hidden_field_tag :active, 'map' %>
+        <% elsif params[:active] == "combined" %>
+          <%= hidden_field_tag :active, 'combined' %>
+        <% else %>
+          <%= hidden_field_tag :active, 'list' %>
+        <% end %>
+      </div>
   </div>
+
+
+
 </form>
 
 <!-- selects css active tab styling based on params -->
