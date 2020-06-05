@@ -1,6 +1,10 @@
 <div class="container">
   <%= render 'user_dashboard_header' %>
-
+  <% if @past_placements.empty? %>
+    <div class="no-past-projects bg-info d-flex align-items-center justify-content-center py-4 rounded">
+      <h2>No past jobs yet!</h2>
+    </div>
+  <% else %>
   <% @past_placements.each do |placement| %>
     <div class="completed-placement bg-info rounded">
 
@@ -37,6 +41,7 @@
         </div>
 
       </div>
+  <% end %>
 
     </div>
   <% end %>

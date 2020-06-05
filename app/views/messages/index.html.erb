@@ -4,6 +4,7 @@
   <% else %>
     <h1>Message <%= @conversation.placement.project.site.user.first_name + " " + @conversation.placement.project.site.user.last_name%> </h1>
   <% end %>
+  <%= link_to "Back to Inbox", user_conversations_path(current_user)%>
   <hr>
   <% if @over_ten %>
      <%= link_to 'Show Previous', '?m=all' %>
@@ -31,13 +32,13 @@
     <% end %>
   </div>
 
-  <%= form_for [current_user, @conversation, @message], html: {class: "ui reply form"} do |f| %>
-    <div class="field">
+  <%= form_for [current_user, @conversation, @message], html: {class: "ui reply form d-flex"} do |f| %>
+    <div class="field flex-grow-1">
       <%= f.text_area :body, class: "form-control" %>
     </div>
       <%= f.text_field :user_id, value: current_user.id, type: "hidden"  %>
-    <div>
-      <%= f.submit "Send", class: "btn btn-primary" %>
+    <div class="ml-2">
+      <%= f.submit "Send", class: "btn btn-primary h-100" %>
     </div>
 
   <% end %>
