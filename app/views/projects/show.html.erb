@@ -8,16 +8,16 @@
       <h1><%= @project.site.name %> </h1>
       <h3><%= @project.site.location%></h3>
     </div>
-    <div class ="project-header-right justify-content-between">
-        <h4>
+    <div class ="project-header-right d-flex flex-column align-items-end justify-content-end">
+      <%= link_to 'Back to search', projects_path %>
+      <p><%=@project.capacity%> spots left! </p>
+        <h4 class="">
           <% if @project.autoconfirm %>
             Autoconfirm: <i class="fa fa-check" aria-hidden="true"></i>
           <% else %>
             Autoconfirm: <i class="far fa-times-circle"></i>
           <% end %>
         </h4>
-      <p><%=@project.capacity%> spots left! </p>
-      <%= link_to 'Back to search', projects_path %>
     </div>
   </div>
   <div class="project-show-card d-flex">
