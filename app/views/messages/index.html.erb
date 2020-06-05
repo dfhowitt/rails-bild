@@ -1,5 +1,9 @@
 <div class="container">
-  <h1>Message Thread</h1>
+  <% if current_user.manager? %>
+  <h1>Message <%= @conversation.placement.user.first_name + " " + @conversation.placement.user.last_name %></h1>
+  <% else %>
+    <h1>Message <%= @conversation.placement.project.site.user.first_name + " " + @conversation.placement.project.site.user.last_name%> </h1>
+  <% end %>
   <hr>
   <% if @over_ten %>
      <%= link_to 'Show Previous', '?m=all' %>

@@ -1,6 +1,7 @@
 .team-card {
   overflow: hidden;
-  background: white;
+  background: $light-gray;
+  color: $lighter-gray;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   display: flex;
   align-items: center;
@@ -20,7 +21,6 @@
 
 .team-card h2 {
   font-weight: bold;
-  text-decoration: underline;
 }
 
 .team-card-info {

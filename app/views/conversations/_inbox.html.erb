@@ -14,12 +14,16 @@
                 <div class="inbox-card-top d-flex justify-content-between p-2">
                   <div class="inbox-card-top-left">
                     <h2 class="d-flex align-items-center"><%=conversation.placement.project.site.name%> - <%= conversation.placement.project.job_type %>
-                      <% unread_message_count = conversation.messages.select{ |message| message.read == false && message.user != current_user}.count %>
+                      <% unread_message_count = conversation.messages.select{ |message| (message.read == false) && (message.user != current_user)}.count %>
                       <% if unread_message_count > 0 %>
                         <span class="ml-3 py-1 badge-pill bg-danger text-white"><%= unread_message_count %></span>
                       <% end %>
                     </h2>
-                    <p>Manager: <%=user.first_name + " " + user.last_name%></p>
+                    <% if current_user.manager? %>
+                      <p> Worker: <%=user.first_name + " " + user.last_name%></p>
+                    <% else %>
+                      <p>Manager: <%=user.first_name + " " + user.last_name%></p>
+                    <% end %>
                   </div>
                     <p class="mr-2"><span class="badge-pill bg-primary text-dark"><%= conversation.placement.project.start_date %></span> - <span class="badge-pill bg-primary text-dark"><%= conversation.placement.project.end_date %></span></p>
                 </div>
