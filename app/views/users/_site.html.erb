@@ -1,4 +1,8 @@
 <h1><%= site.name %></h1>
+<div class="site-details d-flex justify-content-between">
+  <h5><%= site.location %></h5>
+  <p><%= pluralize(site.projects.count, 'Open project') %></p>
+</div>
 
 <div class="accordion" id="project-accordion-<%= site.id %>">
   <% site.projects.each do |project| %>
@@ -8,10 +12,13 @@
     <div class="dashboard-project-card card bg-transparent">
 
       <button class="btn btn-secondary" id="<%= project.job_type %>" type="button" data-toggle="collapse" data-target="#project<%= project.id %>" aria-expanded="false" aria-controls="project <%= project.id %>">
-        <%= project.job_type %>
-        <% if project_application_count > 0 %>
-          <span class= "m-0 badge-pill bg-danger text-white"><%= project_application_count %></span>
-        <% end %>
+          <div class="button-left d-flex">
+            <p class="mr-3"><%= project.job_type %></p>
+            <% if project_application_count > 0 %>
+              <span class= "m-0 badge-pill bg-danger text-white"><%= project_application_count %></span>
+            <% end %>
+        </div>
+          <p><%= project.start_date.strftime('%a, %b %d') %> - <%= project.end_date.strftime('%a, %b %d') %></p>
       </button>
 
       <div id="project<%= project.id %>" class="collapse text-left" aria-labelledby="<%= project.job_type %>" data-parent="#project-accordion-<%= site.id %>">
@@ -19,8 +26,10 @@
 
           <div class="project_details">
             <h4><strong><%= project.job_type %></strong></h4>
-            <p><%= project.description %></p>
+            <p class=""><%= project.description %></p>
+            <!-- <p><%#= number_to_currency(project.wage, unit: "£", precision: 0) %> / per hour </p> -->
           </div>
+            <hr>
 
           <% confirmed_placements = project.placements.select{ |p| p.confirmed } %>
           <% unconfirmed_placements = project.placements.select{ |p| !p.confirmed } %>
@@ -106,7 +115,7 @@
   <% end %>
 
   <div class="dashboard-project-card card bg-transparent">
-    <button class="btn btn-secondary text-center" id="new-project" type="button" data-toggle="collapse" data-target="#new-project-form" aria-expanded="false" aria-controls="new-project-form">
+    <button class="btn btn-secondary justify-content-center" id="new-project" type="button" data-toggle="collapse" data-target="#new-project-form" aria-expanded="false" aria-controls="new-project-form">
       + Add New Project
     </button>
 
