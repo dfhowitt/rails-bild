@@ -29,21 +29,21 @@ url('<%= image_path "banner.jpg", height: 400, crop: :fill %>'); background-size
 <div class="container">
   <h2>How It Works</h2>
   <div class="cards mt-5">
-    <div class="card-category" style="width: 22rem;">
+    <div class="card-category">
       <div class="card-body">
         <i class="fas fa-map-marked-alt"></i>
         <h3 class="card-title">Find Jobs</h3>
         <p class="card-text">We give you access to every registered building site on our database</p>
       </div>
     </div>
-    <div class="card-category" style="width: 22rem;">
+    <div class="card-category">
       <div class="card-body">
         <i class="fas fa-check"></i>
         <h3 class="card-title">Apply</h3>
         <p class="card-text">One click application makes applying to jobs easier than ever before.</p>
         </div>
     </div>
-    <div class="card-category" style="width: 22rem;">
+    <div class="card-category">
       <div class="card-body">
         <i class="fas fa-hard-hat"></i>
         <h3 class="card-title">Start Working</h3>
@@ -51,18 +51,14 @@ url('<%= image_path "banner.jpg", height: 400, crop: :fill %>'); background-size
       </div>
     </div>
   </div>
-</div>
 <br>
 <br>
 
-<h2 style="margin-left: 195px">Recently Added Jobs</h2>
-
+<h2>Recently Added Jobs</h2>
 <br>
-<br>
-
 <div class="grid-container">
-  <div class="home-projects-grid mx-3">
-      <%recent_jobs = @projects.sample(3) %>
+  <div class="home-projects-grid">
+      <%recent_jobs = @projects.sample(6) %>
       <% recent_jobs.each do |project|%>
         <%= link_to project_path(project) do %>
           <div class="homepage-project-card">
@@ -82,9 +78,6 @@ url('<%= image_path "banner.jpg", height: 400, crop: :fill %>'); background-size
           </div>
         <% end %>
       <% end %>
-
     </div>
   </div>
-
-
-
+</div>
