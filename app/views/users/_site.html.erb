@@ -16,7 +16,7 @@
           <div class="button-left d-flex">
             <p class="mr-3"><%= project.job_type %></p>
             <% if unconfirmed_placements.count > 0 %>
-              <span class= "m-0 badge-pill bg-danger text-white"><%= project_application_count %></span>
+              <span class= "m-0 badge-pill bg-danger text-white"><%= unconfirmed_placements.count %></span>
             <% end %>
         </div>
           <p><%= project.start_date.strftime('%a, %b %d') %> - <%= project.end_date.strftime('%a, %b %d') %></p>
