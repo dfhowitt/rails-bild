@@ -1,32 +1,34 @@
-<h2><%= link_to project.job_type, project_path(project) %></h2>
-<h5><%= project.site.location %></h5>
+<div class="bg-info">
+  <h2><%= link_to project.job_type, project_path(project) %></h2>
+  <h5><%= number_to_currency(project.wage, unit: "£", precision: 0) %> / per hour </h5>
 
-<h6>Start Date: <%= project.start_date.strftime('%a, %b %d') %> </h6>
-<p>Days: <%= (project.end_date - project.start_date).to_i %></p>
-<p><%= number_to_currency(project.wage, unit: "£", precision: 0) %> / per hour</p>
-<div class="apply-button pr-3">
-  <div class="apply-header">
-    <% if check_project_for_application_overlap(project) %>
-      <p style="color:red"> Project overlaps with open applications</p>
+  <h6><%= project.start_date.strftime('%a, %b %d') %> - <%= project.end_date.strftime('%a, %b %d') %></h6>
+  <p> <% project.project_qualifications.each_with_index do |pq, i| %>
+    <% if i != project.project_qualifications.size - 1 %>
+      <%= pq.qualification.name.gsub(/\(.*/, '') %> +
+    <% else %>
+      <%= pq.qualification.name.gsub(/\(.*/, '') %>
     <% end %>
-      <p>Spots remaining: <%= project.capacity - project.placements.where(confirmed: true).count %></p>
-  </div>
+  <% end %></p>
+
+
   <% if check_project_qualification_requirements(project) %>
     <div class="apply-button">
-      <%= simple_form_for [project, placement], remote: true do |f| %>
-        <%= f.submit "Apply now", class:"btn btn-primary" %>
-        <% if project.autoconfirm == true %>
-          <p style="color:#ffe100">Instant Confirm!</p>
+      <% if project.autoconfirm == true %>
+        <%= simple_form_for [project, placement], remote: true do |f| %>
+          <%= f.submit "Instant Confirm", class:"btn btn-primary" %>
         <% end %>
+        <p>Spots remaining: <%= project.capacity - project.placements.where(confirmed: true).count %></p>
+      <% else %>
+        <%= simple_form_for [project, placement], remote: true do |f| %>
+          <%= f.submit "Submit Application", class:"btn btn-primary" %>
+        <% end %>
+        <p>Spots remaining: <%= project.capacity - project.placements.where(confirmed: true).count %></p>
       <% end %>
     </div>
   <% else %>
-    <div class="innactive-apply-button">
-      <p>You don't qualify: <% project.project_qualifications.each do |pq| %>
-          <%= pq.qualification.name %>
-        <% end %>
-        needed
-      </p>
+    <div class="apply-button inactive">
+      <div class="bg-secondary rounded py-2 w-100">Qualification Needed</div>
     </div>
   <% end %>
 </div>
