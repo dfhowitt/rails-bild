@@ -1,21 +1,22 @@
 <div class="container">
   <%= render 'index_header' %>
+
     <% if @projects.empty? %>
       <div class="no-projects bg-info d-flex align-items-center justify-content-center py-4 rounded">
         <h1>No projects yet, come back soon!</h1>
       </div>
     <% else %>
       <% if @results %>
-          <h2>We found <%= pluralize(@projects.count, 'project') %> near "<%= @query %>":</h2>
+        <h2>We found <%= pluralize(@projects.count, 'project') %> near "<%= @query %>":</h2>
       <% else %>
-        <% if @query == "" %>
+        <% if @query == "" || @query.nil? %>
           <h2> All Projects: </h2>
         <% else %>
           <div class="">
             <p class="no-results"><i class="fas fa-times text-danger"></i>  No projects found near "<%= @query %>"</p>
           </div>
           <h2>Additional options:</h2>
-        <% end %>
+       <% end %>
       <% end %>
 
       <div id="map"

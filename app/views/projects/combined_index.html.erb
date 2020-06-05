@@ -13,7 +13,7 @@
           <% if @results %>
               <h2>We found <%= pluralize(@projects.count, 'project') %> near "<%= @query %>":</h2>
           <% else %>
-            <% if @query == "" %>
+            <% if @query == "" || @query.nil? %>
               <h2> All Projects: </h2>
             <% else %>
               <div class="">
@@ -22,6 +22,7 @@
               <h2>Additional options:</h2>
             <% end %>
           <% end %>
+
 
           <% @projects.each do |project| %>
           <div class="project-card bg-info d-flex justify-content-between align-items-center mb-2 p-2">
