@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_03_092218) do
+ActiveRecord::Schema.define(version: 2020_06_17_151810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,12 @@ ActiveRecord::Schema.define(version: 2020_06_03_092218) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "conversations", force: :cascade do |t|
@@ -105,7 +111,6 @@ ActiveRecord::Schema.define(version: 2020_06_03_092218) do
   end
 
   create_table "sites", force: :cascade do |t|
-    t.string "location"
     t.string "site_type"
     t.bigint "user_id", null: false
     t.string "name"
@@ -113,6 +118,9 @@ ActiveRecord::Schema.define(version: 2020_06_03_092218) do
     t.datetime "updated_at", precision: 6, null: false
     t.float "latitude"
     t.float "longitude"
+    t.string "location"
+    t.bigint "company_id"
+    t.index ["company_id"], name: "index_sites_on_company_id"
     t.index ["user_id"], name: "index_sites_on_user_id"
   end
 
@@ -134,7 +142,7 @@ ActiveRecord::Schema.define(version: 2020_06_03_092218) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "phone_number"
-    t.boolean "manager", default: false
+    t.boolean "manager"
     t.string "first_name"
     t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -150,6 +158,7 @@ ActiveRecord::Schema.define(version: 2020_06_03_092218) do
   add_foreign_key "project_qualifications", "projects"
   add_foreign_key "project_qualifications", "qualifications"
   add_foreign_key "projects", "sites"
+  add_foreign_key "sites", "companies"
   add_foreign_key "sites", "users"
   add_foreign_key "user_qualifications", "qualifications"
   add_foreign_key "user_qualifications", "users"

@@ -106,7 +106,7 @@ locations = [
   ]
 
 names = ['Vinci', 'Strata', 'Bouygues', 'MITIE', 'HomeServe', 'Wates', 'Morgan Sindall', 'Kier']
-site_logos_array = [
+company_logos_array = [
                     "https://res.cloudinary.com/daxoj4nny/image/upload/v1590582694/bild%20company%20logos/Strata-Logo_dhxbtd.jpg",
                     "https://res.cloudinary.com/daxoj4nny/image/upload/v1590580745/bild%20company%20logos/OmjnWl3__400x400_rsginw.jpg",
                     "https://res.cloudinary.com/daxoj4nny/image/upload/v1590582694/bild%20company%20logos/158584_97056-morgan-sindall-logo_wbaaur.jpg",
@@ -117,60 +117,54 @@ site_logos_array = [
                     "https://res.cloudinary.com/daxoj4nny/image/upload/v1591355860/bild%20company%20logos/Vinci_w9tnnk.jpg"
                    ]
 
+
+puts "creating companies"
+names.each do |name|
+  company = Company.new(
+    name: name)
+  if company.name == 'Strata'
+    logo = URI.open(company_logos_array[0])
+  elsif company.name == 'Kier'
+    logo = URI.open(company_logos_array[1])
+  elsif company.name == 'Morgan Sindall'
+    logo = URI.open(company_logos_array[2])
+  elsif company.name == 'HomeServe'
+    logo = URI.open(company_logos_array[3])
+  elsif company.name == 'MITIE'
+    logo = URI.open(company_logos_array[4])
+  elsif company.name == 'Wates'
+    logo = URI.open(company_logos_array[5])
+  elsif company.name == 'Bouygues'
+    logo = URI.open(company_logos_array[6])
+  elsif company.name == 'Vinci'
+    logo = URI.open(company_logos_array[7])
+  end
+  company.photo.attach(io: logo, filename: 'logo_pic.jpg', content_type: 'image/jpg')
+  company.save
+end
+
 puts "creating sites"
 locations[6..-1].each do |location|
+  index = rand(0..7)
   site = Site.new(
-    name: names.sample,
+    name: Company.all[index].name,
     site_type: site_types.sample,
     location: location,
-    user_id: User.find_by(first_name: 'Chris').id
+    user_id: User.find_by(first_name: 'Chris').id,
+    company_id: Company.all[index].id
     )
-  if site.name == 'Strata'
-    logo = URI.open(site_logos_array[0])
-  elsif site.name == 'Kier'
-    logo = URI.open(site_logos_array[1])
-  elsif site.name == 'Morgan Sindall'
-    logo = URI.open(site_logos_array[2])
-  elsif site.name == 'HomeServe'
-    logo = URI.open(site_logos_array[3])
-  elsif site.name == 'MITIE'
-    logo = URI.open(site_logos_array[4])
-  elsif site.name == 'Wates'
-    logo = URI.open(site_logos_array[5])
-  elsif site.name == 'Bouygues'
-    logo = URI.open(site_logos_array[6])
-  elsif site.name == 'Vinci'
-    logo = URI.open(site_logos_array[7])
-  end
-  site.photo.attach(io: logo, filename: 'logo_pic.jpg', content_type: 'image/jpg')
   site.save
 end
 
 locations[0..5].each do |location|
+  index = rand(0..7)
   site = Site.new(
-    name: names.sample,
+    name: Company.all[index].name,
     site_type: site_types.sample,
     location: location,
-    user_id: User.find_by(first_name: 'Faris').id
+    user_id: User.find_by(first_name: 'Faris').id,
+    company_id: Company.all[index].id
     )
-  if site.name == 'Strata'
-    logo = URI.open(site_logos_array[0])
-  elsif site.name == 'Kier'
-    logo = URI.open(site_logos_array[1])
-  elsif site.name == 'Morgan Sindall'
-    logo = URI.open(site_logos_array[2])
-  elsif site.name == 'HomeServe'
-    logo = URI.open(site_logos_array[3])
-  elsif site.name == 'MITIE'
-    logo = URI.open(site_logos_array[4])
-  elsif site.name == 'Wates'
-    logo = URI.open(site_logos_array[5])
-  elsif site.name == 'Bouygues'
-    logo = URI.open(site_logos_array[6])
-  elsif site.name == 'Vinci'
-    logo = URI.open(site_logos_array[7])
-  end
-  site.photo.attach(io: logo, filename: 'logo_pic.jpg', content_type: 'image/jpg')
   site.save
 end
 

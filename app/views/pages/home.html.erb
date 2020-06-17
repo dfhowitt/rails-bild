@@ -62,8 +62,8 @@ url('<%= image_path "banner.jpg", height: 400, crop: :fill %>'); background-size
         <% recent_jobs.each do |project|%>
           <%= link_to project_path(project) do %>
             <div class="homepage-project-card">
-              <%= cl_image_tag project.site.photo.key %>
-              <% if project.site.photo.attached? %>
+              <%= cl_image_tag project.site.company.photo.key %>
+              <% if project.site.company.photo.attached? %>
                 <div class="homepage-project-card-info">
                   <div class="bottom text-right px-2 py-1">
                     <h5><%= project.job_type %></h5>

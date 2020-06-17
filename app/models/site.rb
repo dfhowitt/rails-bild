@@ -1,5 +1,6 @@
 class Site < ApplicationRecord
   belongs_to :user
+  belongs_to :company
   has_many :projects, dependent: :destroy
   has_many :placements, through: :projects
   has_many :users, through: :placements

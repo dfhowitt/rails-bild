@@ -31,7 +31,7 @@
                     <div class="card-body justify-content-between align-items-center p-2">
                       <div class="inbox-card-content d-flex">
                         <div class="image-square bg-dark rounded">
-                          <%= cl_image_tag conversation.placement.project.site.photo.key, width: 48, height: 48, crop: :fit, class: "rounded" %>
+                          <%= cl_image_tag conversation.placement.project.site.company.photo.key, width: 48, height: 48, crop: :fit, class: "rounded" %>
                         </div>
                         <div class="inbox-left flex-grow-1 mx-2">
                           <p><strong>Job Description:</strong> <%= conversation.placement.project.description.capitalize %></p>
