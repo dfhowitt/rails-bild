@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get "qualification", to: "users#qualification"
     get "history", to: "users#history"
     get "schedule", to: "users#schedule"
+    get "profile", to: "users#profile"
     # get "my_placements", to: "users#my_placements"
     # get "sites", to: "users#sites"
     # get "placements", to: "users#placements"
