@@ -41,4 +41,9 @@ class UsersController < ApplicationController
   def schedule
     dashboard
   end
+
+  def profile
+    # @profile = Profile.new
+
+  end
 end
