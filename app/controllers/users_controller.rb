@@ -43,7 +43,7 @@ class UsersController < ApplicationController
   end
 
   def profile
-    # @profile = Profile.new
+    # @profile = User.find(params[:id])
 
   end
 end
