@@ -1,15 +1,38 @@
-<!-- <div class="container">
+<div class="container">
   <h1>My Profile</h1>
-  <div class="new-profile-form">
-    <%#= simple_form_for @user do |f| %>
-      <%#= f.label "Profile Photo" %>
-      <%#= f.file_field :avatar %><br>
-    <%# end %>
+  <br>
+  <br>
 
-  </div>
   <div class="user-avatar">
-
+    <% if @user.avatar.attached? %>
+      <%= image_tag @user.avatar %>
+    <% end %>
+  </div>
+  <div class="profile-info-list">
+    <ul>
+      <li>First Name: <%= @user.first_name %>
+        <hr>
+      </li>
+      <li>Last Name: <%= @user.last_name %>
+        <hr>
+      </li>
+      <li>Email: <%= @user.email %>
+        <hr>
+      </li>
+      <li>Mobile Number: <%= @user.phone_number %>
+        <hr>
+      </li>
+      <li>Address: <%= @user.address %>
+        <hr>
+      </li>
+    </ul>
+  </div>
+  <div class="btn btn-primary edit-details">
+    <%= link_to "Edit My Details"   %>
   </div>
 
 </div>
- -->
+
+
+
+
