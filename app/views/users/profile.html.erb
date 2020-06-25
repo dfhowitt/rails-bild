@@ -1,13 +1,12 @@
 <div class="container">
-  <h1>My Profile</h1>
+  <h1><i class="fas fa-user-circle"></i> My Profile</h1>
   <br>
-  <br>
-
   <div class="user-avatar">
     <% if @user.avatar.attached? %>
-      <%= image_tag @user.avatar %>
+      <%= cl_image_tag @user.avatar.key, height: 150, width: 150, crop: :fill, class: "user-avatar" %>
     <% end %>
   </div>
+  <br>
   <div class="profile-info-list">
     <ul>
       <li>First Name: <%= @user.first_name %>
