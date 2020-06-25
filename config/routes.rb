@@ -37,8 +37,9 @@ Rails.application.routes.draw do
     resources :employments, only: [:create, :destroy, :index]
   end
 
-
-  resources :placements, only: [:destroy] do
+  get 'teamcreate', to: "placements#team_create", as: "team_placement"
+  post 'teamcreate', to: "placements#team_create"
+  resources :placements, only: [:destroy, :create] do
     resources :conversations, only: [:create]
   end
 end

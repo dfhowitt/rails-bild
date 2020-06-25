@@ -13,6 +13,16 @@ class PlacementsController < ApplicationController
     end
   end
 
+  def team_create
+    @placement = Placement.new(placement_params)
+    @placement.confirmed = true if @placement.project.autoconfirm == true
+    if @placement.save
+      redirect_back(fallback_location: root_path, success: "Applications sent!")
+    else
+      flash.now[:alert] = "Application did not come through, please try again."
+    end
+  end
+
   def update
     @placement = Placement.find(params[:id])
     confirm = params[:placement][:confirm] == "true"

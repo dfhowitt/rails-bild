@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   add_flash_types :success
   helper_method :check_project_for_application_overlap, :check_user_application_dates, :check_project_qualification_requirements, :check_user_qualifications
+  protect_from_forgery unless: -> { request.format.json? }
+
 
   def default_url_options
     { host: ENV["DOMAIN"] || "localhost:3000" }
