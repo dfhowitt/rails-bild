@@ -3,14 +3,14 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   get "about-us", to: "pages#about_us"
 
-  resources :users, only: [:show, :edit] do
+  resources :users, only: [:show, :edit, :update] do
     get "dashboard", to: "users#dashboard"
     get "application", to: "users#application"
     get "qualification", to: "users#qualification"
     get "history", to: "users#history"
     get "schedule", to: "users#schedule"
     get "profile", to: "users#profile"
-    get "users/:id", to: "users#edit_profile"
+
 
     # get "my_placements", to: "users#my_placements"
     # get "sites", to: "users#sites"
