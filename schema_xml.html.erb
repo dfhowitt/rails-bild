@@ -67,7 +67,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="328" y="610" name="Small Business">
+<table x="302" y="630" name="Business">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -237,13 +237,13 @@
 <part>id</part>
 </key>
 </table>
-<table x="386" y="820" name="Members">
+<table x="242" y="746" name="Employments">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="team_id" null="1" autoincrement="0">
+<row name="business_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="Small Business" row="id" />
+<default>NULL</default><relation table="Business" row="id" />
 </row>
 <row name="user_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -254,3 +254,4 @@
 </key>
 </table>
 </sql>
+

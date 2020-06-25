@@ -9,13 +9,14 @@ Rails.application.routes.draw do
     get "qualification", to: "users#qualification"
     get "history", to: "users#history"
     get "schedule", to: "users#schedule"
+    get "business", to: "users#business"
     # get "my_placements", to: "users#my_placements"
     # get "sites", to: "users#sites"
     # get "placements", to: "users#placements"
     # get "projects", to: "users#projects"
     resources :user_qualifications, only: [:create]
-      resources :conversations, only: [:index] do
-        resources :messages, only: [:index, :create]
+    resources :conversations, only: [:index] do
+      resources :messages, only: [:index, :create]
     end
   end
 
@@ -30,6 +31,10 @@ Rails.application.routes.draw do
 
   resources :projects, except: [:new, :create] do
     resources :placements, only: [:create, :update]
+  end
+
+  resources :businesses, only: [:create, :edit, :destroy] do
+    resources :employments, only: [:create, :destroy, :index]
   end
 
 

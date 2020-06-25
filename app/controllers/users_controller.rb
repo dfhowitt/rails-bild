@@ -41,4 +41,10 @@ class UsersController < ApplicationController
   def schedule
     dashboard
   end
+
+  def business
+    @business = Business.find_by(user_id: current_user.id)
+    @new_business = Business.new
+    @new_employee = Employment.new
+  end
 end

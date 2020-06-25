@@ -1,0 +1,23 @@
+<div class="container">
+  <%= render 'user_dashboard_header' %>
+  <% if @business.nil? %>
+    <h1>Add your small business and get your team working today!</h1>
+    <%= render 'businesses/form', business: @new_business %>
+  <% else %>
+    <h1><%= @business.name %></h1>
+    <% @business.employments.each do |employee|%>
+    <p><%= employee.user.first_name %>
+    <%= employee.user.last_name %></p>
+    <% end %>
+    <h3>add an employee</h3>
+    <% users = User.all %>
+    <% users.each do |user| %>
+    <%= user.first_name %> - <%= user.id %>
+    <% end %>
+    <%= simple_form_for [@business, @new_employee], remote: true do |f| %>
+      <%= f.input :user_id %>
+      <%= f.submit "Add Employee", class:"btn btn-primary w-100" %>
+    <% end %>
+  <% end %>
+
+</div>
