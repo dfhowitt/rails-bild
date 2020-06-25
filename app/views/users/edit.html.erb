@@ -13,10 +13,11 @@
                   required: false,
                   input_html: { autocomplete: "new-password" } %>
       <%= f.input :email, required: false, autofocus: true %>
+      <%= f.input :phone_number %>
       <%= f.input :address, required: true %>
       <%= f.label "Profile Photo" %>
       <br>
-      <%= f.file_field :avatar %>
+      <%= f.file_field :avatar, required: true %>
     </div>
 
     <div class="form-actions">
