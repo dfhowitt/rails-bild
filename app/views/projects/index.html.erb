@@ -1,3 +1,32 @@
+<div id="teamApplicationModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="project-title" id="teamApplicationModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <% employees = [] %>
+        <% @business.employments.each do |empl| %>
+          <%  employees << empl.user %>
+        <% end %>
+        <p><%= @business.name %></p>
+        <% employees.each do |employee| %>
+          <%= simple_form_for @placement, :url => team_placement_path, :method => :post, remote: true  do |f| %>
+            <%= f.label  employee.first_name + " " + employee.last_name %>
+            <%= f.input :user_id, :as => :hidden, :input_html => { :value => employee.id } %>
+            <%= f.input :project_id, :as => :hidden, :input_html => { :class => 'project-id' }%>
+            <%= f.submit "submit", class:"btn btn-primary w-50 team-form" %>
+          <% end %>
+        <% end %>
+        <input type="button" value="Submit All" id="submitAll" />
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
   <%= render 'index_header' %>
   <div class="projects-card-holder w-800">
@@ -18,6 +47,14 @@
         <h2>Additional options:</h2>
       <% end %>
     <% end %>
+    <!-- testing small business setup -->
+    <% unless @business.nil? %>
+      <h1><%= @business.name %> - <%= @business.employments.count %></h1>
+    <button class="btn btn-primary d-flex justify-content-center align-items-center team-application-button ml-2">
+      <span>Team Application</span>
+    </button>
+    <% end %>
+    <!-- end of test section -->
 
       <% @projects.each do |project| %>
         <div class="project-card bg-info d-flex justify-content-between align-items-center mb-2 p-2">
@@ -28,8 +65,10 @@
 
           <div class="project-card-details flex-grow-1 mx-2">
 
-            <p><strong><%= link_to project.job_type, project_path(project) %></strong> - <small><i> <%= Geocoder::Calculations.distance_between(@query_coords, [project.site.latitude, project.site.longitude]).round(1)%> km away </i></small></p>
-
+            <p><strong><%= link_to project.job_type, project_path(project) %></strong>
+               <% unless @query_coords.nil? %>
+                - <small><i><%= Geocoder::Calculations.distance_between(@query_coords, [project.site.latitude, project.site.longitude]).round(1)%> km away</i></small></p>
+              <% end %>
             <p>
               <% project.project_qualifications.each_with_index do |pq, i| %>
                 <% if i != project.project_qualifications.size - 1 %>
@@ -54,17 +93,26 @@
           <div class="project-card-right text-center">
 
             <% if check_project_qualification_requirements(project) %>
+              <!-- check to see if solo or business -->
               <div class="apply-button">
-                <% if project.autoconfirm == true %>
-                  <%= simple_form_for [project, @placement], remote: true do |f| %>
-                    <%= f.submit "Instant Confirm", class:"btn btn-primary w-100" %>
+                <% if  @business.nil?%>
+                <!-- solo -->
+                  <% if project.autoconfirm == true %>
+                    <%= simple_form_for [project, @placement], remote: true do |f| %>
+                      <%= f.submit "Instant Confirm", class:"btn btn-primary w-100" %>
+                    <% end %>
+                  <% else %>
+                    <%= simple_form_for [project, @placement], remote: true do |f| %>
+                      <%= f.submit "Submit Application", class:"btn btn-primary w-100" %>
+                    <% end %>
                   <% end %>
                 <% else %>
-                  <%= simple_form_for [project, @placement], remote: true do |f| %>
-                    <%= f.submit "Submit Application", class:"btn btn-primary w-100" %>
-                  <% end %>
+                <!-- business -->
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#teamApplicationModal" data-project="<%= project.id %>" data-project-type="<%= project.job_type %>">
+                  Team Application</button>
                 <% end %>
               </div>
+
             <% else %>
               <div class="apply-button inactive">
                 <div class="bg-secondary rounded py-2 w-100">Qualification Needed</div>
@@ -75,7 +123,7 @@
 
             <!-- end of card body -->
           </div>
-          <!-- end of indiidual card -->
+          <!-- end of individual card -->
         </div>
         <!-- end of iteration -->
       <% end %>
@@ -84,4 +132,5 @@
   </div>
   <!-- end of container -->
 </div>
+
 

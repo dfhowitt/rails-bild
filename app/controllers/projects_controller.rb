@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
 
   def index
     projects = Project.all
-
+    @business = Business.find_by(user_id: current_user.id)
 
     @unconfirmed_placement_dates = check_user_application_dates(current_user)
     @confirmed_placement_dates = check_user_placement_dates(current_user)

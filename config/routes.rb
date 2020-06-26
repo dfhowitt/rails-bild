@@ -9,7 +9,11 @@ Rails.application.routes.draw do
     get "qualification", to: "users#qualification"
     get "history", to: "users#history"
     get "schedule", to: "users#schedule"
+
+    get "business", to: "users#business"
+
     get "profile", to: "users#profile"
+
 
 
     # get "my_placements", to: "users#my_placements"
@@ -17,8 +21,8 @@ Rails.application.routes.draw do
     # get "placements", to: "users#placements"
     # get "projects", to: "users#projects"
     resources :user_qualifications, only: [:create]
-      resources :conversations, only: [:index] do
-        resources :messages, only: [:index, :create]
+    resources :conversations, only: [:index] do
+      resources :messages, only: [:index, :create]
     end
   end
 
@@ -35,8 +39,13 @@ Rails.application.routes.draw do
     resources :placements, only: [:create, :update]
   end
 
+  resources :businesses, only: [:create, :edit, :destroy] do
+    resources :employments, only: [:create, :destroy, :index]
+  end
 
-  resources :placements, only: [:destroy] do
+  get 'teamcreate', to: "placements#team_create", as: "team_placement"
+  post 'teamcreate', to: "placements#team_create"
+  resources :placements, only: [:destroy, :create] do
     resources :conversations, only: [:create]
   end
 end
