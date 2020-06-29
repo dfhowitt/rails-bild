@@ -6,18 +6,25 @@
   <% else %>
     <h1><%= @business.name %></h1>
     <% @business.employments.each do |employee|%>
-    <p><%= employee.user.first_name %>
-    <%= employee.user.last_name %></p>
+    <div class="employee-card d-flex">
+      <%= link_to user_profile_path(employee.user.id) do %>
+        <p><%= employee.user.first_name %>
+           <%= employee.user.last_name %>
+        </p>
+      <% end %>
+      <%= link_to '🗑', employment_path(employee), class:"ml-3", method: :delete, remote: :true %>
+    </div>
     <% end %>
-    <h3>add an employee</h3>
-    <% users = User.all %>
-    <% users.each do |user| %>
-    <%= user.first_name %> - <%= user.id %>
-    <% end %>
-    <%= simple_form_for [@business, @new_employee], remote: true do |f| %>
-      <%= f.input :user_id %>
+    <div class="d-flex  p-3">
+      <h3 class="btn btn-primary mr-5">Find A Current User ✚</h3>
+      <h3 class="btn btn-primary ml-5">Add A New User ✚</h3>
+    </div>
+
+    <h5>Please enter employee's email address</h5>
+    <%= simple_form_for [@new_employee], :url => employee_search_path, :method => :post, remote: true do |f| %>
+      <%= f.input :business_id, :as => :hidden, :input_html => { :value => @business.id } %>
+      <%= f.input :user %>
       <%= f.submit "Add Employee", class:"btn btn-primary w-100" %>
     <% end %>
   <% end %>
-
 </div>

@@ -40,9 +40,15 @@ Rails.application.routes.draw do
   end
 
   resources :businesses, only: [:create, :edit, :destroy] do
-    resources :employments, only: [:create, :destroy, :index]
+    resources :employments, only: [:create, :index]
   end
 
+  resources :employments, only: [:destroy]
+
+
+
+  get 'employeesearchcreate', to: "employments#search_create", as: "employee_search"
+  post 'employeesearchcreate', to: "employments#search_create"
   get 'teamcreate', to: "placements#team_create", as: "team_placement"
   post 'teamcreate', to: "placements#team_create"
   resources :placements, only: [:destroy, :create] do

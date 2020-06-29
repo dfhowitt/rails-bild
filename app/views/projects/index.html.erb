@@ -13,15 +13,17 @@
           <%  employees << empl.user %>
         <% end %>
         <p><%= @business.name %></p>
+        <input type="button" class="btn btn-primary" value="Select All" id="selectAll">
         <% employees.each do |employee| %>
           <%= simple_form_for @placement, :url => team_placement_path, :method => :post, remote: true  do |f| %>
-            <%= f.label  employee.first_name + " " + employee.last_name %>
+            <input class="add-user" type="checkbox">
+            <%= f.label employee.first_name + " " + employee.last_name %>
             <%= f.input :user_id, :as => :hidden, :input_html => { :value => employee.id } %>
             <%= f.input :project_id, :as => :hidden, :input_html => { :class => 'project-id' }%>
-            <%= f.submit "submit", class:"btn btn-primary w-50 team-form" %>
+            <%#= f.submit "submit", class:"btn btn-primary w-50 team-form" %>
           <% end %>
         <% end %>
-        <input type="button" value="Submit All" id="submitAll" />
+        <input type="button" class="btn btn-primary" value="Submit All" id="submitAll" />
       </div>
     </div>
   </div>
@@ -50,9 +52,6 @@
     <!-- testing small business setup -->
     <% unless @business.nil? %>
       <h1><%= @business.name %> - <%= @business.employments.count %></h1>
-    <button class="btn btn-primary d-flex justify-content-center align-items-center team-application-button ml-2">
-      <span>Team Application</span>
-    </button>
     <% end %>
     <!-- end of test section -->
 
