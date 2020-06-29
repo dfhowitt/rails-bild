@@ -17,14 +17,30 @@ const teamApplyModalButtons = () => {
 
 
 const submitForms = () => {
+  const selectAll = document.getElementById('selectAll')
+  if (selectAll) {
+    selectAll.addEventListener("click", (event) => {
+      var forms = document.querySelectorAll("#new_placement")
+      forms.forEach((form) => {
+        var chosen = form.querySelector(".add-user")
+        chosen.checked = true
+      })
+    })
+  }
+
+
   const submitAll = document.getElementById('submitAll')
   if (submitAll) {
     submitAll.addEventListener("click", (event) =>  {
-      // var forms = document.querySelectorAll(".team-form")
       var forms = document.querySelectorAll("#new_placement")
+
       forms.forEach((form, i) => {
         setTimeout(() => {
-          form.submit();
+          var chosen = form.querySelector(".add-user")
+          if (chosen.checked) {
+            console.log('chosen-checked')
+            form.submit();
+          }
         }, i * 5);
       })
     })

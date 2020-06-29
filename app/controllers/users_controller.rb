@@ -63,7 +63,7 @@ class UsersController < ApplicationController
   end
 
   def profile
-    @user = User.find(current_user.id)
+    @user = User.find(params[:user_id])
   end
 
   private
