@@ -1,0 +1,31 @@
+<!-- <div class="dashboard-search">
+  <form method="get" action="/projects" class="w-50 p-3">
+    <input type="text" name="query" autocomplete="off" placeholder="Enter Postcode" tabindex="100" class="form-control" id="flat_address">
+    <input type="submit" value="Search" class="btn btn-flat">
+  </form>
+</div> -->
+
+<ul class="nav nav-tabs">
+  <% if params[:active] == "manager_history" %>
+    <li class="#manager-tab" id="#tab-sites"><%= link_to "Active Sites", user_dashboard_path(current_user, active: "sites") %></li>
+    <li class="#manager-tab" id="#tab-timesheets"><%= link_to "Timesheets", user_timesheet_path(current_user, active: "timesheets") %></li>
+    <li class="#manager-tab" id="#tab-manager-Employees"><%= link_to "My Employees", user_manager_business_path(current_user, active: "business") %></li>
+    <li class="#manager-tab active" id="#tab-manager-history"><%= link_to "History", user_manager_history_path(current_user, active: "manager_history") %></li>
+  <% elsif params[:active] == "timesheets" %>
+    <li class="#manager-tab" id="#tab-sites"><%= link_to "Active Sites", user_dashboard_path(current_user, active: "sites") %></li>
+    <li class="#manager-tab active" id="#tab-timesheets"><%= link_to "Timesheets", user_timesheet_path(current_user, active: "timesheets") %></li>
+    <li class="#manager-tab" id="#tab-manager-Employees"><%= link_to "My Employees", user_manager_business_path(current_user, active: "business") %></li>
+    <li class="#manager-tab" id="#tab-manager-history"><%= link_to "History", user_manager_history_path(current_user, active: "manager_history") %></li>
+  <% elsif params[:active] == "business" %>
+    <li class="#manager-tab" id="#tab-sites"><%= link_to "Active Sites", user_dashboard_path(current_user, active: "sites") %></li>
+    <li class="#manager-tab" id="#tab-timesheets"><%= link_to "Timesheets", user_timesheet_path(current_user, active: "timesheets") %></li>
+    <li class="#manager-tab active" id="#tab-manager-Employees"><%= link_to "My Employees", user_manager_business_path(current_user, active: "business") %></li>
+    <li class="#manager-tab" id="#tab-manager-history"><%= link_to "History", user_manager_history_path(current_user, active: "manager_history") %></li>
+  <% else %>
+    <li class="#manager-tab active" id="#tab-sites"><%= link_to "Active Sites", user_dashboard_path(current_user, active: "sites") %></li>
+    <li class="#manager-tab" id="#tab-timesheets"><%= link_to "Timesheets", user_timesheet_path(current_user, active: "timesheets") %></li>
+    <li class="#manager-tab" id="#tab-manager-Employees"><%= link_to "My Employees", user_manager_business_path(current_user, active: "business") %></li>
+    <li class="#manager-tab" id="#tab-manager-history"><%= link_to "History", user_manager_history_path(current_user, active: "manager_history") %></li>
+  <% end %>
+</ul>
+

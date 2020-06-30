@@ -9,9 +9,11 @@ Rails.application.routes.draw do
     get "qualification", to: "users#qualification"
     get "history", to: "users#history"
     get "schedule", to: "users#schedule"
+    get "timesheet", to: "users#timesheet"
+    get "manager_history", to: "users#manager_history"
 
     get "business", to: "users#business"
-
+    get "manager_business", to: "users#manager_business"
     get "profile", to: "users#profile"
 
 

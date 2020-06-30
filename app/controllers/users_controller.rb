@@ -3,8 +3,26 @@ class UsersController < ApplicationController
   def dashboard
     # if current_user.manager
       @new_site = Site.new
-      @sites = Site.where(user: current_user)
+      sites = Site.where(user: current_user)
+      # managed_sites = Site.joins(:user)
+      #              .where("sites.user_id = ?", current_user.id)
       @projects = Project.where(user: current_user)
+
+      @past_projects = Project.joins(:site)
+                              .where("sites.user_id = ? AND projects.end_date < ?", current_user.id, DateTime.now)
+      @active_sites = []
+      sites.each do |site|
+        site.projects.each do |project|
+          @active_sites << project.site if project.end_date >= DateTime.now
+        end
+      end
+
+      @past_sites = []
+      sites.each do |site|
+        site.projects.each do |project|
+          @past_sites << project.site if project.end_date < DateTime.now
+        end
+      end
     # else
       @applications = Placement.joins(:project)
                                .where("placements.user_id = ? AND projects.start_date > ?", current_user.id, DateTime.now)
@@ -55,11 +73,24 @@ class UsersController < ApplicationController
     dashboard
   end
 
+  def timesheet
+    dashboard
+  end
+
+  def manager_history
+    dashboard
+  end
 
   def business
     @business = Business.find_by(user_id: current_user.id)
     @new_business = Business.new
     @new_employee = Employment.new
+  end
+
+  def manager_business
+    @manager_business = Business.find_by(user_id: current_user.id)
+    @new_manager_business = Business.new
+    @new_manager_employee = Employment.new
   end
 
   def profile

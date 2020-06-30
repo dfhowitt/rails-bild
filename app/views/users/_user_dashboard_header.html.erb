@@ -7,47 +7,47 @@
 
 <ul class="nav nav-tabs">
   <% if params[:active] == "schedule" %>
-    <li class="#tab" id="#tab-placements"><%= link_to "Upcoming", user_dashboard_path(current_user, active: "upcoming") %></li>
-    <li class="#tab active" id="#tab-schedule"><%= link_to "Schedule", user_schedule_path(current_user, active: "schedule") %></li>
-    <li class="#tab" id="#tab-applications"><%= link_to "Applications", user_application_path(current_user, active: "applications") %></li>
-    <li class="#tab" id="#tab-history"><%= link_to "History", user_history_path(current_user, active: "history") %></li>
-    <li class="#tab" id="#tab-qualifications"><%= link_to "User Qualifications", user_qualification_path(current_user, active: "qualifications") %></li>
-    <li class="#tab" id="#tab-Employees"><%= link_to "My Employees", user_business_path(current_user, active: "business") %></li>
+    <li class="#worker-tab" id="#tab-placements"><%= link_to "Upcoming", user_dashboard_path(current_user, active: "upcoming") %></li>
+    <li class="#worker-tab active" id="#tab-schedule"><%= link_to "Schedule", user_schedule_path(current_user, active: "schedule") %></li>
+    <li class="#worker-tab" id="#tab-applications"><%= link_to "Applications", user_application_path(current_user, active: "applications") %></li>
+    <li class="#worker-tab" id="#tab-history"><%= link_to "History", user_history_path(current_user, active: "history") %></li>
+    <li class="#worker-tab" id="#tab-qualifications"><%= link_to "User Qualifications", user_qualification_path(current_user, active: "qualifications") %></li>
+    <li class="#worker-tab" id="#tab-Employees"><%= link_to "My Employees", user_business_path(current_user, active: "business") %></li>
   <% elsif params[:active] == "applications" %>
-    <li class="#tab" id="#tab-placements"><%= link_to "Upcoming", user_dashboard_path(current_user, active: "upcoming") %></li>
-    <li class="#tab" id="#tab-schedule"><%= link_to "Schedule", user_schedule_path(current_user, active: "schedule") %></li>
-    <li class="#tab active" id="#tab-applications"><%= link_to "Applications", user_application_path(current_user, active: "applications") %></li>
-    <li class="#tab" id="#tab-history"><%= link_to "History", user_history_path(current_user, active: "history") %></li>
-    <li class="#tab" id="#tab-qualifications"><%= link_to "User Qualifications", user_qualification_path(current_user, active: "qualifications") %></li>
-    <li class="#tab" id="#tab-Employees"><%= link_to "My Employees", user_business_path(current_user, active: "business") %></li>
+    <li class="#worker-tab" id="#tab-placworker-ements"><%= link_to "Upcoming", user_dashboard_path(current_user, active: "upcoming") %></li>
+    <li class="#worker-tab" id="#tab-schedule"><%= link_to "Schedule", user_schedule_path(current_user, active: "schedule") %></li>
+    <li class="#worker-tab active" id="#tab-applications"><%= link_to "Applications", user_application_path(current_user, active: "applications") %></li>
+    <li class="#worker-tab" id="#tab-history"><%= link_to "History", user_history_path(current_user, active: "history") %></li>
+    <li class="#worker-tab" id="#tab-qualifications"><%= link_to "User Qualifications", user_qualification_path(current_user, active: "qualifications") %></li>
+    <li class="#worker-tab" id="#tab-Employees"><%= link_to "My Employees", user_business_path(current_user, active: "business") %></li>
   <% elsif params[:active] == "history" %>
-    <li class="#tab" id="#tab-placements"><%= link_to "Upcoming", user_dashboard_path(current_user, active: "upcoming") %></li>
-    <li class="#tab" id="#tab-schedule"><%= link_to "Schedule", user_schedule_path(current_user, active: "schedule") %></li>
-    <li class="#tab" id="#tab-applications"><%= link_to "Applications", user_application_path(current_user, active: "applications") %></li>
-    <li class="#tab active" id="#tab-history"><%= link_to "History", user_history_path(current_user, active: "history") %></li>
-    <li class="#tab" id="#tab-qualifications"><%= link_to "User Qualifications", user_qualification_path(current_user, active: "qualifications") %></li>
-    <li class="#tab" id="#tab-Employees"><%= link_to "My Employees", user_business_path(current_user, active: "business") %></li>
+    <li class="#worker-tab" id="#tab-placements"><%= link_to "Upcoming", user_dashboard_path(current_user, active: "upcoming") %></li>
+    <li class="#worker-tab" id="#tab-schedule"><%= link_to "Schedule", user_schedule_path(current_user, active: "schedule") %></li>
+    <li class="#worker-tab" id="#tab-applications"><%= link_to "Applications", user_application_path(current_user, active: "applications") %></li>
+    <li class="#worker-tab active" id="#tab-history"><%= link_to "History", user_history_path(current_user, active: "history") %></li>
+    <li class="#worker-tab" id="#tab-qualifications"><%= link_to "User Qualifications", user_qualification_path(current_user, active: "qualifications") %></li>
+    <li class="#worker-tab" id="#tab-Employees"><%= link_to "My Employees", user_business_path(current_user, active: "business") %></li>
   <% elsif params[:active] == "qualifications" %>
-    <li class="#tab" id="#tab-placements"><%= link_to "Upcoming", user_dashboard_path(current_user, active: "upcoming") %></li>
-    <li class="#tab" id="#tab-schedule"><%= link_to "Schedule", user_schedule_path(current_user, active: "schedule") %></li>
-    <li class="#tab" id="#tab-applications"><%= link_to "Applications", user_application_path(current_user, active: "applications") %></li>
-    <li class="#tab" id="#tab-history"><%= link_to "History", user_history_path(current_user, active: "history") %></li>
-    <li class="#tab active" id="#tab-qualifications"><%= link_to "User Qualifications", user_qualification_path(current_user, active: "qualifications") %></li>
-    <li class="#tab" id="#tab-Employees"><%= link_to "My Employees", user_business_path(current_user, active: "business") %></li>
+    <li class="#worker-tab" id="#tab-placements"><%= link_to "Upcoming", user_dashboard_path(current_user, active: "upcoming") %></li>
+    <li class="#worker-tab" id="#tab-schedule"><%= link_to "Schedule", user_schedule_path(current_user, active: "schedule") %></li>
+    <li class="#worker-tab" id="#tab-applications"><%= link_to "Applications", user_application_path(current_user, active: "applications") %></li>
+    <li class="#worker-tab" id="#tab-history"><%= link_to "History", user_history_path(current_user, active: "history") %></li>
+    <li class="#worker-tab active" id="#tab-qualifications"><%= link_to "User Qualifications", user_qualification_path(current_user, active: "qualifications") %></li>
+    <li class="#worker-tab" id="#tab-Employees"><%= link_to "My Employees", user_business_path(current_user, active: "business") %></li>
   <% elsif params[:active] == "business" %>
-    <li class="#tab" id="#tab-placements"><%= link_to "Upcoming", user_dashboard_path(current_user, active: "upcoming") %></li>
-    <li class="#tab" id="#tab-schedule"><%= link_to "Schedule", user_schedule_path(current_user, active: "schedule") %></li>
-    <li class="#tab" id="#tab-applications"><%= link_to "Applications", user_application_path(current_user, active: "applications") %></li>
-    <li class="#tab" id="#tab-history"><%= link_to "History", user_history_path(current_user, active: "history") %></li>
-    <li class="#tab" id="#tab-qualifications"><%= link_to "User Qualifications", user_qualification_path(current_user, active: "qualifications") %></li>
-    <li class="#tab active" id="#tab-Employees"><%= link_to "My Employees", user_business_path(current_user, active: "business") %></li>
+    <li class="#worker-tab" id="#tab-placements"><%= link_to "Upcoming", user_dashboard_path(current_user, active: "upcoming") %></li>
+    <li class="#worker-tab" id="#tab-schedule"><%= link_to "Schedule", user_schedule_path(current_user, active: "schedule") %></li>
+    <li class="#worker-tab" id="#tab-applications"><%= link_to "Applications", user_application_path(current_user, active: "applications") %></li>
+    <li class="#worker-tab" id="#tab-history"><%= link_to "History", user_history_path(current_user, active: "history") %></li>
+    <li class="#worker-tab" id="#tab-qualifications"><%= link_to "User Qualifications", user_qualification_path(current_user, active: "qualifications") %></li>
+    <li class="#worker-tab active" id="#tab-Employees"><%= link_to "My Employees", user_business_path(current_user, active: "business") %></li>
   <% else %>
-    <li class="#tab active" id="#tab-placements"><%= link_to "Upcoming", user_dashboard_path(current_user, active: "upcoming") %></li>
-    <li class="#tab" id="#tab-schedule"><%= link_to "Schedule", user_schedule_path(current_user, active: "schedule") %></li>
-    <li class="#tab" id="#tab-applications"><%= link_to "Applications", user_application_path(current_user, active: "applications") %></li>
-    <li class="#tab" id="#tab-history"><%= link_to "History", user_history_path(current_user, active: "history") %></li>
-    <li class="#tab" id="#tab-qualifications"><%= link_to "User Qualifications", user_qualification_path(current_user, active: "qualifications") %></li>
-    <li class="#tab" id="#tab-Employees"><%= link_to "My Employees", user_business_path(current_user, active: "business") %></li>
+    <li class="#worker-tab active" id="#tab-placements"><%= link_to "Upcoming", user_dashboard_path(current_user, active: "upcoming") %></li>
+    <li class="#worker-tab" id="#tab-schedule"><%= link_to "Schedule", user_schedule_path(current_user, active: "schedule") %></li>
+    <li class="#worker-tab" id="#tab-applications"><%= link_to "Applications", user_application_path(current_user, active: "applications") %></li>
+    <li class="#worker-tab" id="#tab-history"><%= link_to "History", user_history_path(current_user, active: "history") %></li>
+    <li class="#worker-tab" id="#tab-qualifications"><%= link_to "User Qualifications", user_qualification_path(current_user, active: "qualifications") %></li>
+    <li class="#worker-tab" id="#tab-Employees"><%= link_to "My Employees", user_business_path(current_user, active: "business") %></li>
   <% end %>
 </ul>
 

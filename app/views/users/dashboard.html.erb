@@ -12,8 +12,9 @@
 
 <div class="container">
   <% if current_user.manager %>
-    <% if @sites.length > 1 %>
-      <% first_site = @sites[0] %>
+  <%= render 'manager_dashboard_header' %>
+    <% if @active_sites.length > 1 %>
+      <% first_site = @active_sites[0] %>
       <% first_site_application_count = first_site.placements.select { |p| p.confirmed == nil }.count %>
       <!-- List group -->
       <div class="row pt-4">
@@ -25,7 +26,7 @@
               <span class= "m-0 badge-pill bg-danger text-white"><%= first_site_application_count %></span>
             <% end %>
           </a>
-          <% @sites.each_with_index do |site, i| %>
+          <% @active_sites.each_with_index do |site, i| %>
             <% next if i == 0 %>
             <% site_application_count = site.placements.select { |p| p.confirmed == nil }.count %>
             <a class="list-group-item list-group-item-action" data-toggle="list" href="#site<%= site.id %>" role="tab">
@@ -43,7 +44,7 @@
           <div class="tab-pane fade show active" id="site<%= first_site.id %>" role="tabpanel">
             <%= render partial: 'site', locals: {site: first_site} %>
           </div>
-          <% @sites.each_with_index do |site, i| %>
+          <% @active_sites.each_with_index do |site, i| %>
             <% next if i == 0 %>
             <div class="tab-pane fade" id="site<%= site.id %>" role="tabpanel">
               <%= render partial: 'site', locals: {site: site} %>
@@ -55,8 +56,8 @@
         </div>
       </div>
 
-    <% elsif @sites.length == 1 %>
-      <% site = @sites[0] %>
+    <% elsif @active_sites.length == 1 %>
+      <% site = @active_sites[0] %>
       <%= render 'site', site: site %>
 
     <% else %>

@@ -1,0 +1,48 @@
+<div class="container">
+  <%= render 'manager_dashboard_header' %>
+  <% if @past_sites.empty? %>
+    <div class="no-past-projects bg-info d-flex align-items-center justify-content-center py-4 rounded">
+      <h2>No past projects yet!</h2>
+    </div>
+  <% else %>
+    <% if @past_sites.length > 1 %>
+      <% first_past_site = @past_sites[0] %>
+      <!-- List group -->
+      <div class="row pt-4">
+        <div class="list-group col-md-3" id="myList" role="tablist">
+          <a class="list-group-item list-group-item-action disabled"><strong>Past Sites</strong></a>
+          <a class="list-group-item list-group-item-action active d-flex justify-content-between" data-toggle="list" href="#past_site<%= first_past_site.id %>" role="tab">
+            <%= first_past_site.name %>
+          </a>
+          <% @past_sites.each_with_index do |past_site, i| %>
+            <% next if i == 0 %>
+            <a class="list-group-item list-group-item-action" data-toggle="list" href="#past_site<%= past_site.id %>" role="tab">
+              <%= past_site.name %>
+            </a>
+          <% end %>
+          <a class="list-group-item list-group-item-action justify-content-center" data-toggle="list" href="#new-past_site" role="tab">+ Add a new past_site</a>
+        </div>
+
+        <!-- Tab panes -->
+        <div class="tab-content col-md-9">
+          <div class="tab-pane fade show active" id="past_site<%= first_past_site.id %>" role="tabpanel">
+            <%= render partial: 'past_site', locals: {past_site: first_past_site} %>
+          </div>
+          <% @past_sites.each_with_index do |past_site, i| %>
+            <% next if i == 0 %>
+            <div class="tab-pane fade" id="past_site<%= past_site.id %>" role="tabpanel">
+              <%= render partial: 'past_site', locals: {past_site: past_site} %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+    <% elsif @past_sites.length == 1 %>
+      <% past_site = @past_sites[0] %>
+      <%= render 'past_site', past_site: past_site %>
+
+    <% else %>
+      <p class="text-center bg-info rounded py-2 border mb-5">You do not have any past sites.</p>
+    <% end %>
+  <% end %>
+</div>
