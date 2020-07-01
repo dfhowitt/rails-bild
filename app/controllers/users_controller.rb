@@ -45,6 +45,10 @@ class UsersController < ApplicationController
       @new_qualification = UserQualification.new
     # end
   end
+  def show
+    sign_out :user
+    redirect_to root_path
+  end
 
   def edit
     @user = User.find(current_user.id)
