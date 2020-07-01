@@ -1,10 +1,10 @@
-<h1><%= past_site.name %></h1>
+<h1><%= site.name %></h1>
 <div class="site-details d-flex justify-content-between">
-  <h5><%= past_site.location %></h5>
+  <h5><%= site.location %></h5>
 </div>
 
-<div class="accordion" id="project-accordion-<%= past_site.id %>">
-  <% past_site.projects.each do |project| %>
+<div class="accordion" id="project-accordion-<%= site.id %>">
+  <% site.projects.each do |project| %>
     <% confirmed_placements = project.placements.all %>
 
     <div class="dashboard-project-card card bg-transparent">
@@ -16,7 +16,7 @@
           <p><%= project.start_date.strftime('%a, %b %d') %> - <%= project.end_date.strftime('%a, %b %d') %></p>
       </button>
 
-      <div id="project<%= project.id %>" class="collapse text-left" aria-labelledby="<%= project.job_type %>" data-parent="#project-accordion-<%= past_site.id %>">
+      <div id="project<%= project.id %>" class="collapse text-left" aria-labelledby="<%= project.job_type %>" data-parent="#project-accordion-<%= site.id %>">
         <div class="card-body">
 
           <div class="project_details">

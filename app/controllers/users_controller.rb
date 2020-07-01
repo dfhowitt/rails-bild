@@ -1,8 +1,4 @@
 class UsersController < ApplicationController
-  def active?(project)
-    return true if project.end_date < DateTime.now
-  end
-
   def dashboard
     # if current_user.manager
       @new_site = Site.new
