@@ -1,33 +1,35 @@
-<div id="teamApplicationModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="project-title" id="teamApplicationModalLabel"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <% employees = [] %>
-        <% @business.employments.each do |empl| %>
-          <%  employees << empl.user %>
-        <% end %>
-        <p><%= @business.name %></p>
-        <input type="button" class="btn btn-primary" value="Select All" id="selectAll">
-        <% employees.each do |employee| %>
-          <%= simple_form_for @placement, :url => team_placement_path, :method => :post, remote: true  do |f| %>
-            <input class="add-user" type="checkbox">
-            <%= f.label employee.first_name + " " + employee.last_name %>
-            <%= f.input :user_id, :as => :hidden, :input_html => { :value => employee.id } %>
-            <%= f.input :project_id, :as => :hidden, :input_html => { :class => 'project-id' }%>
-            <%#= f.submit "submit", class:"btn btn-primary w-50 team-form" %>
+<% unless @business.nil? %>
+  <div id="teamApplicationModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="project-title" id="teamApplicationModalLabel"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <% employees = [] %>
+          <% @business.employments.each do |empl| %>
+            <%  employees << empl.user %>
           <% end %>
-        <% end %>
-        <input type="button" class="btn btn-primary" value="Submit All" id="submitAll" />
+          <p><%= @business.name %></p>
+          <input type="button" class="btn btn-primary" value="Select All" id="selectAll">
+          <% employees.each do |employee| %>
+            <%= simple_form_for @placement, :url => team_placement_path, :method => :post, remote: true  do |f| %>
+              <input class="add-user" type="checkbox">
+              <%= f.label employee.first_name + " " + employee.last_name %>
+              <%= f.input :user_id, :as => :hidden, :input_html => { :value => employee.id } %>
+              <%= f.input :project_id, :as => :hidden, :input_html => { :class => 'project-id' }%>
+              <%#= f.submit "submit", class:"btn btn-primary w-50 team-form" %>
+            <% end %>
+          <% end %>
+          <input type="button" class="btn btn-primary" value="Submit All" id="submitAll" />
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>
 
 <div class="container">
   <%= render 'index_header' %>
@@ -50,9 +52,9 @@
       <% end %>
     <% end %>
     <!-- testing small business setup -->
-    <% unless @business.nil? %>
-      <h1><%= @business.name %> - <%= @business.employments.count %></h1>
-    <% end %>
+    <%# unless @business.nil? %>
+      <!-- <h1><%#= @business.name %> - <%#= @business.employments.count %></h1> -->
+    <%# end %>
     <!-- end of test section -->
 
       <% @projects.each do |project| %>
