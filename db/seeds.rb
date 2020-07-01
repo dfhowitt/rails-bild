@@ -118,7 +118,7 @@ site_logos_array = [
                    ]
 
 puts "creating sites. This may take a while.."
-locations[6..-11].each do |location|
+locations[6..14].each do |location|
   site = Site.new(
     name: names.sample,
     site_type: site_types.sample,
@@ -174,6 +174,34 @@ locations[0..5].each do |location|
   site.save
 end
 
+locations[15..49].each do |location|
+  site = Site.new(
+    name: names.sample,
+    site_type: site_types.sample,
+    location: location,
+    user_id: User.find_by(first_name: 'Dan').id
+    )
+  if site.name == 'Strata'
+    logo = URI.open(site_logos_array[0])
+  elsif site.name == 'Kier'
+    logo = URI.open(site_logos_array[1])
+  elsif site.name == 'Morgan Sindall'
+    logo = URI.open(site_logos_array[2])
+  elsif site.name == 'HomeServe'
+    logo = URI.open(site_logos_array[3])
+  elsif site.name == 'MITIE'
+    logo = URI.open(site_logos_array[4])
+  elsif site.name == 'Wates'
+    logo = URI.open(site_logos_array[5])
+  elsif site.name == 'Bouygues'
+    logo = URI.open(site_logos_array[6])
+  elsif site.name == 'Vinci'
+    logo = URI.open(site_logos_array[7])
+  end
+  site.photo.attach(io: logo, filename: 'logo_pic.jpg', content_type: 'image/jpg')
+  site.save
+end
+
 
 # names.each do |company|
 #   puts "creating site #{counter}"
@@ -190,7 +218,7 @@ end
 #   counter += 1
 # end
 
-puts "creating projects"
+puts "creating active projects"
 
 sites = Site.all
 
@@ -229,7 +257,7 @@ chris_sites.each do |site|
 end
 
 faris_sites.each do |site|
-  rand(2..8).times do
+  rand(2..5).times do
     res_start_date = Faker::Date.forward(days: rand(1..15))
     index = rand(1..4)
     project = Project.new(
@@ -249,56 +277,6 @@ faris_sites.each do |site|
     )
     pq.save
   end
-end
-
-locations[-10..-1].each do |location|
-  site = Site.new(
-    name: names.sample,
-    site_type: site_types.sample,
-    location: location,
-    user_id: User.find_by(first_name: 'Dan').id
-    )
-  if site.name == 'Strata'
-    logo = URI.open(site_logos_array[0])
-  elsif site.name == 'Kier'
-    logo = URI.open(site_logos_array[1])
-  elsif site.name == 'Morgan Sindall'
-    logo = URI.open(site_logos_array[2])
-  elsif site.name == 'HomeServe'
-    logo = URI.open(site_logos_array[3])
-  elsif site.name == 'MITIE'
-    logo = URI.open(site_logos_array[4])
-  elsif site.name == 'Wates'
-    logo = URI.open(site_logos_array[5])
-  elsif site.name == 'Bouygues'
-    logo = URI.open(site_logos_array[6])
-  elsif site.name == 'Vinci'
-    logo = URI.open(site_logos_array[7])
-  end
-  site.photo.attach(io: logo, filename: 'logo_pic.jpg', content_type: 'image/jpg')
-  site.save
-end
-
-puts "creating past projects"
-
-dan_sites = User.find_by(first_name: 'Dan').managed_sites
-dan_sites.each do |site|
-  history_start_date = Faker::Date.backward(days: 15)
-  past_project = Project.new(
-    start_date: history_start_date,
-    end_date: history_start_date + rand(1..3),
-    wage: rand(10..20),
-    capacity: rand(1..2),
-    description: descriptions.sample,
-    site_id: site.id,
-    job_type: 'Labourer'
-    )
-  past_project.save
-  Placement.create(
-    user_id: User.find_by(first_name: 'Bob').id,
-    project_id: past_project.id,
-    confirmed: true
-    )
 end
 
 puts "creating qualifications"
@@ -325,5 +303,28 @@ Project.all.each do |project|
   project_qualification = ProjectQualification.create(
     project_id: project.id,
     qualification_id: Qualification.find_by(name: qualifications[0]).id
+    )
+end
+
+
+puts "creating past projects"
+
+dan_sites = User.find_by(first_name: 'Dan').managed_sites
+dan_sites.each do |site|
+  history_start_date = Faker::Date.backward(days: 15)
+  past_project = Project.new(
+    start_date: history_start_date,
+    end_date: history_start_date + rand(1..3),
+    wage: rand(10..20),
+    capacity: rand(1..2),
+    description: descriptions.sample,
+    site_id: site.id,
+    job_type: 'Labourer'
+    )
+  past_project.save
+  Placement.create(
+    user_id: User.find_by(first_name: 'Bob').id,
+    project_id: past_project.id,
+    confirmed: true
     )
 end
