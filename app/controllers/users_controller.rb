@@ -1,26 +1,32 @@
 class UsersController < ApplicationController
+  def active?(project)
+    return true if project.end_date < DateTime.now
+  end
 
   def dashboard
     # if current_user.manager
       @new_site = Site.new
-      sites = Site.where(user: current_user)
-      # managed_sites = Site.joins(:user)
-      #              .where("sites.user_id = ?", current_user.id)
-      @projects = Project.where(user: current_user)
+      sites = Site.all
+      managed_sites = Site.joins(:user)
+                          .where("sites.user_id = ?", current_user.id)
+      active_projects = Project.joins(:site)
+                                .where("sites.user_id = ? AND projects.end_date >= ?", current_user.id, DateTime.now)
 
-      @past_projects = Project.joins(:site)
+      past_projects = Project.joins(:site)
                               .where("sites.user_id = ? AND projects.end_date < ?", current_user.id, DateTime.now)
       @active_sites = []
-      sites.each do |site|
-        site.projects.each do |project|
-          @active_sites << project.site if project.end_date >= DateTime.now
-        end
-      end
-
       @past_sites = []
-      sites.each do |site|
+      managed_sites.each do |site|
+        active_site = false
         site.projects.each do |project|
-          @past_sites << project.site if project.end_date < DateTime.now
+          if project.end_date > DateTime.now
+            active_site = true
+          end
+        end
+        if active_site == true
+          @active_sites << site
+        else
+          @past_sites << site
         end
       end
     # else
