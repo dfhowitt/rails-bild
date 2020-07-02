@@ -1,10 +1,30 @@
 class UsersController < ApplicationController
-
   def dashboard
     # if current_user.manager
       @new_site = Site.new
-      @sites = Site.where(user: current_user)
-      @projects = Project.where(user: current_user)
+      sites = Site.all
+      managed_sites = Site.joins(:user)
+                          .where("sites.user_id = ?", current_user.id)
+      active_projects = Project.joins(:site)
+                                .where("sites.user_id = ? AND projects.end_date >= ?", current_user.id, DateTime.now)
+
+      past_projects = Project.joins(:site)
+                              .where("sites.user_id = ? AND projects.end_date < ?", current_user.id, DateTime.now)
+      @active_sites = []
+      @past_sites = []
+      managed_sites.each do |site|
+        active_site = false
+        site.projects.each do |project|
+          if project.end_date > DateTime.now
+            active_site = true
+          end
+        end
+        if active_site == true
+          @active_sites << site
+        else
+          @past_sites << site
+        end
+      end
     # else
       @applications = Placement.joins(:project)
                                .where("placements.user_id = ? AND projects.start_date > ?", current_user.id, DateTime.now)
@@ -24,6 +44,10 @@ class UsersController < ApplicationController
       @qualifications = UserQualification.where(user: current_user)
       @new_qualification = UserQualification.new
     # end
+  end
+  def show
+    sign_out :user
+    redirect_to root_path
   end
 
   def edit
@@ -55,11 +79,24 @@ class UsersController < ApplicationController
     dashboard
   end
 
+  def timesheet
+    dashboard
+  end
+
+  def manager_history
+    dashboard
+  end
 
   def business
     @business = Business.find_by(user_id: current_user.id)
     @new_business = Business.new
     @new_employee = Employment.new
+  end
+
+  def manager_business
+    @manager_business = Business.find_by(user_id: current_user.id)
+    @new_manager_business = Business.new
+    @new_manager_employee = Employment.new
   end
 
   def profile
