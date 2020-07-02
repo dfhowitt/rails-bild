@@ -1,10 +1,4 @@
-<!-- <div class="dashboard-search">
-  <form method="get" action="/projects" class="w-50 p-3">
-    <input type="text" name="query" autocomplete="off" placeholder="Enter Postcode" tabindex="100" class="form-control" id="flat_address">
-    <input type="submit" value="Search" class="btn btn-flat">
-  </form>
-</div> -->
-
+<!-- "active: XXX that is being sent to params makes current tab highlight to yellow with the below conditional statement" -->
 <ul class="nav nav-tabs">
   <% if params[:active] == "manager_history" %>
     <li class="#manager-tab" id="#tab-sites"><%= link_to "Active Sites", user_dashboard_path(current_user, active: "sites") %></li>

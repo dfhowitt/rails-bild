@@ -1,7 +1,9 @@
 const linkToTabs = () => {
   const url_path = location.pathname.split("/")
   const last_path_part = url_path[url_path.length - 1]
-  if (location.hash && last_path_part === "dashboard"  {
+
+  if (location.hash && (last_path_part === "dashboard" || last_path_part === "manager_history")) {
+  // if (last_path_part === "dashboard" || last_path_part === "manager_history") {
     const url_hashes = location.hash.slice(1).split("&");
     const site = url_hashes[0];
     const project = url_hashes[1];
