@@ -53,12 +53,12 @@
 
 
                   <div class="placement-confirm d-flex align-items-center">
-                    <%= simple_form_for [placement, @new_rating] do |f| %>
+                    <%= simple_form_for [placement, @new_rating], html: { class: "rating_form" } do |f| %>
                       <%= f.input :stars, collection: (1..5).to_a %>
                       <%= f.text_field :manager_id, value: placement.project.site.user.id, type: "hidden"  %>
                       <%= f.text_field :worker_id, value: placement.user.id, type: "hidden"  %>
                       <%= f.text_field :placement_id, value: placement.id, type: "hidden"  %>
-                      <%= f.submit "Submit rating" %>
+                      <%= f.submit "Submit rating"%>
                     <% end %>
                   </div>
 
