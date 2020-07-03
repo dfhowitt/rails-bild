@@ -3,7 +3,6 @@ class EmploymentsController < ApplicationController
     @business = Business.find(params[:business_id])
     @employment = Employment.new(employment_params)
     @employment.business = @business
-    raise
     if @employment.save
       redirect_back(fallback_location: root_path)
     else

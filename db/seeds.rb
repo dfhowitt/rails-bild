@@ -316,7 +316,7 @@ dan_sites.each do |site|
     start_date: history_start_date,
     end_date: history_start_date + rand(1..3),
     wage: rand(10..20),
-    capacity: rand(1..2),
+    capacity: 1,
     description: descriptions.sample,
     site_id: site.id,
     job_type: 'Labourer'
