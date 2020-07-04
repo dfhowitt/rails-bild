@@ -9,6 +9,6 @@ before_action :authenticate_user!
   private
 
   def rating_params
-    params.require(:rating).permit(:worker_id, :manager_id, :placement_id, :stars)
+    params.require(:rating).permit(:worker_id, :manager_id, :placement_id, :star_rating)
   end
 end

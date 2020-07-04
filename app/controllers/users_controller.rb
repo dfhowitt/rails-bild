@@ -116,14 +116,16 @@ class UsersController < ApplicationController
     @user = User.find(params[:user_id])
     placements = Placement.where(id: current_user.placements.ids)
     # @placements below account for all active worker placements
-    past_placements = placements.select { |placement| placement.end_date < DateTime.now}
+    past_placements = placements.select { |placement| placement.project.end_date < DateTime.now}
     worker_ratings = []
     past_placements.each do |placement|
-      worker_ratings << placement.rating
+      if placement.rating != nil
+        worker_ratings << placement.rating.star_rating
+      end
     end
     sum = 0
-    worker_ratings.inject(0){|sum,x| sum + x }
-    @average_rating = (sum / worker_ratings.count).to_f
+    worker_ratings.each {|x| sum += x }
+    @average_rating = (sum.to_f / worker_ratings.count)
   end
 
   private
