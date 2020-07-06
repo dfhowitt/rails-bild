@@ -29,7 +29,7 @@
       <li>Address: <%= @user.address %>
         <hr>
       </li>
-      <% if @average_rating = nil || @average_rating = 0 %>
+      <% if @average_rating.nan? || @average_rating == 0 %>
         <li>Rating: You have no ratings yet!
           <hr>
         </li>
