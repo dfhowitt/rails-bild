@@ -5,8 +5,11 @@
 
 <div class="accordion" id="project-accordion-<%= site.id %>">
   <% site.projects.each do |project| %>
-    <% confirmed_placements = project.placements.all %>
-
+    <% rated_placements = [] %>
+    <% unrated_placements = [] %>
+    <% project.placements.each do |placement| %>
+      <% placement.rating.present? ? rated_placements << placement : unrated_placements << placement %>
+    <% end %>
     <div class="dashboard-project-card card bg-transparent">
 
       <button class="btn btn-secondary" id="<%= project.job_type %>" type="button" data-toggle="collapse" data-target="#project<%= project.id %>" aria-expanded="false" aria-controls="project <%= project.id %>">
@@ -25,41 +28,77 @@
           </div>
             <hr>
 
-
-
-          <div class="confirmed bg-secondary rounded mb-3 pb-2">
+          <div class="applicants bg-secondary rounded pb-2">
 
             <div class="header d-flex justify-content-between bg-info p-2">
-              <h5 class= "m-0">Completed:</h5>
-              <p class= "m-0 badge-pill bg-success text-dark"><%= confirmed_placements.length %> / <%= project.capacity %></p>
+              <h5 class= "m-0">Rate:</h5>
+              <p class= "m-0 badge-pill bg-danger"><%= project.capacity - rated_placements.length %> required</p>
             </div>
 
-            <% if !confirmed_placements.empty? %>
-              <% confirmed_placements.each do |placement| %>
+            <% if !unrated_placements.empty? %>
+              <% unrated_placements.each do |placement| %>
                 <div class="placement_card bg-secondary py-2 px-3 d-flex">
-
-                  <div class="placement-info d-flex align-items-center border-right pr-3">
-                    <p class="m-0"><strong><%= placement.user.first_name %> <%= placement.user.last_name %></strong></p>
-                  </div>
-
-                  <div class="placement-qualifications d-flex flex-grow-1">
-                    <div class="qualification-box d-flex align-items-center rounded pl-2 pr-1 py-2 ml-3">
-                      <% placement.user.qualifications.each do |qualification| %>
-                        <%= image_tag "#{qualification.name.downcase.gsub(" ", "_")}.svg", alt: "#{qualification.name}", height: 40, class: "mr-2" %>
+                  <div class="placement-photo">
+                    <% if placement.user.avatar.attached? %>
+                      <%= cl_image_tag @user.avatar.key, height: 100, width: 100, crop: :fill, class: "user-avatar" %>
+                    <% else %>
+                      <%= image_tag("avatar-placeholder1.jpg", height: 100, width: 100, crop: :fill, class: "empty-avatar") %>
                       <% end %>
-                    </div>
+                  </div>
+                  <div class="placement-info d-flex align-items-center border-right pr-3">
+                    <h4 class="m-0"><strong><%= placement.user.first_name %> <%= placement.user.last_name %></strong></h4>
                   </div>
 
                   <div class="placement-confirm d-flex align-items-center">
-                    Confirmed
+                    <%= simple_form_for [placement, @new_rating], html: { class: "rating_form" } do |f| %>
+                      <%= f.input :star_rating, collection: (1..5).to_a %>
+                      <%= f.text_field :manager_id, value: placement.project.site.user.id, type: "hidden"  %>
+                      <%= f.text_field :worker_id, value: placement.user.id, type: "hidden"  %>
+                      <%= f.text_field :placement_id, value: placement.id, type: "hidden"  %>
+                      <%= f.submit "Submit rating"%>
+                    <% end %>
                   </div>
 
                 </div>
               <% end %>
             <% else %>
-              <p class="text-center mb-0 mt-2">No confirmed placements</p>
+              <p class="text-center mb-0 mt-2">All workers rated</p>
             <% end %>
           </div>
+
+
+          <div class="confirmed bg-secondary rounded mt-3 pt-2">
+
+            <div class="header d-flex justify-content-between bg-info p-2">
+              <h5 class= "m-0">Completed:</h5>
+              <p class= "m-0 badge-pill bg-primary text-dark"><%= rated_placements.length %> / <%= project.capacity %></p>
+            </div>
+
+            <% if !rated_placements.empty? %>
+              <% rated_placements.each do |placement| %>
+                <div class="placement_card bg-secondary py-2 px-3 d-flex">
+                  <div class="placement-photo">
+                    <% if placement.user.avatar.attached? %>
+                      <%= cl_image_tag @user.avatar.key, height: 100, width: 100, crop: :fill, class: "user-avatar" %>
+                    <% else %>
+                      <%= image_tag("avatar-placeholder1.jpg", height: 100, width: 100, crop: :fill, class: "empty-avatar") %>
+                      <% end %>
+                  </div>
+                  <div class="placement-info d-flex align-items-center border-right pr-3">
+                    <h4 class="m-0"><strong><%= placement.user.first_name %> <%= placement.user.last_name %></strong></h4>
+                  </div>
+
+                  <div class="placement-confirm d-flex align-items-center">
+                    <%= placement.rating.star_rating %> Stars
+                  </div>
+
+                </div>
+              <% end %>
+            <% else %>
+              <p class="text-center mb-0 mt-2">No rated placements</p>
+            <% end %>
+          </div>
+
         </div>
 
       </div>

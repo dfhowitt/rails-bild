@@ -55,6 +55,7 @@ Rails.application.routes.draw do
   post 'teamcreate', to: "placements#team_create"
   resources :placements, only: [:destroy, :create] do
     resources :conversations, only: [:create]
+    resources :ratings, only: [:create]
   end
 end
 

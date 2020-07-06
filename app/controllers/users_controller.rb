@@ -1,30 +1,42 @@
 class UsersController < ApplicationController
   def dashboard
     # if current_user.manager
-      @new_site = Site.new
-      sites = Site.all
-      managed_sites = Site.joins(:user)
-                          .where("sites.user_id = ?", current_user.id)
-      active_projects = Project.joins(:site)
-                                .where("sites.user_id = ? AND projects.end_date >= ?", current_user.id, DateTime.now)
+    @new_site = Site.new
+    sites = Site.all
+    managed_sites = Site.joins(:user)
+                        .where("sites.user_id = ?", current_user.id)
+    active_projects = Project.joins(:site)
+                              .where("sites.user_id = ? AND projects.end_date >= ?", current_user.id, DateTime.now)
 
-      past_projects = Project.joins(:site)
-                              .where("sites.user_id = ? AND projects.end_date < ?", current_user.id, DateTime.now)
-      @active_sites = []
-      @past_sites = []
-      managed_sites.each do |site|
-        active_site = false
-        site.projects.each do |project|
-          if project.end_date > DateTime.now
-            active_site = true
-          end
-        end
-        if active_site == true
-          @active_sites << site
-        else
-          @past_sites << site
+    past_projects = Project.joins(:site)
+                            .where("sites.user_id = ? AND projects.end_date < ?", current_user.id, DateTime.now)
+    @active_sites = []
+    @past_sites = []
+    managed_sites.each do |site|
+      active_site = false
+      site.projects.each do |project|
+        if project.end_date > DateTime.now
+          active_site = true
         end
       end
+      if active_site == true
+        @active_sites << site
+      else
+        @past_sites << site
+      end
+    end
+
+    if current_user.manager
+      managed_placements = Placement.where(id: current_user.managed_placements.ids)
+      active_managed_placements = []
+      past_managed_placements = []
+      managed_placements.each do |placement|
+        placement.project.end_date > DateTime.now ? active_managed_placements << placement : past_managed_placements << placement
+      end
+      @managed_users = managed_placements.map{ |placement| placement.user }
+      @new_rating = Rating.create
+    end
+
     # else
       @applications = Placement.joins(:project)
                                .where("placements.user_id = ? AND projects.start_date > ?", current_user.id, DateTime.now)
@@ -45,6 +57,7 @@ class UsersController < ApplicationController
       @new_qualification = UserQualification.new
     # end
   end
+
   def show
     sign_out :user
     redirect_to root_path
@@ -101,6 +114,18 @@ class UsersController < ApplicationController
 
   def profile
     @user = User.find(params[:user_id])
+    placements = Placement.where(id: current_user.placements.ids)
+    # @placements below account for all active worker placements
+    past_placements = placements.select { |placement| placement.project.end_date < DateTime.now}
+    worker_ratings = []
+    past_placements.each do |placement|
+      if placement.rating != nil
+        worker_ratings << placement.rating.star_rating
+      end
+    end
+    sum = 0
+    worker_ratings.each {|x| sum += x }
+    @average_rating = (sum.to_f / worker_ratings.count)
   end
 
   private
