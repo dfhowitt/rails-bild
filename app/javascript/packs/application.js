@@ -35,6 +35,8 @@ import { mapModalButtons } from '../worker_dashboard';
 import { teamApplyModalButtons } from '../team_application_modal';
 import { submitForms } from '../team_application_modal';
 import { initStarRating } from '../plugins/init_star_rating';
+// import { initStarRatingShow } from '../plugins/init_star_rating';
+// import { initStarRatingAverage } from '../plugins/init_star_rating';
 import { initMapbox } from '../plugins/init_mapbox';
 import { initMapboxTwo } from '../plugins/init_mapbox_two';
 import { initAutocomplete } from '../plugins/init_autocomplete';
@@ -92,6 +94,8 @@ document.addEventListener('turbolinks:load', () => {
   initFullCalendar();
   submitForms();
   initStarRating();
+  // initStarRatingShow();
+  // initStarRatingAverage();
 });
 
 

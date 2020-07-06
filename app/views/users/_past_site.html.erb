@@ -77,11 +77,11 @@
             <% if !rated_placements.empty? %>
               <% rated_placements.each do |placement| %>
                 <div class="placement_card bg-secondary py-2 px-3 d-flex">
-                  <div class="placement-photo">
+                  <div class="placement-photo pr-2">
                     <% if @user.avatar.attached? %>
-                      <%= cl_image_tag @user.avatar.key, height: 100, width: 100, crop: :fill, class: "user-avatar" %>
+                      <%= cl_image_tag @user.avatar.key, height: 50, width: 50, crop: :fill, class: "user-avatar" %>
                     <% else %>
-                      <%= image_tag("avatar-placeholder1.jpg", height: 100, width: 100, crop: :fill, class: "empty-avatar") %>
+                      <%= image_tag("avatar-placeholder1.jpg", height: 50, width: 50, crop: :fill, class: "empty-avatar") %>
                       <% end %>
                   </div>
                   <div class="placement-info d-flex align-items-center border-right pr-3">
@@ -89,9 +89,10 @@
                   </div>
 
                   <div class="placement-confirm d-flex align-items-center">
-                    <%= placement.rating.star_rating %> Stars
+                    <select id="given-rating">
+                      <%= placement.rating.star_rating %>
+                    </select>
                   </div>
-
                 </div>
               <% end %>
             <% else %>
