@@ -39,11 +39,11 @@
               <% unrated_placements.each do |placement| %>
                 <div class="placement_card bg-secondary py-2 px-3 d-flex">
                   <div class="placement-photo">
-                    <% if placement.user.avatar.attached? %>
+                    <% if @user.avatar.attached? %>
                       <%= cl_image_tag @user.avatar.key, height: 100, width: 100, crop: :fill, class: "user-avatar" %>
                     <% else %>
                       <%= image_tag("avatar-placeholder1.jpg", height: 100, width: 100, crop: :fill, class: "empty-avatar") %>
-                      <% end %>
+                    <% end %>
                   </div>
                   <div class="placement-info d-flex align-items-center border-right pr-3">
                     <h4 class="m-0"><strong><%= placement.user.first_name %> <%= placement.user.last_name %></strong></h4>
@@ -78,7 +78,7 @@
               <% rated_placements.each do |placement| %>
                 <div class="placement_card bg-secondary py-2 px-3 d-flex">
                   <div class="placement-photo pr-2">
-                    <% if placement.user.avatar.attached? %>
+                    <% if @user.avatar.attached? %>
                       <%= cl_image_tag @user.avatar.key, height: 50, width: 50, crop: :fill, class: "user-avatar" %>
                     <% else %>
                       <%= image_tag("avatar-placeholder1.jpg", height: 50, width: 50, crop: :fill, class: "empty-avatar") %>
