@@ -97,6 +97,8 @@ class UsersController < ApplicationController
   end
 
   def manager_history
+    @user = User.find(current_user.id)
+    # @user = User.find(params[:user_id])
     dashboard
   end
 
