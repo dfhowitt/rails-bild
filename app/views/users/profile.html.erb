@@ -29,10 +29,20 @@
       <li>Address: <%= @user.address %>
         <hr>
       </li>
-      <div id="average-rating">
+      <% if @average_rating.nan? || @average_rating == 0 %>
+        <li>Rating: You have no ratings yet!
+          <hr>
+        </li>
+      <% else %>
+        <li>Rating: <%= @average_rating.to_f %>
+          <hr>
+        </li>
+      <% end %>
+
+     <!--  <div id="average-rating">
         <%= @average_rating %>
       <hr>
-      </div>
+      </div> -->
     </ul>
   </div>
   <div class="btn btn-primary edit-details">
