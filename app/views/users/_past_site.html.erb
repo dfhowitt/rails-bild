@@ -89,9 +89,10 @@
                   </div>
 
                   <div class="placement-confirm d-flex align-items-center">
-                    <%= placement.rating.star_rating %>
+                    <select id="given-rating">
+                      <%= placement.rating.star_rating %>
+                    </select>
                   </div>
-
                 </div>
               <% end %>
             <% else %>
