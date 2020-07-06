@@ -31,4 +31,6 @@ const initStarRating = () => {
 //   });
 // };
 
-export { initStarRating, initStarRatingShow };
+export { initStarRating
+  // , initStarRatingShow
+};
