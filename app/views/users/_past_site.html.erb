@@ -88,10 +88,12 @@
                     <h4 class="m-0"><strong><%= placement.user.first_name %> <%= placement.user.last_name %></strong></h4>
                   </div>
 
-                  <div class="placement-confirm d-flex align-items-center">
-                    <select id="given-rating">
-                      <%= placement.rating.star_rating %>
-                    </select>
+                  <div class="placement-confirm d-flex align-items-center ml-2">
+                    <div id="given-rating">
+                      <% placement.rating.star_rating.times do %>
+                        <i class="fas fa-star"></i>
+                      <% end %>
+                    </div>
                   </div>
                 </div>
               <% end %>

@@ -12,6 +12,10 @@
   right: 40px;
 }
 
+.profile-info-list i {
+  color: $yellow;
+}
+
 .edit-avatar {
   font-size: 24px;
   color: #636363;
@@ -27,3 +31,4 @@
 .empty-avatar {
   background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2))
 }
+
